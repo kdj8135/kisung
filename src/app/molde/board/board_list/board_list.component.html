@@ -1,0 +1,89 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+  <div class="row">
+    <article class="col-sm-12">
+
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+
+            <div class="form-group">
+              <label>제목</label>
+              <div class="form-group">
+                <input style="width:100px" name="subject_text" [(ngModel)]="subject_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>작성자</label>
+              <div class="form-group">
+                <input style="width:100px" name="name_text" [(ngModel)]="name_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <button class="btn btn-default btn-sm" (click)="Search()" type="submit">검색</button>
+            <button class="btn btn-default btn-sm" (click)="RegModal()">등록</button>
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div><!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div><!-- end row -->
+
+  <kendo-grid
+    [data]="gridView"
+    [height]="630"
+
+    [pageSize]="pageSize"
+    [skip]="skip"
+    [pageable]="true"
+    (pageChange)="pageChange($event)"
+
+    [sort]="sort"
+    [sortable]="true"
+    [resizable]="true"
+    (sortChange)="sortChange($event)"
+
+    [selectable]="{ mode: 'single' }"
+
+    [kendoGridSelectBy]="'BOARD_ID'"
+    [selectedKeys]="mySelection"
+    (cellClick)="click_pop($event)"
+  >
+
+    <kendo-grid-column field="ROWNUM_D" title="순번" width="40"></kendo-grid-column>
+    <kendo-grid-column field="BOARD_SUBJECT" title="제목" width="150"></kendo-grid-column>
+    <kendo-grid-column field="EMP_NM" title="작성자" width="60"></kendo-grid-column>
+    <kendo-grid-column field="REG_DATE" title="작성일" width="80"></kendo-grid-column>
+
+  </kendo-grid>
+
+</div><!-- end content -->
+
+<!-- Modal View -->
+<!-- <div bsModal #lgModal_view="bs-modal" class="modal fade" id="myModal_view" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}"> -->
+<div bsModal #lgModal_view="bs-modal" class="modal fade" id="myModal_view" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <app-board-view [idx]="idx" #childViewDel (close_showEvent)="ShowRegModal()" (close_hide_view)="lgModal_view.hide()" (close_refresh_view)="Refresh_HideModal_View()"></app-board-view>
+</div>
+
+<!-- Modal 등록 -->
+<div bsModal #lgModal_reg="bs-modal" class="modal fade" id="myModal_reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <app-board-reg [idx]="idx" #childREG (close_refresh_reg)="Refresh_HideModal_Reg()" (close_hide_reg)="lgModal_reg.hide()"></app-board-reg>
+</div>

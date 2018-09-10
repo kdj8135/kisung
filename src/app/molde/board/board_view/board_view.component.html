@@ -1,0 +1,56 @@
+<div class="modal-dialog modal-lg">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" (click)="HideModal_View()">&times;</button>
+      <h4 class="modal-title">게시판 조회</h4>
+    </div>
+
+    <div class="modal-body">
+
+      <form class="smart-form client-form" novalidate="novalidate">
+
+        <table class="table table-bordered" style="clear:both">
+          <colgroup>
+            <col style="width:60px;" />
+            <col />
+          </colgroup>
+          <tbody>
+            <tr>
+              <th style="vertical-align:middle;">제목</th>
+              <td>
+                {{SUBJECT}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div id="board_view"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+
+      <br/>
+
+      <div>
+        <label>첨부파일</label>
+        <app-fileattach [view_yn]="file_view_yn" [name]="attach_tp_boardreg" [paper_id]="paper_id" [sub_id]="" [rev]="" ></app-fileattach>
+      </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+      <label [hidden]="confirm_disabled">
+        <button (click)="this.opener_ShowRegModal()" class="btn btn-primary">수정</button>
+      </label>
+      <label [hidden]="confirm_disabled">
+        <button (click)="ViewDelete()" class="btn btn-primary">삭제</button>
+      </label>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="HideModal_View()">취소</button>
+    </div>
+  </div>
+
+</div>

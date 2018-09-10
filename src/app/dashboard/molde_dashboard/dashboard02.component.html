@@ -1,0 +1,118 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start 상단 조회 -->
+  <div class="row">
+    <article class="col-sm-12">
+      <div class="navbar navbar-default">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left" role="search">
+            <label>수주선택</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="Modal_OrderNo" [(ngModel)]="Modal_OrderNo" (click)="this.Modal_order.show()" style="width:200px;" readonly="readonly" class="form-control input-sm" />
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </article>
+  </div>
+  <!-- end 상단 조회 -->
+
+
+  <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-12" style="min-width: 100%;width:auto;">
+      <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+        <header>
+          <h2>공정별 WT&nbsp;&nbsp;&nbsp;</h2>
+
+          <form class="smart-form" style="margin-top:4px;">
+            <div class="inline-group">
+              <label class="checkbox" style="margin-right:10px;">
+                <input checked (change)="html_main()" type="checkbox" id="chk_set"><i></i>셋팅
+              </label>
+              <label class="checkbox" style="margin-right:10px;">
+                <input checked (change)="html_main()" type="checkbox" id="chk_human"><i></i>유인
+              </label>
+              <label class="checkbox" style="margin-right:10px;">
+                <input checked (change)="html_main()" type="checkbox" id="chk_auto"><i></i>무인
+              </label>
+              <label class="checkbox" style="margin-right:10px;">
+                <input checked (change)="html_main()" type="checkbox" id="chk_no"><i></i>미가공
+              </label>
+            </div>
+          </form>
+        </header>
+
+        <div>
+          <div class="widget-body">
+
+
+            <form class="smart-form">
+              <div id="html_tot"></div>
+              <br />
+              <div id="html_main"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<!-- end content -->
+
+<!-- 수주선택 모달 start -->
+<div bsModal #Modal_order="bs-modal" class="modal fade" id="myModal_pop_dept" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-orderselect (Modal_order_Close)="this.Modal_order.hide()" (Modal_order_Search)="this.Modal_order_Return($event)">
+  </app-orderselect>
+</div>
+<!-- 수주선택 모달 end -->
+
+<!-- <div>
+  <div class="modal-dialog modal-lg" [ngStyle]="win_width">
+    <div class="modal-content" [ngStyle]="win_height">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closePop()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">공정별 WT</h4>
+      </div>
+      <div class="modal-body">
+        <legend>
+          <form class="smart-form">
+            <div class="inline-group">
+              <label class="checkbox">
+                WT 선택
+              </label>
+              <label class="checkbox">
+                <input checked (change)="html_main()" type="checkbox" id="chk_set"><i></i>셋팅
+              </label>
+              <label class="checkbox">
+                <input checked (change)="html_main()" type="checkbox" id="chk_human"><i></i>유인
+              </label>
+              <label class="checkbox">
+                <input checked (change)="html_main()" type="checkbox" id="chk_auto"><i></i>무인
+              </label>
+              <label class="checkbox">
+                <input checked (change)="html_main()" type="checkbox" id="chk_no"><i></i>미가공
+              </label>
+            </div>
+          </form>
+        </legend>
+
+        <div [ngStyle]="win_height_sub">
+          <form class="smart-form">
+            <div id="html_tot"></div>
+            <br />
+            <div id="html_main"></div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" (click)="closePop()">취소</button>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,27 @@
+[
+    {
+        "no": "1"
+        ,"group_code": "11"
+        ,"group_name": "공통"
+    },
+    {
+        "no": "2"
+        ,"group_code": "22"
+        ,"group_name": "MY_POTAL"
+    },
+    {
+        "no": "3"
+        ,"group_code": "33"
+        ,"group_name": "PMO"
+    },
+    {
+        "no": "4"
+        ,"group_code": "44"
+        ,"group_name": "ADMIN"
+    },
+    {
+        "no": "5"
+        ,"group_code": "55"
+        ,"group_name": "PROJECT_ROOM"
+    }
+]

@@ -1,0 +1,67 @@
+<div class="modal-dialog modal-mg">
+
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" (click)="HideModal_Reg()">&times;</button>
+      <h4 class="modal-title">부서선택</h4>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
+            <div class="well no-padding">
+              <!-- <form class="smart-form client-form" id="smart-form-register" [saUiValidate]="validationOptions" novalidate="novalidate"> -->
+              <form class="smart-form client-form" id="selectdept_form" novalidate="novalidate">
+
+
+                  <!-- <div class="row"> -->
+                    <!-- <div class="widget-body no-padding"> -->
+                      <form class="smart-form">
+                        <fieldset>
+                          <section>
+                            <div class="example-config" style="display:none;">
+                                Expanded keys: {{expandedKeys.join(",")}}
+                                Selected keys: {{selectedKeys.join(",")}}
+                            </div>
+                            <kendo-treeview
+                              [nodes]="dept_tree"
+                              textField="text"
+                              kendoTreeViewExpandable
+                              kendoTreeViewSelectable
+                              kendoTreeViewHierarchyBinding
+                              childrenField="items"
+                              (selectionChange)="treeSelection($event)"
+                              [children]="fetchChildren"
+                              [hasChildren]="hasChildren"
+                              [expandBy]="'text'"
+                              [(expandedKeys)]="expandedKeys"
+                              [(selectedKeys)]="selectedKeys"
+                              [selectBy]="'id'"
+                              >
+                            </kendo-treeview>
+                          </section>
+                        </fieldset>
+                      </form>
+                    <!-- </div> -->
+                  <!-- </div> -->
+
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="SelectOk()">선택</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closedept()">취소</button>
+    </div>
+  </div>
+
+</div>

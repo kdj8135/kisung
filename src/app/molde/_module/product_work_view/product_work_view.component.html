@@ -1,0 +1,400 @@
+
+<!-- <form novalidate="novalidate" [saBootstrapValidator]="validatorOptions"> -->
+  <div class="modal-dialog modal-lg" style="width:1200px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeview()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        <h4 class="modal-title">작업 등록</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form">
+          <table id="user" class="table table-bordered" style="clear:both">
+            <colgroup>
+              <col style="width:120px;" />
+              <col style="width:400px;" />
+              <col style="width:120px;" />
+              <col style="width:210px;" />
+              <col style="width:100px;" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <th>업체명(약어)</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="VENDOR_NM" [(ngModel)]="VENDOR_NM" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                  </label>
+                </td>
+                <th>외주여부</th>
+                <td>
+                  <label class="select">
+                    <select [(ngModel)]="OUTSOURCING_CD" name="OUTSOURCING_CD" (change)="change_worker_list('')" [disabled]="confirm_disabled" >
+                      <option value="">선택</option>
+                      <option value="{{outsourcing.SUB_CD}}" *ngFor="let outsourcing of outsourcing_list" >{{outsourcing.SUB_NM}}</option>
+                    </select><i></i>
+                  </label>
+                </td>
+                <th>입고 마감일</th>
+                <td>
+                  <label class="input">
+                    <i class="icon-append  fa fa-calendar"></i>
+                    <input type="text" name="receive_dt" placeholder="" class="form-control datepicker"
+                    [disabled]="confirm_disabled" [disabled]="amt_readonly" [style.background-color]="amt_readonly_color"
+                           [saUiDatepicker]="{
+                              dateFormat: 'yy-mm-dd'
+                           }"
+                           #receive_dt
+                           />
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>수주번호</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="ORDER_NO" [(ngModel)]="ORDER_NO" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                  </label>
+                </td>
+                <th>작업자<i class="fa fa-check"></i></th>
+                <td>
+                  <!-- <label class="input">
+                  <i class="icon-append fa fa-search"></i>
+                  <input type="text" name="WORKER_NM" [(ngModel)]="WORKER_NM" readonly="readonly" (click)="Show_Pop_User_Modal('WORKER_ID','WORKER_NM')" [disabled]="confirm_disabled"/>
+                  <input type="hidden" name="WORKER_ID" [(ngModel)]="WORKER_ID" />
+                  </label> -->
+                  <label class="select">
+                    <select [(ngModel)]="WORKER_ID" name="WORKER_ID" [disabled]="confirm_disabled" >
+                      <option value="">선택</option>
+                      <option value="{{workerid.ID}}" *ngFor="let workerid of worker_list" >{{workerid.NM}}</option>
+                    </select><i></i>
+                  </label>
+                </td>
+                <th>외주금액</th>
+                <td>
+                  <label class="input" [style.display]="'colum_amt' | display:P_WORK_MENU_ID">
+                    <input type="text" name="OUTSOURCING_AMT" [(ngModel)]="OUTSOURCING_AMT"
+                    [disabled]="confirm_disabled" [readonly]="amt_readonly" [style.background-color]="amt_readonly_color"
+                    (blur)="getNumber($event.target.value)" (keyup)="getNumber($event.target.value)"
+                    />
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>도면번호</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="MAP_NO" [(ngModel)]="MAP_NO" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                  </label>
+                </td>
+                <th>가공/총 수량</th>
+                <td colspan="3">
+                  <label class="input">
+                    가공수량<i class="fa fa-check"></i> :
+                    <input type="number" style="width:100px;display:inline;" name="PROGRESS_VOLUME" [(ngModel)]="PROGRESS_VOLUME" [disabled]="confirm_disabled"  />
+                    / 총수량 :
+                    <input type="text" style="width:100px;display:inline;" name="VOLUME" [(ngModel)]="VOLUME" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>공정</th>
+                <td>
+                  <label class="select">
+                    <select [(ngModel)]="PROGRESS_CD" name="PROGRESS_CD" [disabled]="input_disabled" (change)="change_facilities_list('')" [style.background-color]="readonly_color">
+                      <option value="">선택</option>
+                      <option value="{{progress.SUB_CD}}" *ngFor="let progress of progress_cd_list" >{{progress.SUB_NM}}</option>
+                    </select>
+                  </label>
+                </td>
+                <th>설비<i class="fa fa-check"></i></th>
+                <td colspan="3">
+                  <label class="select">
+                    <select [(ngModel)]="FACILITIES_CD" name="FACILITIES_CD" [disabled]="confirm_disabled"  >
+                      <option value="">선택</option>
+                      <option value="{{facilities.SUB_CD}}" *ngFor="let facilities of facilities_cd_list" >{{facilities.SUB_NM}}</option>
+                    </select><i></i>
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>품번</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="PRODUCT_NO" [(ngModel)]="PRODUCT_NO" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                   </label>
+                </td>
+                <th>대분류<i class="fa fa-check"></i></th>
+                <td colspan="3">
+                  <label class="select">
+                    <select [(ngModel)]="LARGE_CATEGOR_CD" name="LARGE_CATEGOR_CD" [disabled]="confirm_disabled" >
+                      <option value="">선택</option>
+                      <option value="{{large_categor.SUB_CD}}" *ngFor="let large_categor of large_categor_cd_list" >{{large_categor.SUB_NM}}</option>
+                    </select><i></i>
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>품명</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="PRODUCT_NM" [(ngModel)]="PRODUCT_NM" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                   </label>
+                </td>
+                <th>제품진행여부<i class="fa fa-check"></i></th>
+                <td colspan="3">
+                  <label class="select">
+                    <select [(ngModel)]="PRODUCT_PROGRESS" name="PRODUCT_PROGRESS" [disabled]="confirm_disabled"  >
+                      <option value="">선택</option>
+                      <option value="{{prod_prog.SUB_CD}}" *ngFor="let prod_prog of product_progress_list" >{{prod_prog.SUB_NM}}</option>
+                    </select><i></i>
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>재질</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="MATERIAL" [(ngModel)]="MATERIAL" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                   </label>
+                </td>
+                <th>특이사항</th>
+                <td colspan="3">
+                  <label class="input">
+                    <input type="text" name="REMARK" [(ngModel)]="REMARK" [disabled]="confirm_disabled"  />
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>사이즈</th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="SIZE" [(ngModel)]="SIZE" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                   </label>
+                </td>
+                <th>작업시작</th>
+                <td colspan="3">
+                  <label class="input">
+                    <input type="text" style="width:115px;display:inline;" (blur)="getDiffTime('S',$event.target.value)" maxlength="12" name="S_WORK_DAY_INPUT" [(ngModel)]="S_WORK_DAY_INPUT"
+                    [disabled]="none_start" [disabled]="confirm_disabled" autocomplete="off" [style.background-color]="none_start_color" />
+                    <input type="text" style="width:200px;display:inline;" readonly="readonly" name="S_WORK_DAY_VIEW" [(ngModel)]="S_WORK_DAY_VIEW" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    <button type="button" style="width:80px;height:32px;vertical-align:top;" class="btn btn-default" (click)="getDiffTime('S','now')"
+                    [disabled]="confirm_disabled" [disabled]="none_start" >현재입력</button>
+                    <button type="button" style="width:80px;height:32px;vertical-align:top;" class="btn btn-default" (click)="deleteTime('S')"
+                    [disabled]="confirm_disabled" [disabled]="none_start" >취소</button>
+                    <input type="text" style="display:none;" name="S_WORK_DAY" [(ngModel)]="S_WORK_DAY" />
+                    <input type="text" style="display:none;" name="S_WORK_TIME" [(ngModel)]="S_WORK_TIME" />
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>구분</th>
+                <td>
+                  <label class="select">
+                    <select [(ngModel)]="GUBUN_CD" name="GUBUN_CD" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                      <option value="">선택</option>
+                      <option value="{{gubuncd.SUB_CD}}" *ngFor="let gubuncd of gubun_cd_list" >{{gubuncd.SUB_NM}}</option>
+                    </select>
+                  </label>
+                </td>
+                <th>작업종료</th>
+                <td colspan="3">
+                  <label class="input">
+                    <input type="text" style="width:115px;display:inline;" (blur)="getDiffTime('E',$event.target.value)" maxlength="12" name="E_WORK_DAY_INPUT" [(ngModel)]="E_WORK_DAY_INPUT"
+                    [disabled]="none_start" [disabled]="confirm_disabled" autocomplete="off" [style.background-color]="none_start_color" />
+                    <input type="text" style="width:200px;display:inline;" readonly="readonly" name="E_WORK_DAY_VIEW" [(ngModel)]="E_WORK_DAY_VIEW" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    <button type="button" style="width:80px;height:32px;vertical-align:top;" class="btn btn-default" (click)="getDiffTime('E','now')"
+                    [disabled]="confirm_disabled" [disabled]="none_start" >현재입력</button>
+                    &nbsp;{{READ_WORK_TOT_HOUR}}
+                    <input type="text" style="display:none;" name="E_WORK_DAY" [(ngModel)]="E_WORK_DAY" />
+                    <input type="text" style="display:none;" name="E_WORK_TIME" [(ngModel)]="E_WORK_TIME" />
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th rowspan="4">작업시지사항</th>
+                <td rowspan="4">
+                  <label class="textarea">
+                    <textarea rows="11" name="WORK_PROCEDURE" [(ngModel)]="WORK_PROCEDURE" maxlength="500" class="custom-scroll" [disabled]="confirm_disabled"></textarea>
+                  </label>
+                </td>
+                <th>작업시간합계</th>
+                <td>
+                  <label class="input" style="display:none;">
+                    총분 :
+                    <input type="number" style="width:100px;display:inline;" name="WORK_TOT_MIN" [(ngModel)]="WORK_TOT_MIN" readonly="readonly" [style.background-color]="readonly_color" />
+                    분
+                    /
+                  </label>
+                  <label class="input">
+                    총 :
+                    <input type="number" style="width:100px;display:inline;" name="WORK_TOT_HOUR" [(ngModel)]="WORK_TOT_HOUR" readonly="readonly" [style.background-color]="readonly_color" />
+                    시간
+                  </label>
+                </td>
+                <th>가공시간합계</th>
+                <td>
+                  <label class="input" style="display:none;">
+                    총분 :
+                    <input type="number" style="width:100px;display:inline;" name="SET_TOT_MIN" [(ngModel)]="SET_TOT_MIN" readonly="readonly" [style.background-color]="readonly_color" />
+                    분
+                    /
+                  </label>
+                  <label class="input">
+                    총 :
+                    <input type="number" style="width:100px;display:inline;" name="SET_TOT_HOUR" [(ngModel)]="SET_TOT_HOUR" readonly="readonly" [style.background-color]="readonly_color" />
+                    시간
+                  </label>
+                </td>
+              </tr>
+
+              <tr>
+                <th>셋팅/유인</th>
+                <td colspan="3">
+                    <table>
+                      <tr>
+                        <td>
+                          <label class="input">
+                            셋팅 :
+                            <input type="number" step="0.1" min="0" (blur)="min_hour_sum()" style="width:75px;display:inline;" name="SET_HOUR" [(ngModel)]="SET_HOUR" [disabled]="confirm_disabled"  />
+                          </label>
+                        </td>
+                        <td>
+                          &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유인 : &nbsp;
+                        </td>
+                        <td>
+                          <label class="select">
+                            <select [(ngModel)]="SET_MANNED_CD" style="width:115px;display:inline;" name="SET_MANNED_CD" [disabled]="confirm_disabled"  >
+                              <option value="">선택</option>
+                              <option value="{{mannedcd.SUB_CD}}" *ngFor="let mannedcd of set_manned_cd_list" >{{mannedcd.SUB_NM}}</option>
+                            </select><i></i>
+                          </label>
+                        </td>
+                        <td>
+                          <label class="input">
+                            &nbsp;
+                            <input type="number" step="0.1" min="0" (blur)="min_hour_sum()" style="width:75px;display:inline;" name="SET_MANNED_HOUR" [(ngModel)]="SET_MANNED_HOUR" [disabled]="confirm_disabled"  />
+                          </label>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <input type="number" style="display:none;" name="SET_MIN" [(ngModel)]="SET_MIN" />
+                    <input type="number" style="display:none;" name="SET_MANNED_MIN" [(ngModel)]="SET_MANNED_MIN" />
+                </td>
+              </tr>
+
+              <tr>
+                <th>무인/미가공</th>
+                <td colspan="3">
+                    <table>
+                      <tr>
+                        <td>
+                          <label class="input">
+                            무인 :
+                            <input type="number" step="0.1" min="0" (blur)="min_hour_sum()" style="width:75px;display:inline;" name="SET_MANLESS_HOUR" [(ngModel)]="SET_MANLESS_HOUR" [disabled]="confirm_disabled"  />
+                          </label>
+                        </td>
+                        <td>
+                          &nbsp;/ 미가공 : &nbsp;
+                        </td>
+                        <td>
+                          <label class="select">
+                            <select [(ngModel)]="SET_RAW_CD" style="width:115px;display:inline;" name="SET_RAW_CD" [disabled]="confirm_disabled"  >
+                              <option value="">선택</option>
+                              <option value="{{rawcd.SUB_CD}}" *ngFor="let rawcd of set_raw_cd_list" >{{rawcd.SUB_NM}}</option>
+                            </select><i></i>
+                          </label>
+                        </td>
+                        <td>
+                          <label class="input">
+                            &nbsp;
+                            <input type="number" step="0.1" min="0" (blur)="min_hour_sum()" style="width:75px;display:inline;" name="SET_RAW_HOUR" [(ngModel)]="SET_RAW_HOUR" [disabled]="confirm_disabled"  />
+                          </label>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <input type="number" style="display:none;" name="SET_MANLESS_MIN" [(ngModel)]="SET_MANLESS_MIN" />
+                    <input type="number" style="display:none;" name="SET_RAW_MIN" [(ngModel)]="SET_MIN" />
+                </td>
+              </tr>
+
+              <tr>
+                <th>자주 검사<i class="fa fa-check"></i></th>
+                <td>
+                  <label class="checkbox" style="margin-right:10px;">
+                    <input type="checkbox"
+                    [disabled]="chk_ok_error_disabled"
+                    (change)="CHK_OK = $event.target.checked ? 'Y' : 'N'"
+                    [checked]="CHK_OK == 'Y'"
+                    ><i [style.background-color]="chk_ok_error_color"></i>
+                  </label>
+                </td>
+
+                <th>불량 확정</th>
+                <td>
+                  <label class="checkbox" style="margin-right:10px;">
+                    <input type="checkbox"
+                    [disabled]="chk_ok_error_disabled"
+                    (change)="CHK_ERROR = $event.target.checked ? 'Y' : 'N'"
+                    [checked]="CHK_ERROR == 'Y'"
+                    ><i [style.background-color]="chk_ok_error_color"></i>
+                  </label>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </form>
+      </div>
+      <!--
+      권한 (WORK = 작업관리, OUT = 외주관리, MY = 나의작업공정)
+      확정을 하면 확정컬럼 이 Y가 됨,
+      저장을 하면 확정이 컬럼이 N 으로 변경됨  (확정->확정취소)
+      OUT = 외주관리  관리자 (저장 및 확정 및 삭제)  확정시 (확정버튼만)
+      MY = 작업자만 확인함 (저장 및 확정)           확정시 (버튼비노출)
+      -->
+      <div class="modal-footer">
+        <label [style.display]="'btn_cf' | display:P_WORK_MENU_ID">
+          <label [hidden]="confirm_button_disabled">
+            <button type="button" class="btn btn-primary" (click)="savedata_add('Y')">확정</button>
+          </label>
+        </label>
+
+        <label [style.display]="'btn_add' | display:P_WORK_MENU_ID">
+          <label [hidden]="confirm_disabled">
+            <button type="button" class="btn btn-primary" (click)="savedata_add('N')">저장</button>
+          </label>
+        </label>
+
+        <label [style.display]="'btn_del' | display:P_WORK_MENU_ID">
+          <label [hidden]="confirm_button_disabled">
+            <button type="button" class="btn btn-primary" (click)="deletedata('Y')">삭제</button>
+          </label>
+        </label>
+
+        <label>
+          <button type="button" class="btn btn-default" (click)="closeview()">취소</button>
+        </label>
+      </div>
+    </div>
+  </div>
+<!-- </form> -->
+
+
+<!--부서공통팝업 모달 -->
+<div bsModal #lgModal_pop_user="bs-modal" class="modal fade" id="myModal_pop_user" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-selectuser [Pop_dept_cd]="Pop_dept_cd" [Arr_Cd_Nm]="Arr_Cd_Nm" [Use_YN]="Use_YN" [Expanded_YN]="Expanded_YN" [Multi_Use] = "true" [Mode_Gubun] = "single" (selectuser_ok)="Close_Pop_User_Modal($event)" (selectuser_close)="this.lgModal_pop_user.hide()"></app-selectuser>
+</div>

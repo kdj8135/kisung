@@ -1,0 +1,55 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Home']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+
+
+
+    <sa-widgets-grid>
+
+      <!-- row -->
+
+      <div class="row" *ngIf="flotData">
+
+        <article class="col-sm-12 col-md-12 col-lg-12">
+
+          <div sa-widget [editbutton]="false" color="blueDark">
+            <header>
+              <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+
+              <h2>Bar Chart</h2>
+            </header>
+
+            <div>
+              <div class="widget-body ">
+                <sa-flot-chart [data]="flotData.barChartData"
+                           [options]="flotExamples.barChartDemoOptions" ></sa-flot-chart>
+
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+
+      <!-- end row -->
+
+      <div class="row">
+
+       <article class="col-sm-12 col-md-12 col-lg-6">
+         <calendar-widget></calendar-widget>
+       </article>
+
+       <article class="col-sm-12 col-md-12 col-lg-6">
+        <todo-widget></todo-widget>
+       </article>
+
+     </div>
+
+    </sa-widgets-grid>
+    <!-- end widget grid -->
+
+
+
+</div>

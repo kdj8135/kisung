@@ -1,0 +1,146 @@
+
+  <div class="modal-dialog modal-lg" style="width:1200px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeview()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        <h4 class="modal-title">{{modal_title}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form">
+          <fieldset>
+
+            <div class="row">
+              <section class="col col-3">
+                <label>수주구분</label>
+                <label class="select">
+                  <select [(ngModel)]="add_order_tp" name="add_order_tp" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                    <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>국내외</label>
+                <label class="select">
+                  <select [(ngModel)]="add_order_city" name="add_order_city" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                    <option value="국내">국내</option>
+                    <option value="해외">해외</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>업체명(약어)</label>
+                <label class="select">
+                  <select [(ngModel)]="add_vendor_id" name="add_vendor_id" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                    <option value="{{vendor.id}}" *ngFor="let vendor of vendor_list" >{{vendor.nm}}</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>수주번호</label>
+                <label class="input">
+                  <input type="text" name="add_order_no" [(ngModel)]="add_order_no" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                </label>
+              </section>
+            </div>
+
+            <div class="row">
+               <section class="col col-3">
+                <label>모델명(Φ)</label>
+                <label class="input">
+                  <input type="text" name="add_model_nm" [(ngModel)]="add_model_nm" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>품명</label>
+                <label class="input">
+                  <input type="text" name="add_product_nm" [(ngModel)]="add_product_nm" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>수량</label>
+                <label class="input">
+                  <input type="text" name="add_volume" [(ngModel)]="add_volume" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>수주금액</label>
+                <label class="input">
+                  <input type="text" name="add_price" [(ngModel)]="add_price" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                </label>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="col col-3">
+                <label>예비공간</label>
+                <label class="input">
+                  <input type="text" name="add_space" [(ngModel)]="add_space" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>제품등록여부</label>
+                <label class="select">
+                  <select [(ngModel)]="add_product_reg_yn" name="add_product_reg_yn" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                    <option value="Y">완료</option>
+                    <option value="N">미완료</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>완료일</label>
+                <label class="input">
+                  <input type="text" name="add_complete_dt" placeholder="" class="form-control datepicker" [disabled]="input_disabled"
+                         [saUiDatepicker]="{
+                            dateFormat: 'yy-mm-dd'
+                         }"
+                         #complete_dt
+                         [style.background-color]="readonly_color"
+                         />
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label>실납기</label>
+                <label class="input">
+                  <input type="text" name="add_delivery_dt" placeholder="" class="form-control datepicker" [disabled]="input_disabled"
+                         [saUiDatepicker]="{
+                            dateFormat: 'yy-mm-dd'
+                         }"
+                         #delivery_dt
+                         [style.background-color]="readonly_color"
+                         />
+                </label>
+              </section>
+            </div>
+
+            <section class="">
+              <label>일반문서</label>
+              <app-fileattach [view_yn]="file_view_yn" [name]="attach_tp_il" [paper_id]="paper_id" [sub_id]="" [rev]="" ></app-fileattach>
+            </section>
+
+            <section class="">
+              <label>도면</label>
+              <app-fileattach [view_yn]="file_view_yn" [name]="attach_tp_do" [paper_id]="paper_id" [sub_id]="" [rev]="" ></app-fileattach>
+            </section>
+
+          </fieldset>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <label>
+          <button type="button" class="btn btn-default" (click)="closeview()">취소</button>
+        </label>
+      </div>
+    </div>
+  </div>

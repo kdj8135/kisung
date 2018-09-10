@@ -1,0 +1,11 @@
+import { Tree } from '@angular-devkit/schematics';
+import { Observable } from 'rxjs';
+export { addSymbolToMetadata, addDeclarationToModule, addExportToModule, addImportToModule } from './ast-utils';
+export { findModule } from './find-module';
+export * from './workspace';
+export { getAppModulePath } from './bootstrap-module';
+export declare const folderName: (options: any) => (name: string) => string;
+export declare const buildSelector: (options: any) => string;
+export declare function stringify(json: any): string;
+export declare function asObservable<T>(thunk: T): Observable<T>;
+export declare function fileContent(tree: Tree, path: string): string;

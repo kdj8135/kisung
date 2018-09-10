@@ -1,0 +1,139 @@
+<div class="modal-dialog modal-lg"  [ngStyle]="{'width.px': popwidth}">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" (click)="HideModal_Reg()">&times;</button>
+      <h4 class="modal-title"> 사용자선택</h4>
+    </div>
+    <div class="modal-body">
+
+        <sa-widgets-grid>
+          <div class="row">
+            <article [ngClass]="article_tree">
+              <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                         [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                          <!-- color="blueDark" -->
+                <header>
+                  <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+                  <h2>조직도</h2>
+                </header>
+
+                <div>
+                  <div class="widget-body no-padding">
+                    <form class="smart-form">
+                      <!-- <header></header> -->
+                      <fieldset>
+                        <section>
+                          <div class="example-config" style="display:none;">
+                              Expanded keys: {{expandedKeys.join(",")}}
+                              Selected keys: {{selectedKeys.join(",")}}
+                          </div>
+                          <kendo-treeview
+                            [nodes]="dept_tree"
+                            textField="text"
+                            kendoTreeViewExpandable
+                            kendoTreeViewSelectable
+                            kendoTreeViewHierarchyBinding
+                            childrenField="items"
+                            (selectionChange)="treeSelection($event)"
+                            [children]="fetchChildren"
+                            [hasChildren]="hasChildren"
+                            [expandBy]="'text'"
+                            [(expandedKeys)]="expandedKeys"
+                            [(selectedKeys)]="selectedKeys"
+                            [selectBy]="'id'"
+                            >
+                          </kendo-treeview>
+                        </section>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article [ngClass]="article_grid">
+              <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                         [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                <header>
+                  <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+                  <h2>이름</h2>
+                  <div class="widget-toolbar">
+                    <label class="input">
+                      <input type="text" [(ngModel)]="S_EMP_NM" name="S_EMP_NM" style="width:150px;">
+                    </label>
+                    <button class="btn btn-default btn-sm" (click)="searchGrid()" type="submit">검색</button>
+                  </div>
+                </header>
+
+                <div>
+                  <div class="widget-body no-padding">
+                    <form class="smart-form">
+                      <!-- <header></header> -->
+                      <!-- <fieldset> -->
+                        <section class="col col-12" style="Padding:0px 0px 0px 0px;margin-bottom: 0px;">
+
+                          <kendo-grid [data]="gridView" [height]="450"
+                            [pageSize]="pageSize" [skip]="skip" [pageable]="true"
+                            (pageChange)="pageChange($event)" [sort]="sort" [sortable]="true"
+                            [resizable]="true" (sortChange)="sortChange($event)"
+                            [kendoGridSelectBy]="'EMP_NO'" [selectedKeys]="mySelection" (cellClick)="click_add($event)"
+                            [selectable]="{ mode: Mode_Gubun }"
+                          >
+                            <kendo-grid-checkbox-column showSelectAll="true"  width="30"></kendo-grid-checkbox-column>
+                            <kendo-grid-column field="UserName" title="이름" width="100"></kendo-grid-column>
+                            <kendo-grid-column field="DeptName" title="부서" width="150"></kendo-grid-column>
+                          </kendo-grid>
+
+                        </section>
+                      <!-- </fieldset> -->
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article [hidden]="Multi_Use" [ngClass]="article_list">
+              <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                         [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                <header>
+                  <h2>선택대상자</h2>
+                </header>
+
+                <div>
+                  <div class="widget-body no-padding">
+                    <table>
+                      <tr>
+                        <td style="padding:5px;">
+                          <!-- <div style="height:130px;"></div> -->
+                          <button type="button" class="btn btn-default btn-xs btn-block" (click)="pop_add_user()">
+                            ADD
+                          </button>
+                          <button type="button" class="btn btn-default btn-xs btn-block" (click)="pop_del_user()">
+                            DEL
+                          </button>
+                          <button type="button" class="btn btn-default btn-xs btn-block" (click)="pop_all_del_user()">
+                            ALL DEL
+                          </button>
+                        </td>
+                        <td>
+                          <select multiple class="custom-scroll"  [(ngModel)]="pop_select_user" style="width:266px;height:450px;">
+                            <option *ngFor="let selectList of pop_selectbox_list" value= {{selectList.id}}>{{selectList.name}}</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </sa-widgets-grid>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="SelectOk()">선택</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeuser()">취소</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,250 @@
+<div>
+  <div class="modal-dialog modal-lg" [ngStyle]="win_width">
+    <div class="modal-content" [ngStyle]="win_height">
+      <div class="modal-header">
+        <div style="float:right;">
+          <button type="button" class="btn btn-primary" (click)="open_lgModal_out_amt()">외주비용</button>
+          <button type="button" class="btn btn-primary" (click)="open_lgModal_im()">별도임률 설정</button>
+          <button type="button" class="btn btn-primary" (click)="Show_Pop_order_Modal()">수주상세정보</button>
+          <button type="button" class="btn btn-primary" (click)="save_st()">ST 및 제.가 저장</button>
+          <button type="button" class="btn btn-default" (click)="closePop()">취소</button>
+        </div>
+        <!-- <button type="button" class="close" (click)="closePop()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button> -->
+        <h4 class="modal-title">공정계획수립</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- <table class="table table-bordered"> -->
+        <table style="width:100%;">
+          <colgroup>
+            <col style="width:8%" />
+            <col style="width:17%" />
+            <col style="width:8%" />
+            <col style="width:17%" />
+            <col style="width:8%" />
+            <col style="width:17%" />
+            <col style="width:8%" />
+            <col style="width:17%" />
+          </colgroup>
+          <tbody>
+            <tr style="height: 25px;">
+              <th>업체명(약어)</th>
+              <td>{{topInfo.vendor_nm}}</td>
+              <th>품명</th>
+              <td>{{topInfo.product_nm}}</td>
+              <th>수주번호</th>
+              <td>{{topInfo.order_no}}</td>
+              <th>수량</th>
+              <td>{{topInfo.volume}}</td>
+            </tr>
+            <tr>
+              <th>모델명</th>
+              <td>{{topInfo.model_nm}}</td>
+              <th>납기일</th>
+              <td></td>
+              <th>완료 예정일</th>
+              <td></td>
+              <th>합계</th>
+              <td rowspan="3">{{info_sum}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <div style="overflow:auto;">
+          <table class="table table-bordered" style="margin-bottom:0px;width:unset; max-width:unset;">
+            <tbody>
+              <tr>
+                <td style="width:80px;min-width:80px;max-width:80px;padding:5px;" *ngFor="let sum of sumList">
+                  <div class="{{sum.class}}" style="margin-bottom:3px;width:100%;font-size:14px;border-radius:5px;">
+                    {{sum.id}}
+                  </div>
+                  <div style="text-align:right;">
+                    {{sum.value}}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
+
+        <div [ngStyle]="win_height_sub">
+          <div *ngFor="let product of productList">
+            <!-- <div class="table-responsive"> -->
+            <div>
+              <table class="table table-bordered" style="margin-bottom:3px; width:unset; max-width:unset;">
+                <tr>
+                  <td style="width:138px;min-width:138px;max-width:138px;">
+                    <div style="margin-bottom:3px;font-weight:bold;">
+                      <u style="cursor:pointer;" (click)="filedown_map(product)">{{product.map_no}}</u>
+                    </div>
+                    <div style="margin-bottom:3px;">
+                      계 : {{product.sub_sum}}
+                    </div>
+                    <div>
+                      <button class="btn btn-default btn-xs" (click)="plan_pop(product)">계획</button>
+                      <button class="btn btn-default btn-xs" (click)="copy_pop(product)">복사</button>
+                      <button class="btn btn-default btn-xs" (click)="imsi_down(product)">작공</button>
+                    </div>
+                  </td>
+                  <td style="width:140px;min-width:140px;max-width:140px;font-size:12px;">
+                    품번&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.product_no}} <br />
+                    품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.product_nm}}<br />
+                    수량&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.volume}} <br />
+                    사이즈&nbsp;: {{product.size}}
+                  </td>
+                  <td style="width:42px;min-width:42px;max-width:42px;padding:5px;text-align:right;border-right:0px;">
+                    <div style="margin-top:1px;margin-bottom:7px;">
+                      공정
+                    </div>
+                    <div style="margin-bottom:7px;">
+                      ST
+                    </div>
+                    <div style="width:100%;">
+                      제.가
+                    </div>
+                  </td>
+                  <td [ngStyle]="{'background-color':work.back_color, 'border':work.dashed}" style="width:90px;min-width:90px;max-width:90px;padding:5px;" *ngFor="let work of product.works">
+                    <div class="{{work.class}}" style="margin-bottom:3px;width:100%;font-size:14px;border-radius:5px;cursor:pointer;" (click)="work_reg(work)">
+                      {{work.work_nm}}
+                      <!-- <br /><br />임:{{work.std_num}}
+                      <br /><br />부:{{work.std_st}}
+                      <br /><br />부합:{{work.tot_st}} -->
+                    </div>
+                    <div style="margin-bottom:3px;">
+                      <input type="hidden" id="im_{{work.product_id}}_{{work.product_work_id}}" style="width:100%;" value="{{work.std_num}}">
+                      <input name="text_st" type="number" id="st_{{work.product_id}}_{{work.product_work_id}}" value="{{work.plan_st}}" style="width:100%;text-align:right;" placeholder="" (blur)="st_keyup('blur', $event)" (keyup)="st_keyup('keyup', $event)">
+                    </div>
+                    <div>
+                      <input name="text_price" type="text" id="price_{{work.product_id}}_{{work.product_work_id}}" value="{{work.plan_price}}" style="width:100%;text-align:right" placeholder="" disabled="disabled">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- <div class="modal-footer">
+
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- 공정 계획수립 -->
+  <div bsModal #lgModal_add="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div>
+      <div class="modal-dialog modal-lg" style="width:1300px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            <h4 class="modal-title">제품별 공정 설정</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row" style="padding:20px;">
+              <h5 class="modal-title">표준공정</h5>
+
+              <kendo-sortable [data]="items_default" zone="dragzone1" itemClass="item" [animation]="true" (dataRemove)="onDataRemove(i, $event)">
+                <ng-template let-item="item">
+                  <div draggable="true" [ngStyle]="{'background-color':getColor(item.color), 'color' : 'white'}" (dblclick)="item_down(item)">{{item.SUB_NM}}</div>
+                </ng-template>
+              </kendo-sortable>
+              <div style="clear:both;"></div>
+              <hr />
+              <h5 class="modal-title">선택한 공정</h5>
+              <kendo-sortable [data]="items_save" zone="dragzone2" itemClass="item" [animation]="true" [disabledIndexes]="disabledIndexes">
+                <ng-template let-item="item">
+                  <div draggable="true" [ngStyle]="{'background-color':getColor(item.color), 'color' : 'white'}" (dblclick)="item_up(item)">{{item.SUB_NM}}</div>
+                </ng-template>
+              </kendo-sortable>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="save_item()">저장</button>
+            <button type="button" class="btn btn-default" (click)="lgModal_add.hide()">취소</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- 별도임률 설정 -->
+  <div bsModal #lgModal_im="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_im.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            <h4 class="modal-title">별도임률 설정</h4>
+          </div>
+          <div class="modal-body">
+            <form class="smart-form">
+
+              <div class="row">
+                <section class="col col-2" *ngFor="let list of def_rt_list">
+                  <div style="margin-bottom:3px;">
+                    <h5 class="modal-title">{{list.SUB_NM}}</h5>
+                  </div>
+                  <div style="margin-bottom:3px;">
+                    표준 <input style="width:79px;display:inline;" type="number" name="add_def_rt" id="add_def_rt_{{list.SUB_CD}}" value="{{list.DEF_RT}}" [disabled]="def_rt_disabled" />
+                  </div>
+                  <div>
+                    별도 <input style="width:79px;display:inline;" type="number" name="add_order_rt" id="add_order_rt_{{list.SUB_CD}}" value="{{list.ORDER_RT}}" />
+                  </div>
+                </section>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="save_im()">저장</button>
+            <button type="button" class="btn btn-default" (click)="lgModal_im.hide()">취소</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 수주 상세정보 -->
+  <div bsModal #lgModal_pop_order_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <app-orderview [add_order_id]="order_id" (order_view_close)="this.lgModal_pop_order_view.hide()"></app-orderview>
+  </div>
+  <!-- 공정등록  -->
+  <div bsModal #lgModal_pop_product_work_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <app-product-work-view
+    [P_WORK_ID]="PRODUCT_WORK_ID"
+    (product_work_view_close)="this.lgModal_pop_product_work_view.hide()"
+    (product_work_view_refresh)="this.close_lgModal_work_view()"
+    >
+    </app-product-work-view>
+  </div>
+
+  <!-- 외주비용 -->
+  <div bsModal #lgModal_pop_outsourcing_amt_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <app-outsourcing-amt-view
+    [order_id]="amt_order_id"
+    (outsourcing_amt_view_close)="this.close_lgModal_out_amt()"
+    >
+    </app-outsourcing-amt-view>
+  </div>
+
+  <!-- 계획복사 -->
+  <div bsModal #lgModal_copy="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <app-plancopy
+    [product_id]="copy_product_id"
+    (copy_close)="this.copy_colse()"
+    (copy_search)="this.searchData()"
+    >
+    </app-plancopy>
+  </div>

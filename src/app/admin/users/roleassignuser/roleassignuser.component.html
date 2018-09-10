@@ -1,0 +1,274 @@
+<!-- <link rel="stylesheet" href="https://www.telerik.com/kendo-angular-ui/npm/node_modules//@progress/kendo-theme-default/dist/all.css" /> -->
+<div id="content">
+  <!-- <div class="row">
+    <sa-big-breadcrumbs [items]="['역할별 사용자 설정']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div> -->
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 col-md-12 col-lg-6">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'역할' | mlang: 'LABEL' : 'L000068' : '37'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                <!-- <header></header> -->
+                <!-- <fieldset> -->
+                  <kendo-grid [data]="gridView_role" [height]="450"
+                    [sort]="gridSort_role"
+                    [sortable]="true"
+                    (sortChange)="sortChange_role($event)"
+
+                    [resizable]="true"
+
+                    [selectable]="{ mode: 'single' }"
+                    [kendoGridSelectBy]="'role_id'"
+                    [selectedKeys]="gridSelection_role"
+                    (selectedKeysChange)="onSelectedKeysChange_role($event)"
+                  >
+                  <!-- [pageSize]="pageSize_role"
+                  [pageable]="true" -->
+                    <kendo-grid-column field="role_id" title="{{'역할ID' | mlang: 'LABEL' : 'L000072' : '37'}}" width="70"></kendo-grid-column>
+                    <kendo-grid-column field="role_nm" title="{{'역할명' | mlang: 'LABEL' : 'L000073' : '37'}}" width="100"></kendo-grid-column>
+                    <kendo-grid-column field="role_info" title="{{'역할설명' | mlang: 'LABEL' : 'L000074' : '37'}}" width="100"></kendo-grid-column>
+                  </kendo-grid>
+                <!-- </fieldset> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-12 col-md-12 col-lg-3">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'조직도' | mlang: 'LABEL' : 'L000069' : '37'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                <!-- <header></header> -->
+
+                <fieldset>
+                  <section>
+                    <kendo-treeview
+                      [nodes]="data_tree"
+                      textField="text"
+                      kendoTreeViewExpandable
+                      kendoTreeViewSelectable
+                      kendoTreeViewHierarchyBinding
+                      childrenField="items"
+                      (selectionChange)="treeSelection($event)"
+                      >
+                    </kendo-treeview>
+                  </section>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-12 col-md-12 col-lg-3">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-check"></i> </span> -->
+            <h2>{{'등록정보' | mlang: 'LABEL' : 'L000070' : '37'}}</h2>
+
+            <div class="widget-toolbar">
+              <button class="btn btn-xs btn-default"(click)="click_add()"><i class="fa fa-plus"></i>{{'설정' | mlang: 'LABEL' : 'L000071' : '37'}}</button>
+            </div>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                  <!-- <header></header> -->
+                  <!-- <fieldset> -->
+                <kendo-grid [data]="gridView_info" [height]="450"
+                  [sort]="gridSort_info"
+                  [sortable]="true"
+                  (sortChange)="sortChange_info($event)"
+
+                  [resizable]="true"
+
+                  [selectable]="{ mode: 'single' }"
+                >
+                  <kendo-grid-column field="emp_nm" title="{{'직원명' | mlang: 'LABEL' : 'L000075' : '37'}}" width="60" ></kendo-grid-column>
+                  <kendo-grid-column field="dept_nm" title="{{'부서' | mlang: 'LABEL' : 'L000076' : '37'}}" width="70"></kendo-grid-column>
+                </kendo-grid>
+                <!-- </fieldset> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </sa-widgets-grid>
+
+  <div bsModal #lgModal_add="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <!-- <form (ngSubmit)="onSubmit()" novalidate="novalidate" [saBootstrapValidator]="validatorOptions"> -->
+      <div class="modal-dialog modal-lg"  style="width:1100px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">{{'역할별 대상자 등록' | mlang: 'LABEL' : 'L000077' : '37'}} - <strong>{{role_nm}}</strong></h4>
+          </div>
+          <div class="modal-body">
+
+
+
+              <sa-widgets-grid>
+                <div class="row">
+                  <article class="col-sm-12 col-md-12 col-lg-4">
+                    <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                               [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                                <!-- color="blueDark" -->
+                      <header>
+                        <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+                        <h2>{{'조직도' | mlang: 'LABEL' : 'L000069' : '37'}}</h2>
+                      </header>
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <form class="smart-form">
+                            <!-- <header></header> -->
+                            <fieldset>
+                              <section>
+                                <kendo-treeview
+                                  [nodes]="data_tree"
+                                  textField="text"
+                                  kendoTreeViewExpandable
+                                  kendoTreeViewSelectable
+                                  kendoTreeViewHierarchyBinding
+                                  childrenField="items"
+                                  (selectionChange)="pop_treeSelection($event)"
+                                  >
+                                </kendo-treeview>
+                              </section>
+                            </fieldset>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="col-sm-12 col-md-12 col-lg-5">
+                    <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                               [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                      <header>
+                        <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+                        <h2>{{'직원명' | mlang: 'LABEL' : 'L000075' : '37'}}</h2>
+                        <div class="widget-toolbar">
+                          <label class="input">
+                            <input type="text" [(ngModel)]="pop_user_nm" name="pop_user_nm" style="width:150px;">
+                          </label>
+                          <button class="btn btn-xs btn-default" (click)="pop_searchGrid_user()">{{'조회' | mlang: 'LABEL' : 'L000078' : '37'}}</button>
+                        </div>
+                      </header>
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <form class="smart-form">
+                            <!-- <header></header> -->
+                            <!-- <fieldset> -->
+                              <section class="col col-9" style="Padding:0px 0px 0px 0px;margin-bottom: 0px;">
+                                <kendo-grid [data]="pop_gridView_user" [height]="450"
+                                  [sort]="pop_gridSort_user"
+                                  [sortable]="true"
+                                  (sortChange)="pop_sortChange_dept($event)"
+
+                                  [resizable]="true"
+
+                                  [selectable]="{ mode: 'multiple' }"
+
+                                  [kendoGridSelectBy]="'emp_no'"
+                                  [selectedKeys]="pop_gridSelection_user"
+                                  >
+                                  <kendo-grid-checkbox-column showSelectAll="true"  width="20"></kendo-grid-checkbox-column>
+                                  <kendo-grid-column *ngIf="!isHidden('emp_no')" field="emp_no" title="직원ID" width="60" ></kendo-grid-column>
+                                  <kendo-grid-column field="emp_nm" title="{{'직원명' | mlang: 'LABEL' : 'L000075' : '37'}}" width="60" ></kendo-grid-column>
+                                  <kendo-grid-column field="dept_nm" title="{{'부서' | mlang: 'LABEL' : 'L000076' : '37'}}" width="70"></kendo-grid-column>
+                                </kendo-grid>
+                              </section>
+                              <section class="col col-3">
+
+                                <div style="height:180px;"></div>
+                                <button type="button" class="btn btn-default btn-xs btn-block" (click)="pop_add_user()">
+                                  ADD
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs btn-block" (click)="pop_del_user()">
+                                  DEL
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs btn-block" (click)="pop_all_del_user()">
+                                  ALL DEL
+                                </button>
+                              </section>
+                            <!-- </fieldset> -->
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+
+                  <article class="col-sm-12 col-md-12 col-lg-3">
+                    <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                               [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+                      <header>
+                        <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+                        <h2>{{'선택대상자' | mlang: 'LABEL' : 'L000079' : '37'}}</h2>
+                      </header>
+
+                      <div>
+                        <div class="widget-body no-padding">
+                          <!-- <form class="smart-form"> -->
+                            <!-- <header></header> -->
+                            <fieldset>
+                              <section>
+                                <!-- <label class="select select-multiple"> -->
+                                    <select multiple class="custom-scroll"  [(ngModel)]="pop_select_user" style="width:100%;height:450px;">
+                                      <option *ngFor="let selectList of pop_selectbox_list" value= {{selectList.id}}>{{selectList.name}}</option>
+                                    </select>
+                                <!-- </label> -->
+                              </section>
+                            </fieldset>
+                          <!-- </form> -->
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                </div>
+              </sa-widgets-grid>
+
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="pop_savedata()">{{'추가' | mlang: 'LABEL' : 'L000080' : '37'}}</button>
+            <button type="button" class="btn btn-default" (click)="lgModal_add.hide()">{{'취소' | mlang: 'LABEL' : 'L000081' : '37'}}</button>
+            <!-- <button class="btn btn-default" type="submit">Validate</button> -->
+          </div>
+        </div>
+      </div>
+    <!-- </form> -->
+  </div>
+</div>

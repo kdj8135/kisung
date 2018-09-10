@@ -1,0 +1,120 @@
+[
+  {
+    "menuType": "M",
+    "menuId": "",
+    "menuNm": "Home",
+    "progPath": "",
+    "iclass": "fa-home",
+    "childMenu": [
+      {
+        "menuType": "M",
+        "menuId": "",
+        "menuNm": "Home",
+        "progPath": "",
+        "iclass": "",
+        "childMenu": [
+          {
+            "menuType": "P",
+            "menuId": "",
+            "menuNm": "Home",
+            "progPath": "/home",
+            "iclass": "",
+            "childMenu": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menuType": "M",
+    "menuId": "",
+    "menuNm": "Admin",
+    "progPath": "",
+    "iclass": "fa-gears",
+    "childMenu": [
+      {
+        "menuType": "M",
+        "menuId": "",
+        "menuNm": "표준관리",
+        "progPath": "",
+        "iclass": "",
+        "childMenu": []
+      },
+      {
+        "menuType": "M",
+        "menuId": "",
+        "menuNm": "공통관리",
+        "progPath": "",
+        "iclass": "",
+        "childMenu": []
+      },
+      {
+        "menuType": "M",
+        "menuId": "",
+        "menuNm": "사용자/권한관리",
+        "progPath": "",
+        "iclass": "",
+        "childMenu": [
+          {
+            "menuType": "P",
+            "menuId": "",
+            "menuNm": "사용자 관리",
+            "progPath": "/admin/users/userlist",
+            "iclass": "",
+            "childMenu": []
+          },
+          {
+            "menuType": "P",
+            "menuId": "",
+            "menuNm": "그룹별 권한 설정",
+            "progPath": "/admin/users/temp",
+            "iclass": "",
+            "childMenu": []
+          },
+          {
+            "menuType": "P",
+            "menuId": "",
+            "menuNm": "그룹별 사용자 설정",
+            "progPath": "/admin/users/temp",
+            "iclass": "",
+            "childMenu": []
+          },
+          {
+            "menuType": "P",
+            "menuId": "",
+            "menuNm": "사용자기준 그룹 설정",
+            "progPath": "/admin/users/temp",
+            "iclass": "",
+            "childMenu": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menuType": "M",
+    "menuId": "",
+    "menuNm": "Sample",
+    "progPath": "",
+    "iclass": "fa-gears",
+    "childMenu": [
+      {
+        "menuType": "M",
+        "menuId": "",
+        "menuNm": "Sample-Lists",
+        "progPath": "",
+        "iclass": "",
+        "childMenu": [
+          {
+            "menuType": "P",
+            "menuId": "",
+            "menuNm": "samplelist",
+            "progPath": "/sample/sample-lists/samplelist",
+            "iclass": "",
+            "childMenu": []
+          }
+        ]
+      }
+    ]
+  }
+]

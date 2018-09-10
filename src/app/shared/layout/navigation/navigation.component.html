@@ -1,0 +1,48 @@
+<aside id="left-panel">
+
+
+<!-- 추가 : 상단에 있든 프로젝트 정보가 메뉴로 내려옴: 김동진
+      그리고 해당 위치에 있던 sa-login-info 주석
+-->
+  <!-- User info -->
+  <!-- <sa-login-info></sa-login-info> -->
+  <!-- 프로젝트 주석 : 김동진 -->
+  <!-- <sa-recent-projects></sa-recent-projects> -->
+
+  <!-- end user info -->
+
+
+  <nav>
+    <!-- <a routerLink="{{menu.progPath | hashPath}}" [queryParams]="{ gsClickMenuId: menu.menuId }" (click)="fnMenuClick(menu)" title="{{menu.menuNm}}"> -->
+
+    <ul saSmartMenu *ngIf="isLoding">
+      <ng-template #recursiveMenu let-menus>
+        <!-- <a title="{{menu.menuNm}}">
+          <i *ngIf="menu.iclass" class="fa fa-lg fa-fw {{menu.iclass}}"></i>
+          <span *ngIf="menu.menuType == 'M'; else spElseBlock" class="menu-item-parent">{{menu.menuNm}}1</span>
+          <ng-template #spElseBlock>
+            <a style="padding:0px 0px 0px 0px;" routerLink="{{menu.progPath | hashPath}}" (click)="fnMenuClick(menu)" title="{{menu.menuNm}}">
+              {{menu.menuNm}}2
+            </a>
+            </ng-template>
+        </a> -->
+
+        <li routerLinkActive="active" *ngFor="let menu of menus">
+          <a routerLink="{{menu.progPath | hashPath}}" (click)="fnMenuClick(menu)" title="{{menu.menuNm}}">
+            <i *ngIf="menu.iclass" class="fa fa-lg fa-fw {{menu.iclass}}"></i>
+            <span *ngIf="menu.menuType == 'M'; else spElseBlock" class="menu-item-parent">{{menu.menuNm}}</span>
+            <ng-template #spElseBlock>{{menu.menuNm}}</ng-template>
+          </a>
+          <ul *ngIf="menu.childMenu && menu.childMenu.length > 0">
+            <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menu.childMenu }"></ng-container>
+          </ul>
+        </li>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menus }"></ng-container>
+    </ul>
+  </nav>
+
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>

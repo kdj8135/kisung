@@ -1,0 +1,30 @@
+<!-- <div class="project-context hidden-xs dropdown" dropdown>
+
+  <span class="label">{{ 'Projects' }}:</span>
+    <span class="project-selector dropdown-toggle" dropdownToggle>{{'Recent projects'}} <i ng-if="projects.length"
+                                                                                                            class="fa fa-angle-down"></i></span>
+
+  <ul *dropdownMenu class="dropdown-menu">
+    <li *ngFor="let project of projects">
+      <a (click)="aaaa(project.projectid)">{{project.title}}</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a (click)="clearProjects()"><i class="fa fa-power-off"></i> Clear</a>
+</li>
+  </ul>
+
+</div> -->
+
+<div class="project-context hidden-xs dropdown" dropdown>
+  <span class="label">{{ 'Projects' }}:</span>
+  <span class="project-selector dropdown-toggle" dropdownToggle style="color:#fff;">
+    {{currentProject.title}}
+    <i ng-if="projects.length" class="fa fa-angle-down"></i>
+  </span>
+  <ul *dropdownMenu class="dropdown-menu">
+    <li [class.active]="project==currentProject" *ngFor="let project of projects">
+      <a (click)="setProject(project)" class="dropdown-item">{{project.title}}</a>
+    </li>
+  </ul>
+</div>

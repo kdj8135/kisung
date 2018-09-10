@@ -1,0 +1,34 @@
+[
+    {
+        "text": "MyPortal"
+        ,"id": "aa"
+        , "items" : [
+          {"text": "Main", "id" : "aa_1"},
+          {"text": "MyDesk", "id" : "aa_2"}
+        ]
+    },
+    {
+        "text": "PorjectRoom"
+        ,"id": "bb"
+        , "items" : [
+          {"text": "Main", "id" : "bb_1"},
+          {"text": "완료보고", "id" : "bb_2"}
+        ]
+    },
+    {
+        "text": "PMO"
+        ,"id": "cc"
+        , "items" : [
+          {
+            "text": "Dashboard"
+            , "id" : "cc_1"
+            , "items" : [
+              {"text": "리소스 투입현황", "id" : "cc_1_a"},
+              {"text": "리소스 가용현황", "id" : "cc_1_b"},
+              {"text": "리스크&이슈 현황", "id" : "cc_1_c"}
+            ]
+          },
+          {"text": "프로젝트 운영관리", "id" : "cc_2"}
+        ]
+    }
+]

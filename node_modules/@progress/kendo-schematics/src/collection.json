@@ -1,0 +1,23 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "kendo-schematics",
+  "schematics": {
+    "test-component": {
+      "description": "Generates a component containing Kendo Angular Grid component",
+      "schema": "./collection/component/schema.json",
+      "factory": "./collection/component/index#testComponent",
+      "hidden": true
+    },
+    "grid": {
+      "description": "Generates a component containing Kendo Angular Grid component",
+      "schema": "./collection/grid/schema.json",
+      "factory": "./collection/grid/index#grid",
+      "hidden": true
+    },
+    "ng-add": {
+      "description": "Register Kendo Angular components",
+      "schema": "./collection/ngAdd/schema.json",
+      "factory": "./collection/ngAdd/index#ngAdd"
+    }
+  }
+}

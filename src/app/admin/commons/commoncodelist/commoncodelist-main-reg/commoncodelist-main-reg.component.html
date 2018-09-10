@@ -1,0 +1,80 @@
+<div class="modal-dialog modal-lg">
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" (click)="HideModal_Reg()">&times;</button>
+      <h4 class="modal-title">{{'메인코드 등록' | mlang: 'LABEL' : 'L000113' : '38'}}</h4>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
+            <div class="well no-padding">
+
+              <form class="smart-form client-form" id="smart-form-register" name="smartformregister" novalidate="novalidate">
+                <fieldset>
+                  <div class="row">
+                    <section class="col col-3">
+                      <label class="label">{{'그룹' | mlang: 'LABEL' : 'L000092' : '38'}}</label>
+                      <label class="input">
+                        <select [(ngModel)]="reg_sc_group" name="reg_sc_group" [disabled]="isDisabled()" class="form-control input-sm">
+                            <option value="all">전체</option>
+                            <option value="BS">공통</option>
+                            <option value="MP">My Portal</option>
+                            <option value="PR">Project Room</option>
+                            <option value="PM">PMO</option>
+                            <option value="AD">Admin</option>
+                            <!-- <option *ngFor="let M_GroupList of main_selectbox_list" value= {{M_GroupList.id}}>{{M_GroupList.nm}}</option> -->
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'메인코드' | mlang: 'LABEL' : 'L000093' : '38'}}</label>
+                      <label class="input">
+                        <input type="text" style="background-color:#eee;" name="main_code" readonly="readonly" disabled="true" [(ngModel)]="main_code" />
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'메인코드명' | mlang: 'LABEL' : 'L000099' : '38'}}<i class="fa fa-check"></i></label>
+                      <label class="input">
+                        <input type="text" name="main_code_nm" [(ngModel)]="main_code_nm" />
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'순서' | mlang: 'LABEL' : 'L000102' : '38'}}<i class="fa fa-check"></i></label>
+                      <label class="input">
+                        <input type="number" name="main_order" [(ngModel)]="main_order" />
+                      </label>
+                    </section>
+                  </div>
+                <!-- </fieldset>
+
+                <fieldset> -->
+                  <section>
+                    <label class="label">{{'설명' | mlang: 'LABEL' : 'L000104' : '38'}}</label>
+                    <label class="textarea">
+                      <textarea rows="3" name="reg_info" [(ngModel)]="reg_info" ></textarea>
+                    </label>
+                  </section>
+                </fieldset>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button (click)="Reg_Main_Save()" class="btn btn-primary">{{'저장' | mlang: 'LABEL' : 'L000107' : '38'}}</button>
+      <label [hidden]="Reg_del_button"><button (click)="Reg_Main_Del()" class="btn btn-primary">{{'삭제' | mlang: 'LABEL' : 'L000108' : '38'}}</button></label>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="HideModal_Reg()">{{'취소' | mlang: 'LABEL' : 'L000112' : '38'}}</button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,231 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+  <div class="row">
+    <article class="col-sm-12">
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <form class="navbar-form navbar-left" role="search">
+          <!-- ui클래스 -->
+            <div class="form-group">
+              <label>수주번호</label>
+              <div class="form-group">
+                <input style="width:100px" name="order_no_text" [(ngModel)]="order_no_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>도면번호</label>
+              <div class="form-group">
+                <input style="width:100px" name="map_no_text" [(ngModel)]="map_no_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>품번</label>
+              <div class="form-group">
+                <input style="width:100px" name="product_no_text" [(ngModel)]="product_no_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>품명</label>
+              <div class="form-group">
+                <input style="width:100px" name="product_nm_text" [(ngModel)]="product_nm_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>업체명</label>
+              <select [(ngModel)]="add_vendor_id" name="add_vendor_id" class="form-control input-sm" >
+                <option value="all" selected="selected">전체</option>
+                <option value="{{vendor.id}}" *ngFor="let vendor of vendor_list" >{{vendor.nm}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>외주 업체 구분</label>
+              <select [(ngModel)]="add_outsourcing_cd" name="add_outsourcing_cd" (change)="change_company_worker_list('add',$event.target.value)" class="form-control input-sm" >
+                <option value="all" selected="selected">전체</option>
+                <option value="{{outsourcing.SUB_CD}}" *ngFor="let outsourcing of outsourcing_list" >{{outsourcing.SUB_NM}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <select [(ngModel)]="add_worker_id" name="add_worker_id" class="form-control input-sm" >
+                <option value="all" selected="selected">전체</option>
+                <option value="{{workerid.ID}}" *ngFor="let workerid of add_worker_list" >{{workerid.NM}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>공정</label>
+              <select [(ngModel)]="add_progress_cd" name="add_progress_cd" class="form-control input-sm" >
+                <option value="all" selected="selected">전체</option>
+                <option value="{{progress.SUB_CD}}" *ngFor="let progress of progress_cd_list" >{{progress.SUB_NM}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>상태</label>
+              <select [(ngModel)]="add_status_color_cd" name="add_status_color_cd" class="form-control input-sm" >
+                <option value="all" selected="selected">전체</option>
+                <option value="yellow" selected="selected">시작필요</option>
+                <option value="green" selected="selected">진행중</option>
+                <option value="red" selected="selected">지연.입고필요</option>
+                <option value="blue" selected="selected">완료</option>
+                <option value="gray" selected="selected">지연완료</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <label [style.display]="'btn_search' | display:PRODUCT_WORK_MENU_ID">
+              <button class="btn btn-default btn-sm" (click)="searchGrid()" type="submit">검색</button>
+            </label>
+            <!-- <button class="btn btn-default btn-sm" (click)="exportToExcel(grid)">Export to Excel</button> -->
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div>
+        <!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div>
+  <!-- end row -->
+
+  <kendo-grid
+    #grid="kendoGrid"
+    [data]="gridView" [height]="630" [pageSize]="pageSize" [skip]="skip"
+    onloadedmetadata=""[pageable]="true" (pageChange)="pageChange($event)"
+    [sort]="sort" [sortable]="true" [resizable]="true" (sortChange)="sortChange($event)"
+    [selectable]="{ mode: 'multiple' }"
+    [kendoGridSelectBy]="'PRODUCT_WORK_ID'"
+    [selectedKeys]="mySelection"
+    (cellClick)="click_pop($event)"
+    [rowClass]="rowCallback"
+    (selectedKeysChange)="onSelectedKeysChange($event)"
+   >
+
+   <kendo-grid-checkbox-column width="40">
+       <ng-template kendoGridHeaderTemplate>
+           <input class="k-checkbox" id="selectAllCheckboxId" kendoGridSelectAllCheckbox
+               [state]="selectAllState"
+               (selectAllChange)="onSelectAllChange($event)">
+           <label class="k-checkbox-label" for="selectAllCheckboxId"></label>
+       </ng-template>
+   </kendo-grid-checkbox-column>
+
+    <!-- <kendo-grid-checkbox-column showSelectAll="true"  width="40"></kendo-grid-checkbox-column> -->
+    <kendo-grid-column field="WOKRER_NM" title="외주 업체" width="100"></kendo-grid-column>
+    <kendo-grid-column field="OUTSOURCING_AMT" title="외주 금액" width="130"
+      [hidden]="amt_column_hidden"
+    ></kendo-grid-column>
+    <kendo-grid-column field="VENDOR_NM" title="업체명" width="150"></kendo-grid-column>
+    <kendo-grid-column field="ORDER_NO" title="수주번호" width="120"></kendo-grid-column>
+    <!-- <kendo-grid-column
+      field="WORKNM"
+      title="공정"
+      [width]="150"
+      [style]="{'text-decoration' : 'underline', 'cursor' : 'pointer'}"
+    ></kendo-grid-column> -->
+    <!-- <ng-template kendoGridToolbarTemplate>
+          <button type="button" kendoGridExcelCommand icon="file-excel">Export to Excel</button>
+      </ng-template> -->
+    <kendo-grid-column field="WORKNM" title="공정" width="80"></kendo-grid-column>
+    <kendo-grid-column field="MAP_NO" title="도면번호" width="120"></kendo-grid-column>
+    <kendo-grid-column field="PRODUCT_NO" title="품번" width="110"></kendo-grid-column>
+    <kendo-grid-column field="PRODUCT_NM" title="품명" width="110"></kendo-grid-column>
+    <kendo-grid-column field="MATERIAL" title="재질" width="110"></kendo-grid-column>
+    <kendo-grid-column field="SIZE" title="사이즈" width="120"></kendo-grid-column>
+    <kendo-grid-column field="VOLUME" title="수량/총수량" width="120"></kendo-grid-column>
+    <kendo-grid-column field="PRODUCT_PROGRESS_NM" title="제품상태" width="90"></kendo-grid-column>
+    <kendo-grid-column field="S_WORK_DAY_HHMM" title="시작" width="140"></kendo-grid-column>
+    <kendo-grid-column field="E_WORK_DAY_HHMM" title="종료" width="140"></kendo-grid-column>
+    <kendo-grid-column field="GUBUN_NM" title="구분" width="70"></kendo-grid-column>
+    <kendo-grid-excel fileName="Product_Work_List.xlsx" [fetchData]="allData"></kendo-grid-excel>
+  </kendo-grid>
+
+</div>
+
+<div class="navbar-form navbar-left">
+  <div class="form-group">
+    <label>선택변경</label>
+    <select [(ngModel)]="change_out_cd" name="change_out_cd" (change)="change_gubun_list($event.target.value)" class="form-control input-sm" >
+      <option value="all" selected="selected">선택</option>
+      <option value="S_WORK_DT">입고일</option>
+      <option value="E_WORK_DT">출고일</option>
+      <option value="RECEIVE_DT">완료예정일</option>
+    </select>
+  </div>
+
+  &nbsp;&nbsp;
+
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" name="change_out_date" placeholder="" class="form-control datepicker"
+      readonly="readonly" [style.background-color]="readonly_color"
+             [saUiDatepicker]="{
+                dateFormat: 'yy-mm-dd'
+             }"
+             #change_out_date
+             />
+      <span class="input-group-addon"><i class="icon-append  fa fa-calendar"></i></span>
+    </div>
+  </div>
+
+
+
+  &nbsp;&nbsp;
+
+  <label [style.display]="'btn_change' | display:PRODUCT_WORK_MENU_ID">
+    <button type="button" class="btn btn-primary" (click)="change_out_update()">변경</button>
+  </label>
+
+  &nbsp;&nbsp;
+
+  <div class="form-group">
+    <table border="0">
+      <tr>
+        <td>
+          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#FFFF99;'>■ </label>&nbsp;시작필요</span></span>
+          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#00CC00;'>■ </label>&nbsp;진행중</span></span>
+          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#FF6666;'>■ </label>&nbsp;지연.입고필요</span></span>
+          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#66CCFF;'>■ </label>&nbsp;완료</span></span>
+          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#CCCCCC;'>■ </label>&nbsp;지연완료</span></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+<!-- end content -->
+
+<div bsModal #lgModal_pop_product_work_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <app-product-work-view [P_WORK_ID]="PRODUCT_WORK_ID" [P_WORK_TYPE]="PRODUCT_WORK_TYPE" [P_WORK_MENU_ID]="PRODUCT_WORK_MENU_ID" (product_work_view_refresh)="this.Hide_Pop_Product_Work_View_Modal()" (product_work_view_close)="this.close_Pop_Product_Work_View_Modal()"></app-product-work-view>
+</div>

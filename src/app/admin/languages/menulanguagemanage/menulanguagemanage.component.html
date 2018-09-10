@@ -1,0 +1,238 @@
+<div id="content">
+  <!-- <div class="row">
+    <sa-big-breadcrumbs [items]="['메뉴 다국어 설정']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div> -->
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 col-md-12 col-lg-4">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                       [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'메뉴목록' | mlang: 'LABEL' : 'L000131' : '45'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+
+                <fieldset>
+                  <section>
+                    <div class="example-config" style="display:none;">
+                        Expanded keys: {{expandedKeys.join(",")}}
+                    </div>
+                    <kendo-treeview
+                      [nodes]="dept_tree"
+                      textField="text"
+                      kendoTreeViewExpandable
+                      kendoTreeViewSelectable
+                      kendoTreeViewHierarchyBinding
+                      childrenField="items"
+                      (selectionChange)="treeSelection($event)"
+                      [children]="fetchChildren"
+                      [hasChildren]="hasChildren"
+                      [expandBy]="'text'"
+                      [(expandedKeys)]="expandedKeys"
+                      >
+                    </kendo-treeview>
+                  </section>
+                </fieldset>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-12 col-md-12 col-lg-8">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                       [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'시스템 다국어' | mlang: 'LABEL' : 'L000132' : '45'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+
+
+              <div class="navbar navbar-default" style="margin-bottom:5px;margin-top:5px;background-color:#ffffff;border-color:#e7e7e7;">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
+
+                  <!-- ui클래스 -->
+
+                  <form class="navbar-form navbar-left" role="search">
+
+                    <label>{{'언어' | mlang: 'LABEL' : 'L000133' : '45'}}</label>
+                    <div class="form-group">
+                      <select [(ngModel)]="sel_langlcid" name="sel_langlcid" class="form-control input-sm">
+                        <option value="all" selected=selected>전체</option>
+                        <option *ngFor="let langlcid_list of selectbox_sel_langlcid_list" value= {{langlcid_list.id}}>{{langlcid_list.nm}}</option>
+                      </select>
+                    </div>
+
+                    &nbsp;&nbsp;
+
+                    <label>{{'다국어그룹키' | mlang: 'LABEL' : 'L000134' : '45'}}</label>
+                    <div class="form-group">
+                      <select [(ngModel)]="sel_langgrpkey" name="sel_langgrpkey" class="form-control input-sm">
+                        <option value="all" selected=selected>전체</option>
+                        <option *ngFor="let langgrpkey_list of selectbox_sel_langgrpkey_list" value= {{langgrpkey_list.id}}>{{langgrpkey_list.nm}}</option>
+                      </select>
+                    </div>
+
+
+                    &nbsp;&nbsp;
+
+                    <label>{{'다국어키' | mlang: 'LABEL' : 'L000135' : '45'}}</label>
+                    <div class="form-group">
+                      <input style="width:100px" name="txtlangkey" [(ngModel)]="txtlangkey" class="form-control input-sm" >
+                    </div>
+
+                    &nbsp;&nbsp;
+
+                    <label>{{'다국어값' | mlang: 'LABEL' : 'L000136' : '45'}}</label>
+                    <div class="form-group">
+                      <input style="width:100px" name="txtvalue" [(ngModel)]="txtvalue" class="form-control input-sm" >
+                    </div>
+
+                    &nbsp;&nbsp;
+
+                    <button class="btn btn-default btn-sm" (click)="searchGrid_language()" type="submit">{{'검색' | mlang: 'LABEL' : 'L000137' : '45'}}</button>
+
+                  </form>
+
+                  <!-- ui클래스 -->
+
+                <!-- </div>--><!-- /.navbar-collapse -->
+
+              </div>
+
+
+              <form class="smart-form">
+
+                <kendo-grid [data]="gridView_Lang" [height]="260"
+
+                  [pageSize]="pageSize"
+                  [skip]="skip"
+                  [pageable]="true"
+                  (pageChange)="pageChange($event)"
+
+                  [sort]="gridSort_Lang"
+                  [sortable]="true"
+                  (sortChange)="sortChange_Lang($event)"
+
+                  [resizable]="true"
+
+                  [selectable]="{ mode: 'single' }"
+                  [kendoGridSelectBy]="'LANG_KEY'"
+                  [selectedKeys]="gridSelection_Lang"
+
+                  (edit)="saveHandler_Lang($event)"
+
+                >
+
+                  <!-- <kendo-grid-column field="rownum" title="번호" width="60" ></kendo-grid-column> -->
+                  <kendo-grid-column title="{{'언어' | mlang: 'LABEL' : 'L000133' : '45'}}" width="70">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        {{language_lcid(dataItem.LANG_LCID)}}
+                    </ng-template>
+                  </kendo-grid-column>
+                  <!-- <kendo-grid-column title="{{'다국어그룹키' | mlang: 'LABEL' : 'L000134' : '45'}}" width="100">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        {{language_grkey(dataItem.LANG_GRKEY)}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="LANG_GRKEY" title="{{'다국어그룹키' | mlang: 'LABEL' : 'L000134' : '45'}}" width="100" ></kendo-grid-column>
+                  <kendo-grid-column field="LANG_KEY" title="{{'다국어키' | mlang: 'LABEL' : 'L000135' : '45'}}" width="100" ></kendo-grid-column>
+                  <kendo-grid-column field="VALUE" title="{{'다국어' | mlang: 'LABEL' : 'L000138' : '45'}} " width="100"></kendo-grid-column>
+
+                  <kendo-grid-command-column title="" width="220">
+                    <ng-template kendoGridCellTemplate>
+                      <button kendoGridEditCommand class="k-primary">ADD</button>
+                    </ng-template>
+                  </kendo-grid-command-column>
+
+                </kendo-grid>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-12 col-md-12 col-lg-8">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                       [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'메뉴 다국어' | mlang: 'LABEL' : 'L000139' : '45'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+
+                <kendo-grid [data]="gridView_MenuLang" [height]="260"
+
+                  [pageSize]="pageSize_MenuLang"
+                  [skip]="skip_MenuLang"
+                  [pageable]="true"
+                  (pageChange)="pageChange_Menu($event)"
+
+                  [sort]="gridSort_MenuLang"
+                  [sortable]="true"
+                  (sortChange)="sortChange_MenuLang($event)"
+
+                  [resizable]="true"
+
+                  [selectable]="{ mode: 'single' }"
+                  [kendoGridSelectBy]="'LANG_KEY'"
+                  [selectedKeys]="gridSelection_MenuLang"
+
+                  (edit)="editHandler_MenuLang($event)"
+                  (cancel)="cancelHandler_MenuLang($event)"
+                  (remove)="removeHandler_MenuLang($event)"
+                  (save)="saveHandler_MenuLang($event)"
+                >
+
+                  <!-- <kendo-grid-column field="rownum" title="번호" width="60" ></kendo-grid-column> -->
+                  <kendo-grid-column field="MENU_ID" title="{{'메뉴ID' | mlang: 'LABEL' : 'L000141' : '45'}}" width="70" ></kendo-grid-column>
+                  <kendo-grid-column title="{{'언어' | mlang: 'LABEL' : 'L000133' : '45'}}" width="70">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        {{language_lcid(dataItem.LANG_LCID)}}
+                    </ng-template>
+                  </kendo-grid-column>
+                  <!-- <kendo-grid-column title="{{'다국어그룹키' | mlang: 'LABEL' : 'L000134' : '45'}}" width="100">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        {{language_grkey(dataItem.LANG_GRKEY)}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="LANG_GRKEY" title="{{'다국어그룹키' | mlang: 'LABEL' : 'L000134' : '45'}}" width="100" ></kendo-grid-column>
+                  <kendo-grid-column field="LANG_KEY" title="{{'다국어키' | mlang: 'LABEL' : 'L000135' : '45'}}" width="100" ></kendo-grid-column>
+                  <kendo-grid-column field="VALUE" title="{{'다국어' | mlang: 'LABEL' : 'L000138' : '45'}}" width="100"></kendo-grid-column>
+
+                  <kendo-grid-command-column title="" width="220">
+                    <ng-template kendoGridCellTemplate>
+                      <button kendoGridEditCommand class="k-primary">Edit</button>
+                      <button kendoGridRemoveCommand class="k-primary">Delete</button>
+                      <button kendoGridSaveCommand [disabled]="formGroup?.invalid">{{ 'Update' }}</button>
+                      <button kendoGridCancelCommand>{{ 'Cancel' }}</button>
+                    </ng-template>
+                  </kendo-grid-command-column>
+
+                </kendo-grid>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </sa-widgets-grid>
+
+</div>

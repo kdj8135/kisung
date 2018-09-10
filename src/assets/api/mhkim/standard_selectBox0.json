@@ -1,0 +1,32 @@
+[
+    {
+        "no": "1"
+        ,"group_code": "11"
+        ,"group_name": "개발산출물"
+    },
+    {
+        "no": "2"
+        ,"group_code": "22"
+        ,"group_name": "운영/유지보수 산출물"
+    },
+    {
+        "no": "3"
+        ,"group_code": "33"
+        ,"group_name": "QA산출물"
+    },
+    {
+        "no": "4"
+        ,"group_code": "44"
+        ,"group_name": "종료산출물"
+    },
+    {
+        "no": "5"
+        ,"group_code": "55"
+        ,"group_name": "딜리버리단계 관리 산출물"
+      },
+      {
+          "no": "6"
+          ,"group_code": "66"
+          ,"group_name": "제안단계 관리 산출물"
+      }
+]

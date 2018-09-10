@@ -1,0 +1,126 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+      <!-- <article class="col-sm-12"> -->
+
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+
+            <label>{{'그룹' | mlang: 'LABEL' : 'L000092' : '38'}}</label>
+            <div class="form-group">
+                <select [(ngModel)]="sc_group" name="sc_group"  (change)="Bind_Group_Data()" class="form-control input-sm">
+                    <option value="all">전체</option>
+                    <option value="BS">공통</option>
+                    <option value="MP">My Portal</option>
+                    <option value="PR">Project Room</option>
+                    <option value="PM">PMO</option>
+                    <option value="AD">Admin</option>
+                </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <label>{{'메인코드' | mlang: 'LABEL' : 'L000093' : '38'}}</label>
+            <div class="form-group">
+              <select [(ngModel)]="sc_gubun" name="sc_gubun" (change) = "Search_tree($event)"  class="form-control input-sm">
+                <!-- <option value="all" selected=selected>전체</option> -->
+                <option *ngFor="let GroupList of selectbox_list" value= {{GroupList.id}}>{{GroupList.nm}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <button class="btn btn-default btn-sm" (click)="Show_Main_Modal()">{{'등록' | mlang: 'LABEL' : 'L000094' : '38'}}</button>
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div><!-- /.navbar-collapse -->
+
+      </div>
+
+    <!-- </article> -->
+
+    <sa-widgets-grid>
+      <div class="row">
+
+          <article class="col-sm-12 col-md-12 col-lg-6">
+            <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+              <header>
+                <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+                <h2>{{'하위코드' | mlang: 'LABEL' : 'L000095' : '38'}}</h2>
+              </header>
+
+              <div>
+                <div class="widget-body no-padding">
+                  <form class="smart-form">
+                    <header>
+                      <label [hidden]="Reg_edit_button"><button class="btn btn-default btn-sm" (click)="Edit_Show_Main_Modal()">{{'메인코드 수정' | mlang: 'LABEL' : 'L000096' : '38'}}</button></label>
+                      &nbsp;&nbsp;&nbsp;
+                      <label [hidden]="Sub_reg_button"><button class="btn btn-default btn-sm" (click)="New_Sub_Code('insert')">{{'추가' | mlang: 'LABEL' : 'L000097' : '38'}}</button></label>
+                      <label [hidden]="Sub_add_button"><button class="btn btn-default btn-sm" (click)="Add_Sub_Code('add')">{{'하위추가' | mlang: 'LABEL' : 'L000111' : '38'}}</button></label>
+                    </header>
+
+                    <fieldset>
+                      <section>
+                        <!-- <div class="example-config">
+                            Expanded keys: {{expandedKeys.join(",")}}
+                        </div> -->
+                        <kendo-treeview
+                          [nodes]="data_tree"
+                          textField="text"
+                          kendoTreeViewExpandable
+                          kendoTreeViewSelectable
+                          kendoTreeViewHierarchyBinding
+                          childrenField="items"
+                          (selectionChange)="treeSelection($event)"
+                          [(expandedKeys)]="expandedKeys"
+                           [(selectedKeys)]="selectedKeys"
+                          >
+                        </kendo-treeview>
+                      </section>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </article>
+
+
+
+        <article class="col-sm-12 col-md-12 col-lg-6" [hidden]="View_page">
+          <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                         [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+            <header>
+              <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+              <h2><strong>{{View_Subject}}</strong></h2>
+            </header>
+
+            <div>
+              <div class="widget-body no-padding">
+                <app-commoncodelist-sub-reg [idx]="idx" [tree_id]="tree_id" [gubun]="gubun" [idx_nm]="main_nm" #SubReg (opener_refresh_tree_sub)="Refresh_Sub_tree()"></app-commoncodelist-sub-reg>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        </div>
+    </sa-widgets-grid>
+</div>
+
+
+<!-- 모달 -->
+<!-- Main Reg Modal-->
+<div bsModal #myModal_Main_reg="bs-modal" class="modal fade" id="myModal_Main_reg" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-commoncodelist-main-reg [idx]="idx" #MainReg (close_refresh_reg)="Refresh_HideModal_Reg()" (close_hide_reg)="this.myModal_Main_reg.hide()"></app-commoncodelist-main-reg>
+</div>

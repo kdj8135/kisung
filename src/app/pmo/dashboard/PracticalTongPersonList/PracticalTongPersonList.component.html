@@ -1,0 +1,117 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+  <div class="row">
+    <article class="col-sm-12">
+
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+
+            <label>부서</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="DeptName" [(ngModel)]="DeptName" style="width:100px;" readonly="readonly" class="form-control input-sm" (click)="Show_Pop_Dept_Modal('Dept_CD','DeptName')" />
+                <input type="hidden" name="Dept_CD" [(ngModel)]="Dept_CD" />
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <label class="checkbox">
+              <input type="checkbox" name="checkbox" [(ngModel)]="chk_lowrank">
+            </label>
+            <label>하위부서포함</label>
+
+            <!-- <div class="form-group">
+              <input style="width:100px" name="search_box" [(ngModel)]="search_box" class="form-control input-sm" placeholder="Search">
+            </div> -->
+
+            &nbsp;&nbsp;
+
+            <label>기간</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control datepicker" name="aFrom_d" placeholder=""
+                      [saUiDatepicker]="{
+                          dateFormat: 'yy-mm-dd'
+                      }"
+                    #From_d
+                    style="width:95px;" />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+            </div>
+
+            <label>~</label>
+
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control datepicker" name="aTo_d" placeholder=""
+                      [saUiDatepicker]="{
+                          dateFormat: 'yy-mm-dd'
+                      }"
+                      #To_d
+                      style="width:95px;" />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <button class="btn btn-default btn-sm" (click)="Search()" type="submit">{{'검색' | mlang: 'LABEL' : 'L000003' : '34'}}</button>
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div><!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div><!-- end row -->
+
+  <kendo-grid
+    [data]="gridView"
+    [height]="410"
+
+    [pageSize]="pageSize"
+    [skip]="skip"
+    [pageable]="true"
+    (pageChange)="pageChange($event)"
+
+    [sort]="sort"
+    [sortable]="true"
+    [resizable]="true"
+    (sortChange)="sortChange($event)"
+
+    [selectable]="{ mode: 'single' }"
+
+    [kendoGridSelectBy]="'emp_no'"
+    [selectedKeys]="mySelection"
+    (cellClick)="OnClickEvent($event)"
+  >
+      <kendo-grid-column field="rnum" title="순서" width="100" ></kendo-grid-column>
+      <kendo-grid-column field="deptname" title="{{'부서' | mlang: 'LABEL' : 'L000001' : '34'}}" width="130" ></kendo-grid-column>
+      <kendo-grid-column field="emp_no" title="{{'사용자ID' | mlang: 'LABEL' : 'L000010' : '34'}}" width="100"></kendo-grid-column>
+      <kendo-grid-column field="username" title="{{'이름' | mlang: 'LABEL' : 'L000006' : '34'}}" width="100"></kendo-grid-column>
+      <kendo-grid-column field="login_cnt1" title="로그인횟수" width="100" ></kendo-grid-column>
+      <kendo-grid-column field="login_cnt2" title="전체 로그인횟수" width="100" ></kendo-grid-column>
+      <kendo-grid-column field="use_time1" title="마지막 사용 시작시간" width="100" ></kendo-grid-column>
+      <kendo-grid-column field="use_time2" title="마지막 사용 종료시간" width="100" ></kendo-grid-column>
+  </kendo-grid>
+
+</div><!-- end content -->
+
+<!--부서공통팝업 모달 -->
+<div bsModal #lgModal_pop_dept="bs-modal" class="modal fade" id="myModal_pop_dept" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-selectdept [Pop_dept_cd]="Pop_dept_cd" [Arr_Cd_Nm]="Arr_Cd_Nm" [Use_YN]="Use_YN" [Expanded_YN]="Expanded_YN" (selectdept_ok)="Close_Pop_Dept_Modal($event)" (selectdept_close)="this.lgModal_pop_dept.hide()"></app-selectdept>
+</div>

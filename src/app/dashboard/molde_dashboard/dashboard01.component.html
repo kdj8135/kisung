@@ -1,0 +1,168 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start 상단 조회 -->
+  <div class="row">
+    <article class="col-sm-12">
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+            <label>수주선택</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="Modal_OrderNo" [(ngModel)]="Modal_OrderNo" (click)="this.Modal_order.show()" style="width:200px;" readonly="readonly" class="form-control input-sm" />
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+
+            &nbsp;
+            &nbsp;
+            <label>제조원가율</label>
+            <input type="number" name="order_rt" [(ngModel)]="order_rt" maxlength="3" style="width:80px;"  class="form-control input-sm" />%
+            <button type="button" class="btn btn-default" (click)="excel_html()">원가율 계산</button>
+            <button type="button" class="btn btn-default" (click)="tableToExcel('excel_html')">원가내역서 xls</button>
+            <button type="button" class="btn btn-default" (click)="open_lgModal_out_amt()">외주비용</button>
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div>
+        <!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div>
+  <!-- end 상단 조회 -->
+
+  <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-12">
+      <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+        <header>
+          <h2>집행 예상/결과</h2>
+        </header>
+        <div>
+          <div class="widget-body">
+            <form class="smart-form">
+              <div id="html_foot2"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-12">
+      <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+        <header>
+          <h2>제조원가</h2>
+        </header>
+
+        <div>
+          <div class="widget-body">
+            <form class="smart-form">
+              <table class="table table-bordered">
+                <colgroup>
+                  <col style="width:5%;" />
+                  <col style="width:19%;" />
+                  <col style="width:19%;" />
+                  <col style="width:19%;" />
+                  <col style="width:19%;" />
+                  <col style="width:19%;" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th style="text-align:center" colspan="6">공정별 가공비</th>
+                  </tr>
+                  <tr>
+                    <th style="text-align:center">No.</th>
+                    <th style="text-align:center" colspan="2">가공명</th>
+                    <th style="text-align:center">공수</th>
+                    <th style="text-align:center">가공임률</th>
+                    <th style="text-align:center">금액</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody_list"></tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+
+</div>
+<!-- end content -->
+
+<div id="excel_html" style="display:none;">
+  <table>
+    <colgroup>
+      <col width="80%" />
+      <col width="20%" />
+    </colgroup>
+    <tr>
+      <th style="text-align:center;font-size:30px;font-weight:bold;">원가내역서</th>
+      <td>
+        <table border="1" align="right">
+          <tr>
+            <td colspan="2" style="text-align:center;">입안</td>
+            <td colspan="2" style="text-align:center;">심사</td>
+            <td colspan="2" style="text-align:center;">결정</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="height:70px;">&nbsp;</td>
+            <td colspan="2" style="height:70px;">&nbsp;</td>
+            <td colspan="2" style="height:70px;">&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td colspan="2">
+        <div id="html_work"></div>
+      </td>
+    </tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td colspan="2">
+        <div id="html_detail"></div>
+      </td>
+    </tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td colspan="2">
+        <div id="html_foot"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<!-- 수주선택 모달 start -->
+<div bsModal #Modal_order="bs-modal" class="modal fade" id="myModal_pop_dept" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-orderselect (Modal_order_Close)="this.Modal_order.hide()" (Modal_order_Search)="this.Modal_order_Return($event)">
+  </app-orderselect>
+</div>
+<!-- 수주선택 모달 end -->
+
+<!-- 외주비용 모달 start -->
+<div bsModal #lgModal_pop_outsourcing_amt_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <app-outsourcing-amt-view
+  [order_id]="amt_order_id"
+  (outsourcing_amt_view_close)="this.close_lgModal_out_amt()"
+  >
+  </app-outsourcing-amt-view>
+</div>
+<!-- 외주비용 모달 end -->

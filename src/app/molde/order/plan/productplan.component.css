@@ -1,0 +1,27 @@
+.item {
+    background-color: #bfe7f9;
+    color: #1494d0;
+    border: 1px solid #fff;
+    height: 40px;
+    width: 50px;
+    line-height: 38px;
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+    cursor: move;
+    float: left;
+    margin-right: 20px;
+}
+
+.item:hover {
+    opacity: 0.8;
+}
+.work_back_color {
+  background-color: #00CC00;
+  border: 2px dashed;
+  width:90px;min-width:90px;max-width:90px;padding:5px;
+}
+
+.work_border {
+
+}

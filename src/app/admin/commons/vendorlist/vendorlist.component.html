@@ -1,0 +1,232 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+  <div class="row">
+    <article class="col-sm-12">
+
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+
+            <!-- <form class="smart-form">
+              <section class="col col-3">
+                <label class="select">
+                  <select [(ngModel)]="add_vendor_city" name="add_vendor_city">
+                    <option value="국내">국내</option>
+                    <option value="해외">해외</option>
+                  </select><i></i>
+                </label>
+              </section>
+            </form> -->
+            <div class="form-group">
+              <select [(ngModel)]="sc_combo" name="sc_combo" class="form-control input-sm">
+                <option value="all" selected="selected">전체</option>
+                <option value="tp">구분</option>
+                <option value="city">국내외</option>
+                <option value="nm">업체명</option>
+                <option value="owner">담당자</option>
+                <option value="business">주요업무</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input style="width:300px" name="sc_textbox" [(ngModel)]="sc_textbox" class="form-control input-sm" placeholder="">
+            </div>
+
+            &nbsp;&nbsp;
+
+            <button class="btn btn-default btn-sm" (click)="searchGrid()" type="submit">검색</button>
+            <button class="btn btn-default btn-sm" (click)="click_add()">등록</button>
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div>
+        <!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div>
+  <!-- end row -->
+
+  <kendo-grid [data]="gridView" [height]="630" [resizable]="true"
+    [pageSize]="pageSize" [skip]="skip" [pageable]="true"
+    (pageChange)="pageChange($event)"
+    [sort]="sort" [sortable]="true"
+    (sortChange)="sortChange($event)"
+    [selectable]="{ mode: 'single' }"
+    [kendoGridSelectBy]="'VENDOR_ID'"
+    [selectedKeys]="mySelection" (cellClick)="click_add($event)">
+    <kendo-grid-column [hidden]="true" field="VENDOR_ID" title="업체ID" width="130"></kendo-grid-column>
+    <kendo-grid-column field="VENDOR_TP" title="구분" width="80"></kendo-grid-column>
+    <kendo-grid-column field="VENDOR_CITY" title="국내외" width="80"></kendo-grid-column>
+    <kendo-grid-column field="VENDOR_NM" title="업체명" width="150"></kendo-grid-column>
+    <kendo-grid-column field="VENDOR_S_NM" title="약어" width="100"></kendo-grid-column>
+    <kendo-grid-column field="TEL_NO" title="대표번호" width="100"></kendo-grid-column>
+    <kendo-grid-column field="OWNER" title="담당자" width="100"></kendo-grid-column>
+    <kendo-grid-column field="BUSINESS" title="주요업무" width="200"></kendo-grid-column>
+  </kendo-grid>
+</div>
+<!-- end content -->
+
+<!-- 등록 -->
+<div bsModal #lgModal_add="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div>
+    <form (ngSubmit)="onSubmit()" novalidate="novalidate" [saBootstrapValidator]="validatorOptions">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            <h4 class="modal-title">업체 등록</h4>
+          </div>
+          <div class="modal-body">
+            <form class="smart-form">
+              <fieldset>
+
+
+                <div class="row">
+                  <section class="col col-3">
+                    <label>구분<i class="fa fa-check"></i></label>
+                    <label class="select">
+                    <select [(ngModel)]="add_vendor_tp" name="add_vendor_tp">
+                      <option value="{{vendor.SUB_CD}}" *ngFor="let vendor of vendor_tps" >{{vendor.SUB_NM}}</option>
+                    </select><i></i>
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>국내외<i class="fa fa-check"></i></label>
+                    <label class="select">
+                    <select [(ngModel)]="add_vendor_city" name="add_vendor_city">
+                      <option value="국내">국내</option>
+                      <option value="해외">해외</option>
+                    </select><i></i>
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>약어<i class="fa fa-check"></i></label>
+                    <label class="input">
+                    <input type="text" name="add_vendor_s_nm" [(ngModel)]="add_vendor_s_nm" />
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>업체명<i class="fa fa-check"></i></label>
+                    <label class="input">
+                    <input type="text" name="add_vendor_nm" [(ngModel)]="add_vendor_nm" />
+                  </label>
+                  </section>
+                </div>
+
+
+                <div class="row">
+                  <section class="col col-3">
+                    <label>대표번호</label>
+                    <label class="input">
+                    <input type="text" class="form-control" name="add_tel_no" [(ngModel)]="add_tel_no" />
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>팩스번호</label>
+                    <label class="input">
+                    <input type="text" class="form-control" name="add_fax_no" [(ngModel)]="add_fax_no" />
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>담당자</label>
+                    <label class="input">
+                    <input type="text" class="form-control" name="add_owner" [(ngModel)]="add_owner" />
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>연락처</label>
+                    <label class="input">
+                    <input type="text" class="form-control" name="add_owner_tel_no" [(ngModel)]="add_owner_tel_no" />
+                  </label>
+                  </section>
+                </div>
+
+                <div class="row">
+                  <section class="col col-9">
+                    <label>주요업무</label>
+                    <label class="input">
+                    <input type="text" class="form-control" name="add_business" [(ngModel)]="add_business" />
+                  </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>이메일</label>
+                    <label class="input">
+                    <input type="text" class="form-control" name="add_email" [(ngModel)]="add_email" />
+                  </label>
+                  </section>
+                </div>
+
+                <div class="row">
+                  <section class="col col-2">
+                    <label>주소</label>
+                    <label class="input">
+                      <input type="text" style="background-color:#eee;" readonly class="form-control" name="add_addr_no" [(ngModel)]="add_addr_no" />
+                    </label>
+                  </section>
+
+                  <section class="col col-8">
+                    <label></label>
+                    <label class="input">
+                      <input type="text" style="background-color:#eee;" readonly class="form-control" name="add_addr_1" [(ngModel)]="add_addr_1"  #addrDetail1 />
+                    </label>
+                  </section>
+
+                  <section class="col col-2">
+                    <label></label>
+                    <label class="input">
+                      <btn-daum-address (result)="setDaumAddressApi($event)" [options]="daumAddressOptions" ></btn-daum-address>
+                    </label>
+                  </section>
+                </div>
+
+                <section class="">
+                  <label>상세주소</label>
+                  <label class="input">
+                    <input type="text" class="form-control" name="add_addr_2" [(ngModel)]="add_addr_2"  #addrDetail />
+                  </label>
+                </section>
+
+
+                <section class="">
+                  <label>비고</label>
+                  <label class="input">
+                    <input type="text" class="form-control" name="add_memo" [(ngModel)]="add_memo" />
+                  </label>
+                </section>
+
+
+              </fieldset>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="savedata_add()">저장</button>
+            <label  [hidden]="btn_del_hidden" >
+              <button type="button" class="btn btn-primary" (click)="savedata_remove()">삭제</button>
+            </label>
+            <button type="button" class="btn btn-default" (click)="lgModal_add.hide()">취소</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>

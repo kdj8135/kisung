@@ -1,0 +1,80 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Home']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+    <div class="row">
+        <a target="_self" href="assets/_upload_form/ProudctUpload.xlsx" download="ProudctUpload.xlsx">폴더에 있는 양식(엑셀업로드 양식 등) 다운로드</a>
+        <br />
+      <a routerLink="/admin/users/userlist">routerLink : userlist이동</a>
+      <br />
+      <a routerLink="/home">routerLink : HOME이동</a>
+      <br />
+      <a (click)="reloadPage()">reloadPage</a>
+      <br />
+      <a [href]="location.path()">Reload</a>
+
+      <br />
+      <a (click)="reloadPage2()">reloadPage2</a>
+
+        <div class="col-sm-12">
+            <div  class="well">
+                <h1>PMSLite Angular 5</h1>
+                <h1>{{'mLangTest' | mlang: 'LangGrpKey' : 'LangKey' : 'menuid'}}</h1>
+                <h1>{{'homeI18n' | i18n}}</h1>
+                <h1>클릭 메뉴아이디 : {{this.glObj.getClickMenuId()}}</h1>
+                <button (click)="newWindow()">Window Open</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div  class="well">
+                <p>첨부파일&nbsp;&nbsp;<button (click)="savedata_file()">첨부 저장</button></p>
+                <p>정확한 소스는 조직도관리-수정, 삭제에 있음(추후 삭제 예정)</p>
+                <app-fileattach [view_yn]="'N'" [name]="attach_tp" [paper_id]="paper_id" [sub_id]="" [rev]="" (uploadFilesNm)="uploadFilesNm($event)"></app-fileattach>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div  class="well">
+          <p>다중모달&nbsp;&nbsp;<button (click)="modal_test()">열기</button></p>
+
+          <div id="hidden_button"></div>
+          <div id="hidden_modal"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div  class="well">
+          <p>프로젝트&nbsp;&nbsp;
+            <button (click)="project_add()">프로젝트5 추가 및 이동</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button (click)="project_get()">프로젝트 확인</button> 선택 프로젝트 >>> {{projectinfo}}
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button (click)="project_move()">프로젝트2로 이동</button>
+          </p>
+          <p>이동은 굳이 사용 안해도 됨. 추가 이벤트에 다 존재함(신규면 추가 및 이동, 정보가 존재하면 이동만)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div  class="well">
+                <p>엑셀Import</p>
+                <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+                <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
+                <hr />
+                {{excel_json | json}}
+            </div>
+        </div>
+    </div>
+
+
+</div>

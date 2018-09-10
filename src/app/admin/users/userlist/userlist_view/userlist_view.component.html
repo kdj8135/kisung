@@ -1,0 +1,164 @@
+<div class="modal-dialog modal-lg">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" (click)="HideModal_View()">&times;</button>
+      <h4 class="modal-title">{{'사용자 조회' | mlang: 'LABEL' : 'L000033' : '34'}}</h4>
+    </div>
+
+    <div class="modal-body">
+
+
+      <div id="content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
+            <div class="well no-padding">
+              <form class="smart-form client-form">
+                <fieldset>
+                  <!-- <section class="col col-2">
+                    <div style="background: #eee; height: 125px;">
+                        <img src="{{EMP_PROFILE_IMG}}" width="93px" height="115px" style="margin-top: 5px; margin-left: 5px;" alt="" />
+                    </div>
+                  </section> -->
+                  <section class="col col-6">
+                    <label class="label">{{'사용자ID' | mlang: 'LABEL' : 'L000010' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="EMP_NO" disabled=disabled value={{EMP_NO}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-6">
+                    <label class="label">{{'Email' | mlang: 'LABEL' : 'L000018' : '34'}}</label>
+                    <label class="input">
+                      <input type="email" name="EMAIL_ADDR" disabled=disabled value={{EMAIL_ADDR}} [style.background-color]="inputcolor" />
+                      <b class="tooltip tooltip-bottom-right">Needed to verify your Email</b> </label>
+                  </section>
+
+                  <section class="col col-6">
+                    <label class="label">{{'이름' | mlang: 'LABEL' : 'L000006' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="UserName" disabled=disabled value={{UserName}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-6">
+                    <label class="label">{{'휴대폰번호' | mlang: 'LABEL' : 'L000019' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="PHONE" disabled=disabled value={{PHONE}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label class="label">{{'부서' | mlang: 'LABEL' : 'L000001' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="DeptName" disabled=disabled value={{DeptName}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">{{'퇴직유무' | mlang: 'LABEL' : 'L000020' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="EMP_STTS_NM" disabled=disabled value={{EMP_STTS_NM}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-3" [hidden]="T">
+                    <label class="label">{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="JOB_NM_T" disabled=disabled value={{JOB_NM_T}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-3" [hidden]="R">
+                    <label class="label">{{'직급' | mlang: 'LABEL' : 'L000012' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="JOB_NM_R" disabled=disabled value={{JOB_NM_R}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+
+
+
+                  <section class="col col-3" [hidden]="P">
+                    <label class="label">{{'직위' | mlang: 'LABEL' : 'L000016' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="JOB_NM_P" disabled=disabled value={{JOB_NM_P}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-3" [hidden]="D">
+                    <label class="label">{{'직무' | mlang: 'LABEL' : 'L000017' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="JOB_NM_D" disabled=disabled value={{JOB_NM_D}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-3" [hidden]="O">
+                    <label class="label">{{'직군' | mlang: 'LABEL' : 'L000013' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="JOB_NM_O" disabled=disabled value={{JOB_NM_O}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">{{'내선번호' | mlang: 'LABEL' : 'L000021' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="COMPANY_PHONE" disabled=disabled value={{COMPANY_PHONE}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+                  <!-- <section class="col col-3">
+                    <label class="label">{{'페이지카운트' | mlang: 'LABEL' : 'L000022' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="LIST_COUNT" disabled=disabled value={{LIST_COUNT}}/>
+                    </label>
+                  </section> -->
+                  <section class="col col-3">
+                    <label class="label">MES 사용 유무</label>
+                    <label class="input">
+                      <input type="text" name="PMS_USE_YN_NM" disabled=disabled value={{PMS_USE_YN_NM}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label class="label">담당공정</label>
+                    <label class="input">
+                      <input type="text" name="PROGRESS_CD" disabled=disabled value={{PROGRESS_CD}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+
+                </fieldset>
+
+                <fieldset style="display:none;">
+                  <!-- <div class="row"> -->
+                    <!-- <div class="widget-body no-padding"> -->
+                      <form class="smart-form">
+                          <kendo-grid [data]="gridView_Sub"
+                              [height]="200"
+                              [sort]="gridSort_Sub"
+                              [sortable]="true"
+                              (sortChange)="sortChange_Sub($event)"
+                              [resizable]="true"
+                          >
+                            <kendo-grid-column field="Sub_Dept_CD" title="{{'부서코드' | mlang: 'LABEL' : 'L000023' : '34'}}" width="80" ></kendo-grid-column>
+                            <kendo-grid-column field="Sub_DeptName" title="{{'부서' | mlang: 'LABEL' : 'L000001' : '34'}}" width="80" ></kendo-grid-column>
+                            <kendo-grid-column field="Sub_JOB_CD_P_NM" [hidden]="P" title="{{'직위' | mlang: 'LABEL' : 'L000016' : '34'}}" width="80" ></kendo-grid-column>
+                            <kendo-grid-column field="Sub_JOB_CD_D_NM" [hidden]="D" title="{{'직무' | mlang: 'LABEL' : 'L000017' : '34'}}" width="80" ></kendo-grid-column>
+                            <kendo-grid-column field="Sub_JOB_CD_T_NM" [hidden]="T" title="{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}" width="80" ></kendo-grid-column>
+                            <kendo-grid-column field="Sub_JOB_CD_R_NM" [hidden]="R" title="{{'직급' | mlang: 'LABEL' : 'L000012' : '34'}}" width="80" ></kendo-grid-column>
+                            <kendo-grid-column field="Sub_JOB_CD_O_NM" [hidden]="O" title="{{'직군' | mlang: 'LABEL' : 'L000013' : '34'}}" width="80" ></kendo-grid-column>
+                          </kendo-grid>
+                      </form>
+                    <!-- </div> -->
+                  <!-- </div> -->
+                </fieldset>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+      <button (click)="this.opener_ShowRegModal()" class="btn btn-primary">{{'수정' | mlang: 'LABEL' : 'L000024' : '34'}}</button>
+      <button (click)="ViewDelete()" class="btn btn-primary">{{'삭제' | mlang: 'LABEL' : 'L000025' : '34'}}</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="HideModal_View()">취소</button>
+    </div>
+  </div>
+
+</div>

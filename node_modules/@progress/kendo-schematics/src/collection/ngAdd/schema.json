@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "component",
+  "title": "Register a Kendo Angular component",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the component.",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "package": {
+      "description": "Package name to register.",
+      "type": "string"
+    },
+    "mainNgModule": {
+      "description": "The main NgModule for the package.",
+      "type": "string"
+    },
+    "module":  {
+      "type": "string",
+      "description": "Allows specification of the declaring module.",
+      "alias": "m"
+    },
+    "export": {
+      "type": "boolean",
+      "default": false,
+      "description": "Specifies if declaring module exports the component."
+    },
+    "skipInstall": {
+      "description": "Skip installing Kendo dependency packages.",
+      "type": "boolean",
+      "default": false
+    },
+    "theme": { 
+      "description": "Register Kendo theme.",
+      "enum": ["default", "bootstrap", "material"],
+      "type": "string"
+    },
+    "importHammerjs": { 
+      "description": "Import Hammer.js in the main module.",
+      "type": "boolean"
+    },
+    "dependencies": {
+      "description": "Additional dependencies for the package.",
+      "default": [],
+      "type": "array"
+    }
+  },
+  "required": [
+    "package",
+    "mainNgModule"
+  ]
+}

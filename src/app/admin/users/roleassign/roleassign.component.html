@@ -1,0 +1,205 @@
+<!-- <link rel="stylesheet" href="https://www.telerik.com/kendo-angular-ui/npm/node_modules//@progress/kendo-theme-default/dist/all.css" /> -->
+<div id="content">
+  <!-- <div class="row">
+    <sa-big-breadcrumbs [items]="['사용자별 역할 설정']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div> -->
+
+  <sa-widgets-grid>
+    <div class="row">
+
+      <article class="col-sm-12 col-md-12 col-lg-3">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'조직도' | mlang: 'LABEL' : 'L000055' : '36'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                <!-- <header></header> -->
+
+                <fieldset>
+                  <section>
+                    <kendo-treeview
+                      [nodes]="dept_tree"
+                      textField="text"
+                      kendoTreeViewExpandable
+                      kendoTreeViewSelectable
+                      kendoTreeViewHierarchyBinding
+                      childrenField="items"
+                      (selectionChange)="treeSelection($event)"
+                      [expandBy]="'text'"
+                      [(expandedKeys)]="expandedKeys"
+                      >
+                    </kendo-treeview>
+                  </section>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-12 col-md-12 col-lg-4">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+
+          <!-- <header>
+            <span class="widget-icon"> <i class="fa fa-check"></i> </span>
+            <h2>사용자</h2>
+
+            <div class="widget-toolbar">
+              <button class="btn btn-xs btn-default"(click)="click_add()"><i class="fa fa-plus"></i>설정</button>
+            </div>
+          </header> -->
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'사용자' | mlang: 'LABEL' : 'L000056' : '36'}}</h2>
+            <div class="widget-toolbar">
+              <label class="input">
+                <input style="width:150px" name="search_user_nm" [(ngModel)]="search_user_nm" class="form-control input-sm" placeholder="Search">
+              </label>
+
+              <div class="widget-toolbar">
+                <button class="btn btn-xs btn-default" (click)="searchGrid_info()" >{{'조회' | mlang: 'LABEL' : 'L000057' : '36'}}</button>
+                <button class="btn btn-xs btn-default"(click)="click_add()"><i class="fa fa-plus"></i>{{'설정' | mlang: 'LABEL' : 'L000058' : '36'}}</button>
+              </div>
+            </div>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                  <!-- <header></header> -->
+                  <!-- <fieldset> -->
+                <kendo-grid [data]="gridView_info" [height]="450"
+                  [sort]="gridSort_info"
+                  [sortable]="true"
+                  (sortChange)="sortChange_info($event)"
+
+                  [resizable]="true"
+
+                  [selectable]="{ mode: 'single' }"
+
+                  [kendoGridSelectBy]="'emp_no'"
+                  [selectedKeys]="gridSelection_info"
+                  (selectedKeysChange)="onSelectedKeysChange_info($event)"
+                >
+
+                  <kendo-grid-column field="emp_nm" title="{{'직원명' | mlang: 'LABEL' : 'L000059' : '36'}}" width="60" ></kendo-grid-column>
+                  <kendo-grid-column field="dept_nm" title="{{'부서' | mlang: 'LABEL' : 'L000060' : '36'}}" width="70"></kendo-grid-column>
+                </kendo-grid>
+                <!-- </fieldset> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-12 col-md-12 col-lg-5">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+           [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'역할' | mlang: 'LABEL' : 'L000061' : '36'}}</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                <!-- <header></header> -->
+                <!-- <fieldset> -->
+                  <kendo-grid [data]="gridView_role" [height]="450"
+                    [sort]="gridSort_role"
+                    [sortable]="true"
+                    (sortChange)="sortChange_role($event)"
+
+                    [resizable]="true"
+
+                    [selectable]="{ mode: 'single' }"
+                  >
+                  <!-- [pageSize]="pageSize_role"
+                  [pageable]="true" -->
+                    <kendo-grid-column field="role_id" title="{{'역할ID' | mlang: 'LABEL' : 'L000062' : '36'}}" width="70"></kendo-grid-column>
+                    <kendo-grid-column field="role_nm" title="{{'역할명' | mlang: 'LABEL' : 'L000063' : '36'}}" width="100"></kendo-grid-column>
+                    <kendo-grid-column field="role_info" title="{{'역할설명' | mlang: 'LABEL' : 'L000064' : '36'}}" width="100"></kendo-grid-column>
+                  </kendo-grid>
+                <!-- </fieldset> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </sa-widgets-grid>
+
+</div>
+
+
+
+<div bsModal #lgModal_addRole="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <!-- <form (ngSubmit)="onSubmit()" novalidate="novalidate" [saBootstrapValidator]="validatorOptions"> -->
+    <!-- <div class="modal-dialog modal-lg"  style="width:1100px;"> -->
+    <div class="modal-dialog modal-lg" style="width:400px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal_addRole.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">{{'역할별 역할 등록' | mlang: 'LABEL' : 'L000065' : '36'}} - <strong>{{emp_nm}}</strong></h4>
+        </div>
+
+        <div class="modal-body">
+
+          <div id="content_sub">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
+                <div class="well no-padding">
+
+                  <form class="smart-form">
+                    <fieldset>
+                        <div class="example-config" style="display:none;">
+                            selected keys: {{pop_gridSelection_role.join(",")}}
+                        </div>
+                        <kendo-grid [data]="pop_gridView_role" [height]="450"
+                          [sort]="pop_gridSort_role"
+                          [sortable]="true"
+                          (sortChange)="pop_sortChange_role($event)"
+
+                          [resizable]="true"
+
+                          [selectable]="{ mode: 'multiple' }"
+
+                          [kendoGridSelectBy]="'role_id'"
+                          [selectedKeys]="pop_gridSelection_role"
+                          >
+
+                          <kendo-grid-checkbox-column showSelectAll="true"  width="20"></kendo-grid-checkbox-column>
+                          <!-- <kendo-grid-column field="role_id" title="ID" width="60" ></kendo-grid-column> -->
+                          <kendo-grid-column field="role_nm" title="{{'역할' | mlang: 'LABEL' : 'L000061' : '36'}}" width="70"></kendo-grid-column>
+
+                        </kendo-grid>
+                    </fieldset>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="pop_add_role()">{{'추가' | mlang: 'LABEL' : 'L000066' : '36'}}</button>
+          <button type="button" class="btn btn-default" (click)="lgModal_addRole.hide()">{{'취소' | mlang: 'LABEL' : 'L000067' : '36'}}</button>
+        </div>
+      </div>
+    </div>
+  <!-- </form> -->
+</div>

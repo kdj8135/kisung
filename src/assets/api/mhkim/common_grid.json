@@ -1,0 +1,32 @@
+[
+    {
+        "no": "1"
+        ,"main_code": "AD00001"
+        ,"main_nm": "운영일지"
+    },
+    {
+        "no": "2"
+        ,"main_code": "AD00002"
+        ,"main_nm": "장애 유형"
+    },
+    {
+        "no": "3"
+        ,"main_code": "AD00003"
+        ,"main_nm": "장애심각도"
+    },
+    {
+        "no": "4"
+        ,"main_code": "AD00004"
+        ,"main_nm": "이슈상태"
+    },
+    {
+        "no": "5"
+        ,"main_code": "AD00005"
+        ,"main_nm": "승인상태"
+    },
+    {
+        "no": "6"
+        ,"main_code": "AD00006"
+        ,"main_nm": "한줄공지"
+    }
+]

@@ -1,0 +1,135 @@
+<div>
+  <div class="modal-dialog modal-lg" style="width:1300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+         <button type="button" class="close" (click)="closePop()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">공정계획복사</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <article class="col-sm-12">
+            <div class="navbar navbar-default">
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <form class="navbar-form navbar-left" role="search">
+
+                  <div class="form-group">
+                    <label>구분</label>
+                    <select [(ngModel)]="sc_order_tp" name="sc_order_tp" class="form-control input-sm">
+                      <option value="all" selected="selected">전체</option>
+                      <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
+                    </select>
+                  </div>
+
+                  &nbsp;&nbsp;
+
+                  <div class="form-group">
+                    <label>국내외</label>
+                    <select [(ngModel)]="sc_order_city" name="sc_order_city" class="form-control input-sm">
+                      <option value="all" selected="selected">전체</option>
+                      <option value="국내">국내</option>
+                      <option value="해외">해외</option>
+                    </select>
+                  </div>
+
+                  &nbsp;&nbsp;
+
+                  <div class="form-group">
+                    <label>업체</label>
+                    <select [(ngModel)]="sc_vendor_id" name="sc_vendor_id" class="form-control input-sm">
+                      <option value="all" selected="selected">전체</option>
+                      <option value="{{vendor.id}}" *ngFor="let vendor of vendor_list" >{{vendor.nm}}</option>
+                    </select>
+                  </div>
+
+                  &nbsp;&nbsp;
+
+                  <!-- <div class="form-group">
+                    <select [(ngModel)]="sc_search_combo" name="sc_search_combo" class="form-control input-sm">
+                      <option value="all" selected="selected">전체</option>
+                      <option value="no">수주번호</option>
+                      <option value="model">모델명</option>
+                      <option value="product">품명</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input style="width:300px" name="sc_search_text" [(ngModel)]="sc_search_text" class="form-control input-sm" placeholder="">
+                  </div> -->
+
+                  <div class="form-group">
+                    <label>수주번호</label>
+                    <div class="form-group">
+                      <input style="width:100px" name="order_no_text" [(ngModel)]="order_no_text" class="form-control input-sm" placeholder="">
+                    </div>
+                  </div>
+
+                  &nbsp;&nbsp;
+
+                  <div class="form-group">
+                    <label>모델명</label>
+                    <div class="form-group">
+                      <input style="width:100px" name="model_text" [(ngModel)]="model_text" class="form-control input-sm" placeholder="">
+                    </div>
+                  </div>
+
+                  &nbsp;&nbsp;
+
+                  <div class="form-group">
+                    <label>품명</label>
+                    <div class="form-group">
+                      <input style="width:100px" name="product_text" [(ngModel)]="product_text" class="form-control input-sm" placeholder="">
+                    </div>
+                  </div>
+
+                  &nbsp;&nbsp;
+
+                  <button class="btn btn-default btn-sm" (click)="searchGrid()" type="submit">검색</button>
+                </form>
+              </div>
+            </div>
+
+          </article>
+
+        </div>
+
+        <div class="row">
+          <article class="col-sm-12 col-md-12 col-lg-8">
+            <kendo-grid
+              [data]="gridView" [height]="450" [resizable]="true"
+              [skip]="skip" [pageSize]="pageSize" [pageable]="true"
+              [sort]="sort" [sortable]="true"
+              [selectable]="{ mode: 'single' }"
+              (sortChange)="sortChange($event)"
+              (pageChange)="pageChange($event)"
+              (cellClick)="click_main($event)">
+              <kendo-grid-column field="ORDER_TP" title="구분" width="70"></kendo-grid-column>
+              <kendo-grid-column field="VENDOR_NM" title="업체명" width="130"></kendo-grid-column>
+              <kendo-grid-column field="ORDER_NO" title="수주번호" width="70"></kendo-grid-column>
+              <kendo-grid-column field="MODEL_NM" title="모델명" width="130"></kendo-grid-column>
+              <kendo-grid-column field="PRODUCT_NM" title="품명" width="130"></kendo-grid-column>
+            </kendo-grid>
+          </article>
+          <article class="col-sm-12 col-md-12 col-lg-4">
+            <kendo-grid
+              [data]="gridView_sub" [height]="450" [resizable]="true"
+              [pageable]="false"
+              [selectable]="{ mode: 'single' }"
+              (cellClick)="click_sub($event)">
+              <kendo-grid-column field="map_no" title="도면번호" width="80"></kendo-grid-column>
+              <kendo-grid-column field="product_no" title="품번" width="80"></kendo-grid-column>
+              <kendo-grid-column field="product_nm" title="품명" width="120"></kendo-grid-column>
+            </kendo-grid>
+          </article>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="copy()">선택</button>
+        <button class="btn btn-default" (click)="closePop()">취소</button>
+      </div>
+    </div>
+  </div>
+</div>

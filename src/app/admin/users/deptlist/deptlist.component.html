@@ -1,0 +1,203 @@
+<div id="content">
+  <!-- <div class="row">
+    <sa-big-breadcrumbs [items]="['조직도 관리']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div> -->
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 col-md-12 col-lg-6">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                       [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+
+          <header>
+            <!-- <span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+            <h2>{{'조직도' | mlang: 'LABEL' : 'L000082' : '41'}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                <header>
+                  <!-- <label id="11"><button class="btn btn-default btn-sm" (click)="click_edit($event)">수정</button></label>
+                  <label id="12"><button class="btn btn-default btn-sm" (click)="click_delete()">삭제</button></label> -->
+                  <label [style.display]="'btn_edit' | display:'41'">
+                    <button class="btn btn-default btn-sm" (click)="click_edit($event)">{{'수정' | mlang: 'LABEL' : 'L000083' : '41'}}</button>
+                  </label>
+
+                  <label [style.display]="'btn_del' | display:'41'">
+                    <button class="btn btn-default btn-sm" (click)="click_delete()">{{'삭제' | mlang: 'LABEL' : 'L000084' : '41'}}</button>
+                  </label>
+
+                  &nbsp;&nbsp;&nbsp;
+                  <label [style.display]="'btn_add' | display:'41'">
+                    <button class="btn btn-default btn-sm" (click)="click_add('동레벨')">{{'동일 레벨 추가' | mlang: 'LABEL' : 'L000085' : '41'}}</button>
+                  </label>
+
+                  <label [style.display]="'btn_add_under' | display:'41'">
+                    <button class="btn btn-default btn-sm" (click)="click_add('하위레벨')">{{'하위 레벨 추가' | mlang: 'LABEL' : 'L000086' : '41'}}</button>
+                  </label>
+                </header>
+
+                <fieldset>
+                  <section>
+                    <kendo-treeview
+                      [nodes]="data_tree"
+                      textField="text"
+                      kendoTreeViewExpandable
+                      kendoTreeViewSelectable
+                      kendoTreeViewHierarchyBinding
+                      childrenField="items"
+                      (selectionChange)="handleSelection($event)"
+                      >
+                    </kendo-treeview>
+                  </section>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- <article class="col-sm-12 col-md-12 col-lg-6">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                       [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+            <h2>부서 상세정보</h2>
+          </header>
+
+          <div>
+            <div class="widget-body no-padding">
+              <form class="smart-form">
+                <fieldset>
+
+                  <section>
+                    <label class="label">부서코드</label>
+                    <label class="input state-disabled">
+                      <input type="text" disabled="disabled" value="{{dept_cd}}">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">부서명</label>
+                    <label class="input state-disabled">
+                      <input type="text" disabled="disabled" value="{{dept_nm}}">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">상위부서코드</label>
+                    <label class="input state-disabled">
+                      <input type="text" disabled="disabled" value="{{p_dept_cd}}">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">상위부서명</label>
+                    <label class="input state-disabled">
+                      <input type="text" disabled="disabled" value="{{p_dept_nm}}">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">순서</label>
+                    <label class="input state-disabled">
+                      <input type="text" disabled="disabled" value="{{sort}}">
+                    </label>
+                  </section>
+
+                  <section>
+                    <label class="label">생성일</label>
+                    <label class="input state-disabled">
+                      <input type="text" disabled="disabled" value="{{rgst_dt}}">
+                    </label>
+                  </section>
+                </fieldset>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </article> -->
+    </div>
+  </sa-widgets-grid>
+
+  <div  bsModal #lgModal_edit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="lgModal_edit.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">{{'수정' | mlang: 'LABEL' : 'L000083' : '41'}}</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{'부서코드' | mlang: 'LABEL' : 'L000087' : '41'}}</label>
+                <input type="text" class="form-control" id="edit_dept_cd" disabled="disabled" value="{{tree_id}}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{'부서명' | mlang: 'LABEL' : 'L000088' : '41'}}</label>
+                <input type="text" class="form-control" [(ngModel)]="tree_nm">
+              </div>
+            </div>
+          </div>
+
+          <div  class="row">
+            <div class="col-md-12">
+              <app-fileattach [view_yn]="'N'" [name]="'DEPT'" [paper_id]="tree_id" [sub_id]="" [rev]="" (uploadFilesNm)="uploadFilesNm($event)"></app-fileattach>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="savedata_edit()">{{'수정' | mlang: 'LABEL' : 'L000083' : '41'}}</button>
+          <button type="button" class="btn btn-default" (click)="lgModal_edit.hide()">{{'취소' | mlang: 'LABEL' : 'L000089' : '41'}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div bsModal #lgModal_add="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <form (ngSubmit)="onSubmit()" novalidate="novalidate" [saBootstrapValidator]="validatorOptions">
+
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">{{'추가' | mlang: 'LABEL' : 'L000091' : '41'}}</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>{{'신규부서명' | mlang: 'LABEL' : 'L000090' : '41'}}</label>
+                  <input type="text" class="form-control" name="title" [(ngModel)]="add_dept_nm" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="savedata_add()">{{'추가' | mlang: 'LABEL' : 'L000091' : '41'}}</button>
+            <button type="button" class="btn btn-default" (click)="lgModal_add.hide()">{{'취소' | mlang: 'LABEL' : 'L000089' : '41'}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+<!--
+  <button (click)="edit_test()">데이터 수정</button>
+  <div id="hidden_button"></div>
+  <div id="hidden_modal"></div> -->
+
+</div>

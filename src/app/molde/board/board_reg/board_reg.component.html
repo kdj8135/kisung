@@ -1,0 +1,49 @@
+<div class="modal-dialog modal-lg">
+
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" (click)="HideModal_Reg()">&times;</button>
+      <h4 class="modal-title">게시판 등록</h4>
+    </div>
+
+    <div class="modal-body">
+
+    <!-- <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12"> -->
+
+        <form class="smart-form client-form" novalidate="novalidate">
+
+          <table class="table table-bordered" style="clear:both">
+            <colgroup>
+              <col style="width:60px;" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <th style="vertical-align:middle;">제목<i class="fa fa-check"></i></th>
+                <td>
+                  <label class="input">
+                    <input type="text" name="SUBJECT" [(ngModel)]="SUBJECT" />
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+
+        <div class="summernote" [summernote]="{height: 280}" id="summernote"></div>
+
+        <label>첨부파일</label>
+        <app-fileattach [view_yn]="file_view_yn" [name]="attach_tp_boardreg" [paper_id]="paper_id" [sub_id]="" [rev]="" (uploadFilesNm)="uploadFilesNm_Board($event)"></app-fileattach>
+
+    <!-- </div> -->
+
+    </div>
+
+    <div class="modal-footer">
+      <button (click)="Regsave()" class="btn btn-primary">저장</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="HideModal_Reg()">취소</button>
+    </div>
+  </div>
+
+</div>

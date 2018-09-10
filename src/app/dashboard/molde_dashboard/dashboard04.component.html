@@ -1,0 +1,111 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start 상단 조회 -->
+  <div class="row">
+    <article class="col-sm-12">
+      <div class="navbar navbar-default">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left" role="search">
+
+            <div class="form-group">
+              <label>공정</label>
+              <div class="input-group">
+                <select [(ngModel)]="sc_work_cd" name="sc_work_cd" class="form-control input-sm">
+                  <option value="{{work.SUB_CD}}" *ngFor="let work of arr_work_list" >{{work.SUB_NM}}</option>
+                </select>
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>기간</label>
+              <div class="input-group">
+                <input #st_dt_fr type="text" class="form-control datepicker" id="st_dt_fr" [saUiDatepicker]="{dateFormat: 'yy-mm-dd'}" style="width:95px;" autocomplete="off" />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+              <label>~</label>
+              <div class="input-group">
+                <input #st_dt_to type="text" class="form-control datepicker" name="st_dt_to" [saUiDatepicker]="{dateFormat: 'yy-mm-dd'}" style="width:95px;" autocomplete="off" />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+            <button class="btn btn-default" (click)="searchData()" type="submit">검색</button>
+            <button class="btn btn-default" (click)="tableToExcel('excel_html')">xls 다운</button>
+
+          </form>
+        </div>
+      </div>
+    </article>
+  </div>
+  <!-- end 상단 조회 -->
+
+
+  <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-12" style="min-width: 100%;width:auto;">
+      <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+        <header>
+          <h2>공정별 공정조회</h2>
+        </header>
+
+        <div>
+          <div class="widget-body">
+            <form class="smart-form">
+              <div id="excel_html">
+
+
+                <table class="table table-bordered">
+                  <colgroup>
+                    <col style="width:10%;" />
+                    <col style="width:10%;" />
+                    <col style="width:11%;" />
+                    <col style="width:11%;" />
+                    <col style="width:10%;" />
+                    <col style="width:8%;" />
+                    <col style="width:8%;" />
+                    <col style="width:8%;" />
+                    <col style="width:8%;" />
+                    <col style="width:8%;" />
+                    <col style="width:8%;" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" rowspan="2">담당자</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" rowspan="2">수주번호</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" rowspan="2">품번</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" rowspan="2">품명</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" rowspan="2">수량</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" rowspan="2">ST</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;" colspan="5">WT</th>
+                    </tr>
+                    <tr>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;">합계</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;">세팅</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;">유인</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;">무인</th>
+                      <th style="text-align:center;background-color:#eee;vertical-align:middle;">미가공</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody_list"></tbody>
+                </table>
+
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<!-- end content -->
+
+
+<!-- 부서 -->
+<div bsModal #lgModal_pop_dept="bs-modal" class="modal fade" id="myModal_pop_dept" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-selectdept [Pop_dept_cd]="Pop_dept_cd" [Arr_Cd_Nm]="Arr_Cd_Nm" [Use_YN]="Use_YN" [Expanded_YN]="Expanded_YN" (selectdept_ok)="Close_Pop_Dept_Modal($event)" (selectdept_close)="this.lgModal_pop_dept.hide()"></app-selectdept>
+</div>
+<!-- 부서 -->

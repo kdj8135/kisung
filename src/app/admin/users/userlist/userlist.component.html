@@ -1,0 +1,166 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+  <div class="row">
+    <article class="col-sm-12">
+
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+
+            <label>{{'부서' | mlang: 'LABEL' : 'L000001' : '34'}}</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="DeptName" [(ngModel)]="DeptName" style="width:100px;" readonly="readonly" class="form-control input-sm" (click)="Show_Pop_Dept_Modal('Dept_CD','DeptName')" />
+                <input type="hidden" name="Dept_CD" [(ngModel)]="Dept_CD" />
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <select [(ngModel)]="ismem" name="ismem" class="form-control input-sm">
+                <option value="all" selected=selected>{{'전체' | mlang: 'LABEL' : 'L000005' : '34'}}</option>
+                <option value="name">{{'이름' | mlang: 'LABEL' : 'L000006' : '34'}}</option>
+                <option value="memid">{{'아이디' | mlang: 'LABEL' : 'L000007' : '34'}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input style="width:100px" name="search_box" [(ngModel)]="search_box" class="form-control input-sm" >
+            </div>
+
+            &nbsp;&nbsp;
+
+            <label>{{'사용여부' | mlang: 'LABEL' : 'L000002' : '34'}}</label>
+            <div class="form-group">
+              <select [(ngModel)]="isuse" name="isuse" class="form-control input-sm">
+                <option value="all" selected=selected>{{'전체' | mlang: 'LABEL' : 'L000005' : '34'}}</option>
+                <option value="Y">{{'사용' | mlang: 'LABEL' : 'L000008' : '34'}}</option>
+                <option value="N">{{'미사용' | mlang: 'LABEL' : 'L000009' : '34'}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <button class="btn btn-default btn-sm" (click)="Search()" type="submit">{{'검색' | mlang: 'LABEL' : 'L000003' : '34'}}</button>
+            <button class="btn btn-default btn-sm" (click)="RegModal()">{{'등록' | mlang: 'LABEL' : 'L000004' : '34'}}</button>
+
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div><!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div><!-- end row -->
+
+  <kendo-grid
+    [data]="gridView"
+    [height]="410"
+
+    [pageSize]="pageSize"
+    [skip]="skip"
+    [pageable]="true"
+    (pageChange)="pageChange($event)"
+
+    [sort]="sort"
+    [sortable]="true"
+    [resizable]="true"
+    (sortChange)="sortChange($event)"
+
+    [selectable]="{ mode: 'single' }"
+
+    [kendoGridSelectBy]="'EMP_NO'"
+    [selectedKeys]="mySelection"
+    (cellClick)="OnClickEvent($event)"
+  >
+
+      <kendo-grid-column field="DeptName" title="{{'부서' | mlang: 'LABEL' : 'L000001' : '34'}}" width="80" ></kendo-grid-column>
+      <kendo-grid-column field="EMP_NO" title="{{'사용자ID' | mlang: 'LABEL' : 'L000010' : '34'}}" width="80"></kendo-grid-column>
+      <!-- <kendo-grid-column
+        field="UserName"
+        title="{{'이름' | mlang: 'LABEL' : 'L000006' : '34'}}"
+        [width]="80"
+        [style]="{'background-color': '','color': 'blue', 'text-decoration' : 'underline', 'cursor' : 'pointer'}"
+        [footerStyle]="{'background-color': 'red','color': 'red'}"
+      ></kendo-grid-column> -->
+      <kendo-grid-column field="UserName" title="{{'이름' | mlang: 'LABEL' : 'L000006' : '34'}}" width="80"></kendo-grid-column>
+      <kendo-grid-column field="JOB_NM_T" [hidden]="T" title="{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}" width="50"></kendo-grid-column>
+      <kendo-grid-column field="JOB_NM_R" [hidden]="R" title="{{'직급' | mlang: 'LABEL' : 'L000012' : '34'}}" width="50"></kendo-grid-column>
+      <kendo-grid-column field="JOB_NM_P" [hidden]="P" title="{{'직위' | mlang: 'LABEL' : 'L000016' : '34'}}" width="50" ></kendo-grid-column>
+      <kendo-grid-column field="JOB_NM_D" [hidden]="D" title="{{'직무' | mlang: 'LABEL' : 'L000017' : '34'}}" width="50" ></kendo-grid-column>
+      <kendo-grid-column field="JOB_NM_O" [hidden]="O" title="{{'직군' | mlang: 'LABEL' : 'L000013' : '34'}}" width="50" ></kendo-grid-column>
+      <kendo-grid-column field="EMAIL_ADDR" title="{{'메일주소' | mlang: 'LABEL' : 'L000014' : '34'}}" width="100"></kendo-grid-column>
+      <kendo-grid-column field="PMS_USE_YN" title="PMS 사용유무" width="50"></kendo-grid-column>
+      <kendo-grid-column field="EMP_STTS_NM" title="{{'상태' | mlang: 'LABEL' : 'L000015' : '34'}}" width="50"></kendo-grid-column>
+
+  </kendo-grid>
+
+</div><!-- end content -->
+
+<!-- <kendo-grid-column
+  field="UserName"
+  title="이름"
+  [width]="100"
+  [headerStyle]="{'background-color': '#666','color': '#fff','line-height': '1em'}"
+  [style]="{'background-color': '#888','color': '#fff'}"
+  [footerStyle]="{'background-color': '#888','color': '#fff'}"
+></kendo-grid-column> -->
+
+
+<!-- Modal View -->
+<!-- <div bsModal #lgModal_view="bs-modal" class="modal fade" id="myModal_view" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}"> -->
+<div bsModal #lgModal_view="bs-modal" class="modal fade" id="myModal_view" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+      <app-userlist-view [idx]="idx" #childViewDel (close_showEvent)="ShowRegModal()" (close_hide_view)="lgModal_view.hide()" (close_refresh_view)="Refresh_HideModal_View()"></app-userlist-view>
+
+</div>
+
+<!-- Modal 등록 -->
+<div bsModal #lgModal_reg="bs-modal" class="modal fade" id="myModal_reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <app-userlist-reg [idx]="idx" #childREG (close_refresh_reg)="Refresh_HideModal_Reg()" (close_hide_reg)="lgModal_reg.hide()"></app-userlist-reg>
+
+    <!-- <div class="modal-dialog modal-lg">
+
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" (click)="lgModal_reg.hide()">&times;</button>
+          <h4 class="modal-title">사용자 등록</h4>
+        </div>
+
+        <div class="modal-body">
+
+          <app-userlist-reg [idx]="idx" #childReg (close_childEvent)="Refresh_HideModal_Reg()"></app-userlist-reg>
+
+            #childReg  : 엘리에스 이름을 변경하여 사용해도 됨  셀렉터 안에 있는 함수를 호출하기 위하여 사용
+            [idx]="idx" : N 개를 추가하여 사용가능 파라미터 넘김
+            (close_childEvent)="Refresh_HideModal_Reg()" : 앞의 엘리어스는 받아주는 셀렉터와 이름만 같다면 이름변경 무방함 뒤에는
+            실행하고자 하는 현재 페이지의 함수명 호출
+
+        </div>
+
+        <div class="modal-footer">
+          <button (click)="childReg.Regsave()" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="lgModal_reg.hide()">Close</button>
+        </div>
+      </div>
+
+    </div> -->
+
+   </div>
+
+   <div bsModal #lgModal_pop_dept="bs-modal" class="modal fade" id="myModal_pop_dept" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     <app-selectdept [Pop_dept_cd]="Pop_dept_cd" [Arr_Cd_Nm]="Arr_Cd_Nm" [Use_YN]="Use_YN" [Expanded_YN]="Expanded_YN" (selectdept_ok)="Close_Pop_Dept_Modal($event)" (selectdept_close)="this.lgModal_pop_dept.hide()"></app-selectdept>
+   </div>

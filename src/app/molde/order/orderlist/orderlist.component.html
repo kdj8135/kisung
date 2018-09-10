@@ -1,0 +1,396 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start row -->
+  <div class="row">
+    <article class="col-sm-12">
+      <div class="navbar navbar-default">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!-- ui클래스 -->
+
+          <form class="navbar-form navbar-left" role="search">
+
+            <div class="form-group">
+              <label>구분</label>
+              <select [(ngModel)]="sc_order_tp" name="sc_order_tp" class="form-control input-sm">
+                <option value="all" selected="selected">전체</option>
+                <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>국내외</label>
+              <select [(ngModel)]="sc_order_city" name="sc_order_city" class="form-control input-sm">
+                <option value="all" selected="selected">전체</option>
+                <option value="국내">국내</option>
+                <option value="해외">해외</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>업체</label>
+              <select [(ngModel)]="sc_vendor_id" name="sc_vendor_id" class="form-control input-sm">
+                <option value="all" selected="selected">전체</option>
+                <option value="{{vendor.id}}" *ngFor="let vendor of vendor_list" >{{vendor.nm}}</option>
+              </select>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <!-- <div class="form-group">
+              <select [(ngModel)]="sc_search_combo" name="sc_search_combo" class="form-control input-sm">
+                <option value="all" selected="selected">전체</option>
+                <option value="no">수주번호</option>
+                <option value="model">모델명</option>
+                <option value="product">품명</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input style="width:300px" name="no_text" [(ngModel)]="no_text" class="form-control input-sm" placeholder="">
+            </div> -->
+
+            <div class="form-group">
+              <label>수주번호</label>
+              <div class="form-group">
+                <input style="width:100px" name="order_no_text" [(ngModel)]="order_no_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>모델명</label>
+              <div class="form-group">
+                <input style="width:100px" name="model_text" [(ngModel)]="model_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <div class="form-group">
+              <label>품명</label>
+              <div class="form-group">
+                <input style="width:100px" name="product_text" [(ngModel)]="product_text" class="form-control input-sm" placeholder="">
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+
+            <button class="btn btn-default btn-sm" (click)="searchGrid()" type="submit">검색</button>
+            <button class="btn btn-default btn-sm" (click)="click_add()">등록</button>
+
+
+            <button class="btn btn-default btn-sm" (click)="pop_plan()">공정계획수립</button>
+          </form>
+
+          <!-- ui클래스 -->
+
+        </div>
+        <!-- /.navbar-collapse -->
+
+      </div>
+
+    </article>
+
+  </div>
+  <!-- end row -->
+
+  <kendo-grid [data]="gridView" [height]="630" [pageSize]="pageSize" [skip]="skip" [pageable]="true" (pageChange)="pageChange($event)" [sort]="sort" [sortable]="true" [resizable]="true" (sortChange)="sortChange($event)" [selectable]="{ mode: 'single' }"
+    [kendoGridSelectBy]="'ORDER_ID'" [selectedKeys]="mySelection" (cellClick)="click_add($event)">
+    <kendo-grid-column field="ORDER_TP" title="구분" width="70"></kendo-grid-column>
+    <kendo-grid-column field="VENDOR_NM" title="업체명" width="100"></kendo-grid-column>
+    <kendo-grid-column
+      field="ORDER_NO"
+      title="수주번호"
+      [width]="80"
+      [style]="{'text-decoration' : 'underline', 'cursor' : 'pointer'}"
+    ></kendo-grid-column>
+
+    <kendo-grid-column field="MODEL_NM" title="모델명" width="130"></kendo-grid-column>
+    <kendo-grid-column field="PRODUCT_NM" title="품명" width="130"></kendo-grid-column>
+    <kendo-grid-column field="VOLUME" title="수량" width="70"></kendo-grid-column>
+    <kendo-grid-column field="DELIVERY_DT" title="실납기" width="70"></kendo-grid-column>
+    <kendo-grid-column field="PRICE" title="수주금액" width="70"></kendo-grid-column>
+    <kendo-grid-column field="REG_YN" title="제품등록" width="60"></kendo-grid-column>
+  </kendo-grid>
+</div>
+<!-- end content -->
+
+<!-- 등록 및 수정 -->
+<div bsModal #lgModal_add="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div>
+    <form>
+      <div class="modal-dialog modal-lg" style="width:1200px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            <h4 class="modal-title">{{modal_title}}</h4>
+          </div>
+          <div class="modal-body">
+            <form class="smart-form">
+              <fieldset>
+
+                <div class="row">
+                  <section class="col col-3">
+                    <label>수주구분<i class="fa fa-check"></i></label>
+                    <label class="select">
+                      <select [(ngModel)]="add_order_tp" name="add_order_tp" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                        <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
+                      </select><i></i>
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>국내외<i class="fa fa-check"></i></label>
+                    <label class="select">
+                      <select [(ngModel)]="add_order_city" name="add_order_city" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                        <option value="국내">국내</option>
+                        <option value="해외">해외</option>
+                      </select><i></i>
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>업체명(약어)<i class="fa fa-check"></i></label>
+                    <label class="select">
+                      <select [(ngModel)]="add_vendor_id" name="add_vendor_id" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                        <option value="{{vendor.id}}" *ngFor="let vendor of vendor_list" >{{vendor.nm}}</option>
+                      </select><i></i>
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>수주번호<i class="fa fa-check"></i></label>
+                    <label class="input">
+                      <input type="text" name="add_order_no" [(ngModel)]="add_order_no" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    </label>
+                  </section>
+                </div>
+
+                <div class="row">
+                   <section class="col col-3">
+                    <label>모델명(Φ)</label>
+                    <label class="input">
+                      <input type="text" name="add_model_nm" [(ngModel)]="add_model_nm" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>품명</label>
+                    <label class="input">
+                      <input type="text" name="add_product_nm" [(ngModel)]="add_product_nm" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>수량</label>
+                    <label class="input">
+                      <input type="text" name="add_volume" [(ngModel)]="add_volume" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>수주금액</label>
+                    <label class="input">
+                      <input type="text" name="add_price" [(ngModel)]="add_price" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    </label>
+                  </section>
+                </div>
+
+                <div class="row">
+                  <section class="col col-3">
+                    <label>예비공간</label>
+                    <label class="input">
+                      <input type="text" name="add_space" [(ngModel)]="add_space" [disabled]="input_disabled" [style.background-color]="readonly_color" />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>제품등록여부</label>
+                    <label class="select">
+                      <select [(ngModel)]="add_product_reg_yn" name="add_product_reg_yn" [disabled]="input_disabled" [style.background-color]="readonly_color" >
+                        <option value="Y">완료</option>
+                        <option value="N">미완료</option>
+                      </select><i></i>
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>완료일</label>
+                    <label class="input">
+                      <i class="icon-append fa fa-calendar"></i>
+                      <input autocomplete="off" type="text" name="add_complete_dt" placeholder="" class="form-control datepicker" [disabled]="input_disabled"
+                             [saUiDatepicker]="{
+                                dateFormat: 'yy-mm-dd'
+                             }"
+                             #complete_dt
+                             [style.background-color]="readonly_color"
+                             />
+                    </label>
+                  </section>
+
+                  <section class="col col-3">
+                    <label>실납기</label>
+                    <label class="input">
+                      <i class="icon-append  fa fa-calendar"></i>
+                      <input autocomplete="off" type="text" name="add_delivery_dt" placeholder="" class="form-control datepicker" [disabled]="input_disabled"
+                             [saUiDatepicker]="{
+                                dateFormat: 'yy-mm-dd'
+                             }"
+                             #delivery_dt
+                             [style.background-color]="readonly_color"
+                             />
+                    </label>
+                  </section>
+                </div>
+
+                <section class="">
+                  <label>일반문서</label>
+                  <app-fileattach [view_yn]="file_view_yn" [name]="attach_tp_il" [paper_id]="paper_id" [sub_id]="" [rev]="" (uploadFilesNm)="uploadFilesNm_IL($event)"></app-fileattach>
+                </section>
+
+                <section class="">
+                  <label>도면</label>
+                  <app-fileattach [view_yn]="file_view_yn" [name]="attach_tp_do" [paper_id]="paper_id" [sub_id]="" [rev]="" (uploadFilesNm)="uploadFilesNm_DO($event)"></app-fileattach>
+                </section>
+
+              </fieldset>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <label [hidden]="btn_reg_hidden">
+              <button type="button" class="btn btn-primary" (click)="savedata_add()">저장</button>
+            </label>
+
+            <label [hidden]="btn_view_hidden">
+              <button type="button" class="btn btn-primary" (click)="savedata_edit()">수정</button>
+            </label>
+
+            <label [hidden]="btn_view_hidden">
+              <button type="button" class="btn btn-primary" (click)="savedata_remove()">삭제</button>
+            </label>
+
+            <label [hidden]="btn_view_hidden">
+              <button type="button" class="btn btn-primary" (click)="product_add()">제품 등록</button>
+            </label>
+
+            <label>
+              <button type="button" class="btn btn-default" (click)="close_lgModal_add()">취소</button>
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 제품등록 -->
+<div bsModal #lgModal_add2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div>
+    <form>
+      <div class="modal-dialog modal-lg" style="width:1100px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add2.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">제품 등록</h4>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <div class="pull-right">
+
+                <a target="_self" href="assets/_upload_form/ProudctUpload.xlsx" download="ProudctUpload.xlsx">
+                  <button type="button" class="btn btn-primary btn-sm">Excel 양식 Download</button>
+                </a>
+                <button type="button" class="btn btn-primary btn-sm" (click)="pop_lgModal_add3()">Excel Import</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-success btn-sm" (click)="deldata_product()">전체삭제</button>
+                <button type="button" class="btn btn-success btn-sm" (click)="product_html()">추가</button>
+                <div style="height:5px;"></div>
+              </div>
+              <table class="table table-bordered">
+                <colgroup>
+                  <col style="width:14%;">
+                  <col style="width:14%;">
+                  <col style="width:20%;">
+                  <col style="width:13%;">
+                  <col style="width:13%;">
+                  <col style="width:13%;">
+                  <col style="width:8%;">
+                  <col style="width:5%;">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <!-- <th>약어</th>
+                    <th>수주번호</th> -->
+                    <th>도면번호<i class="fa fa-check"></i></th>
+                    <th>품번<i class="fa fa-check"></i></th>
+                    <th>품명<i class="fa fa-check"></i></th>
+                    <th>재질</th>
+                    <th>사이즈</th>
+                    <th>수량</th>
+                    <th>구분</th>
+                    <th>설정</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody_product"></tbody>
+              </table>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="savedata_product()">저장</button>
+            <button type="button" class="btn btn-default" (click)="lgModal_add2.hide()">취소</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 제품EXCEL UPLOAD-->
+<div bsModal #lgModal_add3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div>
+    <form>
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="lgModal_add3.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Excel Import</h4>
+          </div>
+          <div class="modal-body">
+            <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="excel_import()">Excel Import</button>
+            <button type="button" class="btn btn-default" (click)="lgModal_add3.hide()">취소</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- 공정계획수립 -->
+<div bsModal #lgModal_add_plan="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <app-productplan
+  [order_id]="add_order_id"
+  (plan_close)="this.lgModal_add_plan.hide()"
+  >
+  </app-productplan>
+</div>

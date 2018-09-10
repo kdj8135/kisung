@@ -1,0 +1,27 @@
+[
+    {
+        "no": "1"
+        ,"group_code": "11"
+        ,"group_name": "요구정의"
+    },
+    {
+        "no": "2"
+        ,"group_code": "22"
+        ,"group_name": "분석"
+    },
+    {
+        "no": "3"
+        ,"group_code": "33"
+        ,"group_name": "설계"
+    },
+    {
+        "no": "4"
+        ,"group_code": "44"
+        ,"group_name": "구현"
+    },
+    {
+        "no": "5"
+        ,"group_code": "55"
+        ,"group_name": "테스트"
+    }
+]

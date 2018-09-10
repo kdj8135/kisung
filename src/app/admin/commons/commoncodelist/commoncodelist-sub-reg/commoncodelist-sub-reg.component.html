@@ -1,0 +1,172 @@
+
+  <div id="content">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
+        <div class="well no-padding">
+
+          <form class="smart-form client-form" id="smart-form-register" novalidate="novalidate">
+            <fieldset>
+              <div class="row">
+                  <input type="text" name="s_parent_code" readonly="readonly" style="display:none" [(ngModel)]="s_parent_code" />
+                  <input type="text" name="s_depth" readonly="readonly" style="display:none" [(ngModel)]="s_depth" />
+
+                <section class="col col-6" style="display:none;">
+                  <label class="label">{{'메인코드' | mlang: 'LABEL' : 'L000093' : '38'}}</label>
+                  <label class="input">
+                    <input type="text" name="s_main_code" readonly="readonly" [(ngModel)]="s_main_code" />
+                  </label>
+                </section>
+                <section class="col col-6" style="display:none;">
+                  <label class="label">{{'메인코드명' | mlang: 'LABEL' : 'L000099' : '38'}}</label>
+                  <label class="input">
+                    <input type="text" name="s_main_code_nm" readonly="readonly" [(ngModel)]="s_main_code_nm" />
+                  </label>
+                </section>
+                <section class="col col-3">
+                  <label class="label">{{'서브코드' | mlang: 'LABEL' : 'L000100' : '38'}}</label>
+                  <label class="input">
+                    <input type="text" style="background-color:#eee;" name="s_sub_code" [(ngModel)]="s_sub_code" readonly="readonly"  [disabled]="isDisabled()" />
+                  </label>
+                </section>
+                <section class="col col-3">
+                  <label class="label">{{'서브코드명' | mlang: 'LABEL' : 'L000101' : '38'}}<i class="fa fa-check"></i></label>
+                  <label class="input">
+                    <input type="text" name="s_sub_code_nm" [(ngModel)]="s_sub_code_nm" />
+                  </label>
+                </section>
+                <section class="col col-3">
+                  <label class="label">{{'순서' | mlang: 'LABEL' : 'L000102' : '38'}}<i class="fa fa-check"></i></label>
+                  <label class="input">
+                    <input type="number" name="s_sub_order" [(ngModel)]="s_sub_order" />
+                  </label>
+                </section>
+                <section class="col col-3">
+                  <label class="label">{{'사용유무' | mlang: 'LABEL' : 'L000103' : '38'}}</label>
+                  <label class="select">
+                    <select name="ㄴ_sub_stts" [(ngModel)]="s_sub_stts" >
+                      <option value="Y">사용</option>
+                      <option value="N">미사용</option>
+                    </select> <i></i> </label>
+                </section>
+              </div>
+            <!-- </fieldset>
+
+            <fieldset> -->
+              <section>
+                <label class="label">{{'설명' | mlang: 'LABEL' : 'L000104' : '38'}}</label>
+                <label class="textarea">
+                  <textarea rows="3" name="s_sub_reg_info" [(ngModel)]="s_sub_reg_info" ></textarea>
+                </label>
+              </section>
+            </fieldset>
+
+            <fieldset>
+              <!-- <div class="row"> -->
+                <!-- <div class="widget-body no-padding"> -->
+                  <form class="smart-form">
+                      <kendo-grid [data]="gridView_Sub"
+                           [height]="200"
+                          [sort]="gridSort_Sub"
+                          [sortable]="true"
+                          (sortChange)="sortChange_Sub($event)"
+
+                          [resizable]="true"
+
+                          [selectable]="{ mode: 'single' }"
+                          [kendoGridSelectBy]="'sub_code'"
+                          [selectedKeys]="gridSelection_Sub"
+
+                          (cellClick)="OnClickEvent($event)"
+                      >
+                      <kendo-grid-column field="sub_code" title="{{'참조코드' | mlang: 'LABEL' : 'L000105' : '38'}}" width="80" ></kendo-grid-column>
+                      <kendo-grid-column field="sub_code_nm" title="{{'참조코드명' | mlang: 'LABEL' : 'L000106' : '38'}}" width="200"></kendo-grid-column>
+                      <kendo-grid-column field="sub_stts" title="{{'사용유무' | mlang: 'LABEL' : 'L000103' : '38'}}" width="80"></kendo-grid-column>
+                      </kendo-grid>
+                  </form>
+                <!-- </div> -->
+              <!-- </div> -->
+            </fieldset>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal-footer">
+    <label [hidden]="First_Sub_Hidden"><button class="btn btn-default btn-sm" (click)="Add_Show_SubCode_Modal()">{{'추가 코드 등록' | mlang: 'LABEL' : 'L000110' : '38'}}</button></label>
+    <button (click)="Reg_Sub_Save()" class="btn btn-primary">{{'저장' | mlang: 'LABEL' : 'L000107' : '38'}}</button>
+    <button (click)="Reg_Sub_Delete()" class="btn btn-primary">{{'삭제' | mlang: 'LABEL' : 'L000108' : '38'}}</button>
+  </div>
+
+
+<!-- 모달 -->
+<!-- 서브코드 등록 Modal-->
+<div bsModal #myModal_subcode_reg="bs-modal" class="modal fade" id="myModal_subcode_reg" tabindex="-3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:600px;">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="Hide_Show_SubCode_Modal()">&times;</button>
+        <h4 class="modal-title">참조코드 등록</h4>
+      </div>
+
+      <div class="modal-body">
+        <div id="content">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
+              <div class="well no-padding">
+
+                <form class="smart-form client-form" novalidate="novalidate">
+                  <fieldset>
+                    <div class="row">
+                      <section class="col col-3">
+                        <label class="label">{{'참조코드' | mlang: 'LABEL' : 'L000105' : '38'}}<i class="fa fa-check"></i></label>
+                        <label class="input">
+                          <input type="text" name="c_sub_code" [(ngModel)]="c_sub_code" />
+                        </label>
+                      </section>
+                      <section class="col col-3">
+                        <label class="label">{{'참조코드명' | mlang: 'LABEL' : 'L000106' : '38'}}<i class="fa fa-check"></i></label>
+                        <label class="input">
+                          <input type="text" name="c_sub_code_nm" [(ngModel)]="c_sub_code_nm" />
+                        </label>
+                      </section>
+                      <section class="col col-3">
+                        <label class="label">{{'순서' | mlang: 'LABEL' : 'L000102' : '38'}}<i class="fa fa-check"></i></label>
+                        <label class="input">
+                          <input type="number" name="c_sub_ord_no" [(ngModel)]="c_sub_ord_no" />
+                        </label>
+                      </section>
+                      <section class="col col-3">
+                        <label class="label">{{'사용유무' | mlang: 'LABEL' : 'L000103' : '38'}}</label>
+                        <label class="select">
+                          <select name="c_sub_stts" [(ngModel)]="c_sub_stts" >
+                            <option value="Y">사용</option>
+                            <option value="N">미사용</option>
+                          </select> <i></i> </label>
+                      </section>
+                    </div>
+                    </fieldset>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button (click)="subcode_Save()" class="btn btn-primary">{{'저장' | mlang: 'LABEL' : 'L000107' : '38'}}</button>
+        <label [hidden]="First_Cham_Hidden"><button (click)="subcode_Delete()" class="btn btn-primary">{{'삭제' | mlang: 'LABEL' : 'L000108' : '38'}}</button></label>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="Hide_Show_SubCode_Modal()">{{'취소' | mlang: 'LABEL' : 'L000112' : '38'}}</button>
+      </div>
+    </div>
+
+  </div>
+ </div>

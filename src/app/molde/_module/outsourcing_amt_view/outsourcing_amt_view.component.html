@@ -1,0 +1,44 @@
+
+<!-- <form novalidate="novalidate" [saBootstrapValidator]="validatorOptions"> -->
+  <div class="modal-dialog modal-lg" style="width:800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closePop()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        <h4 class="modal-title">외주비용</h4>
+      </div>
+      <div class="modal-body">
+        <form class="smart-form">
+          <table id="amtTable" class="table table-bordered" style="clear:both;">
+            <colgroup>
+              <col style="width:150px;" />
+              <col style="width:150px;" />
+              <col style="width:150px;" />
+              <col style="width:150px;" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th style="text-align:center">공정</th>
+                <th style="text-align:center">외주금액</th>
+                <th style="text-align:center">업체명</th>
+                <th style="text-align:center">업체별 외주금액</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <label>
+          <!-- <button type="button" class="btn btn-default" (click)="ExportToExcel()">Export to Excel xlsx</button> -->
+          <button type="button" class="btn btn-default" (click)="tableToExcel('amtTable')">외주비용 xls</button>
+        </label>
+        <label>
+          <button type="button" class="btn btn-default" (click)="closePop()">취소</button>
+        </label>
+      </div>
+    </div>
+  </div>
+<!-- </form> -->
