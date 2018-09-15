@@ -4,8 +4,8 @@ export const pmsConfig: any = {
   //DB 정보-----start
   //테스트및 개발
   Protocol: "http",
-  Hostname: "localhost",
-  //Hostname: "www.collabra.co.kr",
+  //Hostname: "localhost",
+  Hostname: "www.collabra.co.kr",
 
   //운영
   // Hostname: "192.168.1.77",
