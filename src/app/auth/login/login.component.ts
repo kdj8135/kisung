@@ -6,7 +6,11 @@ import {AuthService} from "../auth.service";
 import { NotificationService } from "../../shared/utils/notification.service";
 import { pmsConfig } from '../../shared/pms.config';
 
+declare var $: JQueryStatic;
+import 'jqueryui';
 
+declare function unescape(s: string): string;
+declare function escape(s: string): string;
 
 import {ActivatedRoute} from '@angular/router';
 
