@@ -14,6 +14,16 @@
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
               </div>
             </div>
+
+            &nbsp;&nbsp;
+            <div class="form-group">
+              <div class="input-group">
+                <label>범례&nbsp;</label>
+                <label style="border:1px solid #ddd;background-color:white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;ST&nbsp;
+                <label style="border:1px solid #ddd;background-color:#f9f2f4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;WT&nbsp;
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
@@ -42,6 +52,11 @@
               <label class="checkbox" style="margin-right:10px;">
                 <input checked (change)="html_main()" type="checkbox" id="chk_no"><i></i>미가공
               </label>
+              <label class="checkbox" style="margin-right:10px;">
+                <input checked (change)="searchData()" type="checkbox" id="chk_error"><i></i>불량포함
+              </label>
+
+
             </div>
           </form>
         </header>

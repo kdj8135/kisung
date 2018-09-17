@@ -9,7 +9,8 @@ import { UploadModule } from '@progress/kendo-angular-upload';
 import { FileAttachModule } from 'app/fileattach/fileattach.module';
 
 //첫번째 그래프
-import {FlotChartModule} from "../shared/graphs/flot-chart/flot-chart.module";
+import {MorrisGraphModule} from "../shared/graphs/morris-graph/morris-graph.module";
+
 //두번째 카렌다
 import {CalendarModule} from "../+calendar/calendar.module";
 //세번째 투두
@@ -39,7 +40,7 @@ export const routes: Routes = [
      ,UploadModule
      ,FileAttachModule
      ,[RouterModule.forChild(routes)]
-     ,FlotChartModule //첫번째 그래프
+     ,MorrisGraphModule //첫번째 그래프
      ,CalendarModule //두번째 카렌다
   ],
   declarations: [HomeComponent

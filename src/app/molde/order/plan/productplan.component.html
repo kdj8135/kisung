@@ -3,11 +3,17 @@
     <div class="modal-content" [ngStyle]="win_height">
       <div class="modal-header">
         <div style="float:right;">
-          <button type="button" class="btn btn-primary" (click)="open_lgModal_out_amt()">외주비용</button>
-          <button type="button" class="btn btn-primary" (click)="open_lgModal_im()">별도임률 설정</button>
-          <button type="button" class="btn btn-primary" (click)="Show_Pop_order_Modal()">수주상세정보</button>
-          <button type="button" class="btn btn-primary" (click)="save_st()">ST 및 제.가 저장</button>
-          <button type="button" class="btn btn-default" (click)="closePop()">취소</button>
+          <label>
+            <label style="background-color:#00CC00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>진행중&nbsp;
+            <label style="background-color:orangered;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>불량&nbsp;
+            <label style="border:1.5px dashed;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>외주&nbsp;
+          </label>
+          <button class="btn btn-primary" (click)="open_lgModal_out_amt()">외주비용</button>
+          <button class="btn btn-primary" (click)="open_lgModal_im()">별도임률 설정</button>
+          <button class="btn btn-primary" (click)="Show_Pop_order_Modal()">수주상세정보</button>
+          <button class="btn btn-primary" (click)="save_st()">ST 및 제.가 저장</button>
+          <button class="btn btn-primary" (click)="excel_templete_download2()" title="작성시간이 어느정도 있으므로, 잠시 기다려 주세요">소재 원가 계산</button>
+          <button class="btn btn-default" (click)="closePop()">취소</button>
         </div>
         <!-- <button type="button" class="close" (click)="closePop()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -53,7 +59,7 @@
         </table>
         <br />
         <div style="overflow:auto;">
-          <table class="table table-bordered" style="margin-bottom:0px;width:unset; max-width:unset;">
+          <table class="table table-bordered" style="margin-bottom:0px;width:auto; ">
             <tbody>
               <tr>
                 <td style="width:80px;min-width:80px;max-width:80px;padding:5px;" *ngFor="let sum of sumList">
@@ -74,7 +80,7 @@
           <div *ngFor="let product of productList">
             <!-- <div class="table-responsive"> -->
             <div>
-              <table class="table table-bordered" style="margin-bottom:3px; width:unset; max-width:unset;">
+              <table class="table table-bordered" style="margin-bottom:3px; width:auto; ">
                 <tr>
                   <td style="width:138px;min-width:138px;max-width:138px;">
                     <div style="margin-bottom:3px;font-weight:bold;">
@@ -86,7 +92,7 @@
                     <div>
                       <button class="btn btn-default btn-xs" (click)="plan_pop(product)">계획</button>
                       <button class="btn btn-default btn-xs" (click)="copy_pop(product)">복사</button>
-                      <button class="btn btn-default btn-xs" (click)="imsi_down(product)">작공</button>
+                      <button class="btn btn-default btn-xs" (click)="excel_templete_download1(product)">작공</button>
                     </div>
                   </td>
                   <td style="width:140px;min-width:140px;max-width:140px;font-size:12px;">

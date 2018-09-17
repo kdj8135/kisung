@@ -321,7 +321,7 @@ export class RolelistComponent implements OnInit {
 
     this.pmsApiService.fetch('rolelist/role_event', param).subscribe(result => {
       if (result.code == "00") {
-        console.log(result.data1);
+
         for (let i = 0; i < result.data1.length; i++) {
             this.selectbox_empList.push(new SelectBox(result.data1[i].id, result.data1[i].name))
         }
@@ -430,7 +430,7 @@ export class RolelistComponent implements OnInit {
       , dept_cd: ""
     }];
     this.pmsApiService.fetch('roleassignuser/role_emp', param).subscribe(result => {
-      console.log(result.data);
+
       this.gridData_emp = result.data;
       this.loadGrid_emp();
     })

@@ -1,0 +1,95 @@
+<!-- start content -->
+<div id="content">
+
+  <!-- start 상단 조회 -->
+  <div class="row">
+    <article class="col-sm-12">
+      <div class="navbar navbar-default">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left" role="search">
+            <label>수주선택</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="Modal_OrderNo" [(ngModel)]="Modal_OrderNo" (click)="this.Modal_order.show()" style="width:200px;" readonly="readonly" class="form-control input-sm" />
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+
+            &nbsp;&nbsp;
+            <div class="form-group">
+              <div class="input-group">
+                <label>범례&nbsp;</label>
+                <label style="background-color:#00CC00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;진행중&nbsp;
+                <label style="background-color:orangered;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;불량&nbsp;
+                <label style="border:1.5px dashed;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;외주&nbsp;
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </article>
+  </div>
+  <!-- end 상단 조회 -->
+
+
+  <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-12" style="min-width: 100%;width:auto;">
+      <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+        <header>
+          <h2>공정계획 조회</h2>
+        </header>
+
+        <div>
+          <div class="widget-body">
+
+            <div *ngFor="let product of productList">
+              <div>
+                <table class="table table-bordered" style="margin-bottom:3px; width:auto;">
+                  <tr>
+                    <td style="width:138px;min-width:138px;max-width:138px;padding:5px;vertical-align:middle;">
+                      <u style="cursor:pointer;" (click)="filedown_map(product)">{{product.map_no}}</u><br />
+                      품번&nbsp;: {{product.product_no}}
+                    </td>
+                    <td style="width:140px;min-width:140px;max-width:140px;font-size:12px;padding:5px;vertical-align:middle;">
+                      품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.product_nm}}<br />
+                      수량&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.volume}} <br />
+                      사이즈&nbsp;: {{product.size}}
+                    </td>
+                    <td style="width:42px;min-width:42px;max-width:42px;padding:5px;text-align:right;border-right:0px;vertical-align:middle;">
+                      <div>
+                        공정
+                      </div>
+                      <div style="padding-top:5px;">
+                        ST
+                      </div>
+                    </td>
+                    <td [ngStyle]="{'background-color':work.back_color, 'border':work.dashed}" style="width:80px;min-width:80px;max-width:80px;padding:5px;vertical-align:middle;" *ngFor="let work of product.works">
+                      <div class="{{work.class}}" style="width:100%;font-size:14px;border-radius:5px;">
+                        {{work.work_nm}}
+                      </div>
+                      <div style="padding-top:5px;text-align:right;">
+                        {{work.plan_st}}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<!-- end content -->
+
+<!-- 수주선택 모달 start -->
+<div bsModal #Modal_order="bs-modal" class="modal fade" id="myModal_pop_dept" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <app-orderselect (Modal_order_Close)="this.Modal_order.hide()" (Modal_order_Search)="this.Modal_order_Return($event)">
+  </app-orderselect>
+</div>
+<!-- 수주선택 모달 end -->

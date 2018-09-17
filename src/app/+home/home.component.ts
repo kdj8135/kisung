@@ -4,15 +4,15 @@ import { WindowRef } from '../shared/helpers/index';
 import { PmsApiService } from "../core/api/pms-api.service";
 import { RecentProjectsService } from "../shared/layout/header/recent-projects/recent-projects.service";
 
-import {JsonApiService} from "../core/api/json-api.service"; //첫번째 그래프
-import {FakeDataSource} from "./flot-examples"; //첫번째 그래프
+import { JsonApiService } from "../core/api/json-api.service"; //첫번째 그래프
+import { FakeDataSource } from "./flot-examples"; //첫번째 그래프
 import * as examples from "./flot-examples" //첫번째 그래프
 
 declare var $: JQueryStatic;
 import 'jqueryui';
 
 import { Location } from '@angular/common';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 import * as XLSX from 'ts-xlsx';
@@ -24,60 +24,67 @@ import * as XLSX from 'ts-xlsx';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-
-  public flotData:any; //첫번째 그래프
-  public flotExamples:any; //첫번째 그래프
-  public updatingData: Array<any>;//첫번째 그래프
-
-  nativeWindow: any
+nativeWindow: any
   navigationSubscription;
-
+  sel_status;
+  sel_order_tp;
+  public order_tps: Array<any>;
   constructor(
     private glObj: GlobalsVariable
     , private winRef: WindowRef
     , private pmsApiService: PmsApiService
     , private projectsService: RecentProjectsService
-    ,  private location: Location
+    , private location: Location
     , private router: Router
-    , private jsonApiService:JsonApiService //첫번째 그래프
+    , private jsonApiService: JsonApiService //첫번째 그래프
   ) {
     console.log("glClickMenuId : " + this.glObj.getClickMenuId());
     this.nativeWindow = winRef.getNativeWindow();
 
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-     // If it is a NavigationEnd event re-initalise the component
-     //alert(1);
-     });
+      // If it is a NavigationEnd event re-initalise the component
+      //alert(1);
+    });
   }
 
   initialiseInvites() {
-     // Set default values and re-fetch any data you need.
-   }
+    // Set default values and re-fetch any data you need.
+  }
 
+  public charData;
   ngOnInit() {
+    this.sel_status = "N";
+    this.sel_order_tp = "AD00005_0001";
 
-    //첫번째 그래프 시작
-    this.jsonApiService.fetch( '/graphs/flot.json').subscribe(data => this.flotData = data);
-    this.flotExamples = examples;
+    //공통코드-수주관리 구분
+    let param = [{
+      main_cd: "AD00005"
+    }];
+    this.pmsApiService.fetch('WPCommon/commoncode_2lvl', param).subscribe(result => {
+      this.order_tps = result.data;
+    });
 
-    this.interval = setInterval(()=>{
-      this.updateStats()
-    }, 1000);
-    this.updateStats()
-    //첫번째 그래프 끝
+    this.searchChart();
+  }
+
+  searchChart() {
+
+    let param = [{
+      emp_no:"admin"
+      ,status : this.sel_status
+      ,order_tp : this.sel_order_tp
+    }];
+
+    console.log(param);
+    this.charData = null;
+    this.pmsApiService.fetch('alarm/chart_list', param).subscribe(result => {
+        this.charData = result.data;
+        //console.log(this.charData);
+    });
   }
 
   ngOnDestroy() {
-    this.interval &&  clearInterval(this.interval);
   }
-
-  //첫번째 그래프
-  updateStats() {
-    this.updatingData = [FakeDataSource.getRandomData()]
-  }
-
-
-  private interval; //첫번째 그래프
 
   newWindow() {
     var newWindow = this.nativeWindow.open('/#/link', "_blank", "toolbar=1, scrollbars=1, resizable=1");
@@ -85,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   reloadPage() {
-      location.reload();
+    location.reload();
   }
 
   reloadPage2() {
@@ -232,7 +239,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   incomingfile(event) {
     this.file = event.target.files[0];
   }
-  excel_json : string[];
+  excel_json: string[];
   Upload() {
     let fileReader = new FileReader();
     fileReader.onload = (e) => {

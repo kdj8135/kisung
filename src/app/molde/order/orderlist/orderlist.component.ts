@@ -549,6 +549,9 @@ export class OrderlistComponent implements OnInit {
           , volume: $("#VOLUME_" + i).val()
           , gubun: $("#GUBUN_" + i).val()
           , sort_num: i
+          , size_1 : ($("#SIZE_" + i).val().toUpperCase().split("X")[0] || "")
+          , size_2 : ($("#SIZE_" + i).val().toUpperCase().split("X")[1] || "")
+          , size_3 : ($("#SIZE_" + i).val().toUpperCase().split("X")[2] || "")
         }];
         this.proudct_save(param);
         if (this.tr_seq == i) {
@@ -604,6 +607,9 @@ export class OrderlistComponent implements OnInit {
         , volume: (excelList[i]["수량"] || "")
         , gubun: (this.proudct_tps[excelList[i]["구분"]] || "")
         , sort_num: i
+        , size_1 : ((excelList[i]["사이즈"] || "").toUpperCase().split("X")[0] || "")
+        , size_2 : ((excelList[i]["사이즈"] || "").toUpperCase().split("X")[1] || "")
+        , size_3 : ((excelList[i]["사이즈"] || "").toUpperCase().split("X")[2] || "")
       }];
       this.proudct_save(param);
       setTimeout(() => {

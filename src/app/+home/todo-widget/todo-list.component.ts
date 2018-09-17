@@ -1,37 +1,27 @@
 import {Component, OnInit, Input, AfterContentInit, ElementRef} from '@angular/core';
-import {TodoService} from "./todo.service";
-import {Todo} from "./todo";
-
+import { PmsApiService } from "../../core/api/pms-api.service";
+import { UserService } from "../../shared/user/user.service";
 @Component({
   selector: 'todo-list',
   templateUrl: './todo-list.component.html',
 })
 export class TodoListComponent implements OnInit {
-
-  public items: Array<Todo> = [];
+  public items;
+  user: any;
 
   @Input() public state: any;
 
-  constructor(private el: ElementRef, private todoService: TodoService) { }
+  constructor(
+    private pmsApiService: PmsApiService
+   ,private userService: UserService
+  ) {
+  this.user = userService.getLoginInfo();
+}
 
   ngOnInit() {
-    this.todoService.subject.subscribe((todos: Array<Todo>)=>{
-      this.setItems(todos);
-    });
-
-    this.setItems(this.todoService.todos)
+    let param = [{emp_no: this.user.empId}];
+    this.pmsApiService.fetch('alarm/todo_list', param).subscribe(result => {
+        this.items = result.data;
+    })
   }
-
-  setItems(todos: Array<Todo>){
-    this.items = todos.filter(it => it.state == this.state.name)
-  }
-
-  toggleTodo(todo: Todo){
-    this.todoService.toggleTodo(todo)
-  }
-
-  deleteTodo(todo: Todo){
-    this.todoService.deleteTodo(todo)
-  }
-
 }

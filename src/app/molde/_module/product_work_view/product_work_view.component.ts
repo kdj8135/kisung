@@ -357,6 +357,19 @@ export class Product_Work_View_Component implements OnInit {
   }
 
   private Data_Load() {
+    this.input_disabled = true;           //기본Road된 화면 disabled
+    this.confirm_disabled = false;        //확정버튼클릭시 disabled 여부
+    this.confirm_button_disabled = false; //확정여부를 알기위하여 확정시 disabled
+    this.modal_title;                      //팝업타이틀 이름정의
+    this.readonly_color = "#eee";          //리드온리인것들 색상 정의
+    this.amt_readonly = false;                     //외주여부에 따라서 외주금액 readonly;
+    this.amt_readonly_color = "";                  //외주여부에 따라서 외주금액 색상변
+
+    this.chk_ok_error_disabled = false;    //자주검사,불량확정 여부 활성화
+    this.chk_ok_error_color = "#eee";
+    this.none_start = true;                       //선행공정이 끝나지 않으면 시작일자 종료일자 디저블
+    this.none_start_color = "#eee";               //선행공정이 끝나지 않으면 시작일자 종료일자 색상변경
+
     if (this.P_WORK_ID == undefined) return;
 
     let param = [{

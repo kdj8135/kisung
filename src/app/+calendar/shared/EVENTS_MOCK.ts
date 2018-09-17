@@ -72,9 +72,11 @@ export default [{
         "className": ["event", "bg-color-darken"]
       }, {
           "id": "ccvb2",
-          "title": "aaaa2",
-          "start": moment().add(5, 'day').startOf('day').add(17, 'hours'),
-          "end": moment().add(5, 'day').startOf('day').add(20, 'hours').add(30, 'minutes'),
+          "title": "ㅁㅁㅁ-1",
+          "start":"2018-09-11",
+          "end":"2018-09-11",
+          //"start": moment().add(5, 'day').startOf('day'),
+          //"end": moment().add(5, 'day').startOf('day'),
           "allDay": false,
           "className": ["event", "bg-color-darken"]
       }

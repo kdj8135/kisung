@@ -22,6 +22,7 @@ import {Dashboard01Component} from "./molde_dashboard/dashboard01.component";
 import {Dashboard02Component} from "./molde_dashboard/dashboard02.component";
 import {Dashboard03Component} from "./molde_dashboard/dashboard03.component";
 import {Dashboard04Component} from "./molde_dashboard/dashboard04.component";
+import {Dashboard05Component} from "./molde_dashboard/dashboard05.component";
 
 import {Order_selectModule} from "app/molde/_module/order_select/order_select.module";
 import {OutsourcingAmtViewModule} from "app/molde/_module/outsourcing_amt_view/outsourcing_amt_view.module";
@@ -43,7 +44,7 @@ import { SelectdeptModule } from 'app/common/popup/selectdept/selectdept.module'
     OutsourcingAmtViewModule,
     SelectdeptModule
   ],
-declarations: [Dashboard01Component, Dashboard02Component, Dashboard03Component, Dashboard04Component],
+declarations: [Dashboard01Component, Dashboard02Component, Dashboard03Component, Dashboard04Component, Dashboard05Component],
 bootstrap:    []
 })
 export class DashboardModule { }

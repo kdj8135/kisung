@@ -603,14 +603,32 @@ export class ProductplanComponent implements OnInit {
   //계획복사------------------end-----------------------------
 
 
-  //임시 다운로드
-  imsi_down(product) {
+  //엑셀템플릿 다운로드(작업공정표)
+  excel_templete_download1(product) {
     const baseUrl = pmsConfig.Protocol + '://' + pmsConfig.Hostname + (pmsConfig.Port ? ':' + pmsConfig.Port : '') + '/';
     const url = baseUrl + "templete_down_1";
     const dataURI = "data:multipart/form-data;";
 
     //프로덕트ID
     const file_nm = product.product_id;
+
+    saveAs(dataURI, file_nm, {
+      forceProxy: true,
+      proxyURL: url,
+      proxyData: {
+        '__RequestVerificationToken': 'xyz'
+      }
+    });
+  }
+
+  //엑셀템플릿 다운로드(소재원가)
+  excel_templete_download2() {
+    const baseUrl = pmsConfig.Protocol + '://' + pmsConfig.Hostname + (pmsConfig.Port ? ':' + pmsConfig.Port : '') + '/';
+    const url = baseUrl + "templete_down_2";
+    const dataURI = "data:multipart/form-data;";
+
+    //프로덕트ID
+    const file_nm = this.order_id;
 
     saveAs(dataURI, file_nm, {
       forceProxy: true,

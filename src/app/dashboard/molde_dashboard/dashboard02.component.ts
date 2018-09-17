@@ -34,8 +34,12 @@ export class Dashboard02Component implements OnInit {
 
     this.productList = [];
 
+    let chk_error = <HTMLInputElement>document.getElementById("chk_error");
+    let yn_error = "N";
+    if (chk_error.checked == true) yn_error = "Y";
+
     let param = [{
-      order_id: this.order_id
+      order_id: this.order_id, yn_error:yn_error
     }];
     //합계
     this.pmsApiService.fetch('mdlde_dashboard/dashboard02_tot_list', param).subscribe(result => {
@@ -51,7 +55,7 @@ export class Dashboard02Component implements OnInit {
       if (result.code == "00") {
 
         for (let i = 0; i < result.data.length; i++) {
-          let param_sub = [{ order_id: this.order_id, product_id: result.data[i]["product_id"] }];
+          let param_sub = [{ order_id: this.order_id, product_id: result.data[i]["product_id"], yn_error:yn_error }];
           this.pmsApiService.fetch('mdlde_dashboard/dashboard02_work_list', param_sub).subscribe(result_sub => {
             if (result_sub.code == "00") {
 

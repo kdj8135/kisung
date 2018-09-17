@@ -17,17 +17,16 @@ export class EventsService {
   private subject;
 
   constructor() {
-    console.log(1);
     this.subject = new Subject();
   }
 
   subscribe(next, error?, complete?) {
-    console.log(2);
+
     return this.subject.subscribe(next, error, complete)
   }
 
   addEvent(event) {
-    console.log(3);
+
     const dropId = event.id;
     event.id = this.generateId();
     this.store.events.push(event);

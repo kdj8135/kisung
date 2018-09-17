@@ -1,7 +1,9 @@
-import {Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
-import {EventsService} from "../shared/events.service";
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+//import {EventsService} from "../shared/events.service";
 
 declare var $: any;
+import { PmsApiService } from "../../core/api/pms-api.service";
+import { UserService } from "../../shared/user/user.service";
 
 @Component({
   selector: 'calendar-widget',
@@ -11,9 +13,16 @@ export class CalendarWidgetComponent implements OnDestroy {
 
   private $calendarRef: any;
   private calendar: any;
+  public items;
+  user: any;
 
-  constructor(private el: ElementRef, private eventsService: EventsService) {
-    System.import('script-loader!smartadmin-plugins/bower_components/fullcalendar/dist/fullcalendar.min.js').then(()=>{
+  constructor(
+    private el: ElementRef,
+    private pmsApiService: PmsApiService,
+    private userService: UserService
+  ) {
+    this.user = userService.getLoginInfo();
+    System.import('script-loader!smartadmin-plugins/bower_components/fullcalendar/dist/fullcalendar.min.js').then(() => {
       this.render()
     })
   }
@@ -24,70 +33,50 @@ export class CalendarWidgetComponent implements OnDestroy {
     this.$calendarRef = $(document.getElementById('calendar'));
 
     this.calendar = this.$calendarRef.fullCalendar({
-        lang: 'en',
-        editable: false,
-        draggable: false,
-        selectable: false,
-        selectHelper: false,
-        unselectAuto: false,
-        disableResizing: false,
-        droppable: false,
+      lang: 'en',
+      editable: false,
+      draggable: false,
+      selectable: false,
+      selectHelper: false,
+      unselectAuto: false,
+      disableResizing: false,
+      droppable: false,
 
-        header: {
-          left: 'title', //,today
-          center: 'prev, next, today',
-          right: 'month, agendaWeek, agendaDay' //month, agendaDay,
-        },
+      header: {
+        left: 'title', //,today
+        center: 'prev, next, today',
+        right: 'month, agendaWeek, agendaDay' //month, agendaDay,
+      },
 
-        // drop: (date, event, ui) => { // this function is called when something is dropped
-        //
-        //   // retrieve the dropped element's stored Event Object
-        //   let originalEventObject = ui.helper.data('eventObject');
-        //
-        //   // we need to copy it, so that multiple events don't have a reference to the same object
-        //   let copiedEventObject = $.extend({}, originalEventObject);
-        //
-        //   // assign it the date that was reported
-        //   copiedEventObject.start = date;
-        //
-        //   // render the event on the calendar
-        //   // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        //   this.$calendarRef.fullCalendar('renderEvent', copiedEventObject, true);
-        //
-        //   this.eventsService.addEvent(copiedEventObject)
-        //
-        // },
-        //
-        // select: (start, end, allDay) => {
-        //   var title = prompt('Event Title:');
-        //   if (title) {
-        //     this.calendar.fullCalendar('renderEvent', {
-        //         title: title,
-        //         start: start,
-        //         end: end,
-        //         allDay: allDay
-        //       }, true // make the event "stick"
-        //     );
-        //   }
-        //   this.calendar.fullCalendar('unselect');
-        // },
+      events: (start, end, timezone, callback) => {
+        // //console.log(this.eventsService.store.events);
+        // //여기서 데이터를 가져와 보내준다.
 
+        // let aaa = [{
+        //   "id": "ccvb2",
+        //   "title": "ㅁㅁㅁ-1",
+        //   "start": "2018-09-11",
+        //   "end": "2018-09-11",
+        //   "allDay": false,
+        //   "className": ["event", "bg-color-darken"]
+        // }]
+        // callback(aaa)
+        let param = [{emp_no: this.user.empId}];
+        this.pmsApiService.fetch('alarm/calendar_list', param).subscribe(result => {
+            this.items = result.data;
+            callback(this.items)
+        })
+      },
 
-        events: (start, end, timezone, callback) => {
-          console.log(this.eventsService.store.events);
-          //여기서 데이터를 가져와 보내준다.
-          callback(this.eventsService.store.events)
-        },
-
-        eventRender: (event, element, icon) => {
-          if (event.description != "") {
-            element.find('.fc-event-title').append("<br/><span class='ultra-light'>" + event.description + "</span>");
-          }
-          if (event.icon != "") {
-            element.find('.fc-event-title').append("<i class='air air-top-right fa " + event.icon + " '></i>");
-          }
+      eventRender: (event, element, icon) => {
+        if (event.description != "") {
+          element.find('.fc-event-title').append("<br/><span class='ultra-light'>" + event.description + "</span>");
+        }
+        if (event.icon != "") {
+          element.find('.fc-event-title').append("<i class='air air-top-right fa " + event.icon + " '></i>");
         }
       }
+    }
     );
 
     $('.fc-header-right, .fc-header-center', this.$calendarRef).hide();

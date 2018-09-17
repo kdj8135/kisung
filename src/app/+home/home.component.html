@@ -1,55 +1,64 @@
 <div id="content">
-    <div class="row">
-        <sa-big-breadcrumbs [items]="['Home']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
-    </div>
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Home']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <sa-widgets-grid>
+    <div class="row" >
+      <article class="col-xs-12 col-sm-12">
+        <div sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+                       [fullscreenbutton]="false" [custombutton]="false" [sortable]="false" >
+          <header>
+            <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+            <h2>수주정보</h2>
+          </header>
+          <div>
+            <form class="form-horizontal">
+              <label style="font-weight:bold;">구분</label>
+              <label class="select">
+                <select [(ngModel)]="sel_order_tp" name="sel_order_tp" (change)="searchChart()">
+                  <option value="all">전체</option>
+                  <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
+                </select><i></i>
+              </label> &nbsp;&nbsp;
 
+              <label style="font-weight:bold;">상태</label>
+              <label class="select">
+                <select [(ngModel)]="sel_status" name="sel_status" (change)="searchChart()">
+                  <option value="all">전체</option>
+                  <option value="N" selected="selected">진행중</option>
+                  <option value="Y">완료</option>
+                </select>
+              </label> &nbsp;&nbsp;
 
+              <label style="font-weight:bold;">범례&nbsp;</label>
+              <label style="border:1px solid #ddd;background-color:lightblue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;ST&nbsp;
+              <label style="border:1px solid #ddd;background-color:lightcoral;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;WT&nbsp;
+            </form>
 
-    <sa-widgets-grid>
-
-      <!-- row -->
-
-      <div class="row" *ngIf="flotData">
-
-        <article class="col-sm-12 col-md-12 col-lg-12">
-
-          <div sa-widget [editbutton]="false" color="blueDark">
-            <header>
-              <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-
-              <h2>Bar Chart</h2>
-            </header>
-
-            <div>
-              <div class="widget-body ">
-                <sa-flot-chart [data]="flotData.barChartData"
-                           [options]="flotExamples.barChartDemoOptions" ></sa-flot-chart>
-
-              </div>
+            <div class="widget-body no-padding" *ngIf="charData">
+              <sa-morris-graph [data]="charData" type="bar"
+                [options]="{xkey: 'title',
+                            ykeys: ['st', 'wt'],
+                            labels: ['ST', 'WT'],
+                            barColors: ['lightblue', 'lightcoral']}"
+              ></sa-morris-graph>
             </div>
           </div>
+        </div>
 
-        </article>
+      </article>
 
-      </div>
+    </div>
 
-      <!-- end row -->
+    <article class="col-sm-12 col-md-12 col-lg-6">
+      <calendar-widget></calendar-widget>
+    </article>
 
-      <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-6">
+      <todo-widget></todo-widget>
+    </article>
 
-       <article class="col-sm-12 col-md-12 col-lg-6">
-         <calendar-widget></calendar-widget>
-       </article>
-
-       <article class="col-sm-12 col-md-12 col-lg-6">
-        <todo-widget></todo-widget>
-       </article>
-
-     </div>
-
-    </sa-widgets-grid>
-    <!-- end widget grid -->
-
+  </sa-widgets-grid>
 
 
 </div>
