@@ -6,6 +6,8 @@ import {FormsModule} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {I18nModule} from "../../shared/i18n/i18n.module";
 
+import {LayoutSwitcherComponent} from "../../shared/layout/layout-switcher.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -13,7 +15,10 @@ import {I18nModule} from "../../shared/i18n/i18n.module";
     FormsModule,
     I18nModule
   ],
-  declarations: [LoginComponent],  
+  declarations: [LoginComponent, LayoutSwitcherComponent],
+  exports:[
+    LayoutSwitcherComponent
+  ],
   providers: [AuthService]
 })
 export class LoginModule { }
