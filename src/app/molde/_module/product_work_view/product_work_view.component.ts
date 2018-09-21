@@ -700,7 +700,7 @@ export class Product_Work_View_Component implements OnInit {
 
   savedata_add(c_save_yn) {
     //확정인경우
-    if(c_save_yn == "Y")
+    if(c_save_yn == "Y" || this.confirm_button_disabled == true)
     {
 
       if (this.save_Check("WORKER_ID", "작업자") == false) return;

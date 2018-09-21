@@ -93,7 +93,7 @@ export class Dashboard02Component implements OnInit {
   html_main() {
     let html = "";
     for (let i = 0; i < this.productList.length; i++) {
-      html += `<table class="table table-bordered" style="width:unset; max-width:unset;">
+      html += `<table class="table table-bordered" style="width:auto;">
         <tr>
           <th rowspan="4" style="border-right-width:1px;background-color:#eee;width:80px;min-width:80px;max-width:80px;vertical-align:middle;text-align:center;">
           ` + this.productList[i]["map_no"] + `
@@ -257,7 +257,7 @@ export class Dashboard02Component implements OnInit {
     }
 
     html += `
-    <table class="table table-bordered" style="width:unset; max-width:unset;">
+    <table class="table table-bordered" style="width:auto;">
       <tr>
         <th colspan="2" style="border-right-width:1px;background-color:#eee;vertical-align:middle;text-align:center;">
           ` + "총액" + `

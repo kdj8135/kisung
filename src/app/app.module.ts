@@ -26,6 +26,8 @@ import { GlobalsVariable } from './shared/helpers/index';
 import { WindowRef } from './shared/helpers/index';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+// COMPOSITION_BUFFER_MODE import(한글입력시 버퍼를 삭제)
+import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -74,7 +76,11 @@ type StoreType = {
     },
     PmsAuthGuard,
     GlobalsVariable,
-    WindowRef
+    WindowRef,
+    {
+        provide: COMPOSITION_BUFFER_MODE,
+        useValue: false
+      }
   ]
 })
 export class AppModule {

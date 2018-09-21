@@ -75,11 +75,9 @@ nativeWindow: any
       ,order_tp : this.sel_order_tp
     }];
 
-    console.log(param);
     this.charData = null;
     this.pmsApiService.fetch('alarm/chart_list', param).subscribe(result => {
         this.charData = result.data;
-        //console.log(this.charData);
     });
   }
 
@@ -97,7 +95,6 @@ nativeWindow: any
 
   reloadPage2() {
     //this.router.navigateByUrl(this.router.url);
-    console.log(this.router)
     alert(1);
     this.router.navigate([this.router.url], { queryParams: this.getQUeryParams() });
     alert(2);

@@ -290,6 +290,15 @@ export class ProductplanComponent implements OnInit {
       }];
       this.pmsApiService.fetch('productwork/work_plan_st', param, "put").subscribe(result => {
         if (result.code == "00") {
+          if ((i+1) == input_sts.length) {
+            this.notificationService.smallBox({
+              title: "저장되었습니다.",
+              content: "ST 및 제조원가",
+              color: "#C46A69",
+              iconSmall: "fa fa-check fa-2x fadeInRight animated",
+              timeout: 2000
+            });
+          }
 
         } else {
           alert("오류 등록");
@@ -498,7 +507,6 @@ export class ProductplanComponent implements OnInit {
     this.lgModal_pop_product_work_view.show();
   }
   close_lgModal_work_view() {
-    this.commoncodeList();
     this.searchData();
     this.lgModal_pop_product_work_view.hide();
   }
@@ -517,7 +525,6 @@ export class ProductplanComponent implements OnInit {
   //별도임률------------------start-----------------------------
   @ViewChild('lgModal_im') public lgModal_im: ModalDirective;
   open_lgModal_im() {
-    //임시저장 호출
     this.save_st();
 
     let param = [{

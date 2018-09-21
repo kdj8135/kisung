@@ -249,11 +249,17 @@ export class Outsourcing_Amt_View_Component implements OnInit {
           , format = function(s,c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
               if (!table.nodeType) table = document.getElementById(table)
               var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
-               //window.location.href = uri + base64(format(template, ctx))
-              var link = document.createElement('a');
-              link.download = "외주비용";
-              link.href = uri + base64(format(template, ctx));
-              link.click();
+
+              if (window.navigator.msSaveBlob) { // IE
+                var blob = new Blob([(format(template, ctx))], {type:  "data:application/vnd.ms-excel;base64;"});
+                window.navigator.msSaveOrOpenBlob(blob, "외주비용.xls")
+              } else {
+                var link = document.createElement('a');
+                link.download = "외주비용";
+                link.href = uri + base64(format(template, ctx));
+                link.click();
+              }
+
   }
 
 

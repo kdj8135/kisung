@@ -268,11 +268,16 @@ export class Dashboard03Component implements OnInit {
     export_excel = export_excel.replace(/background-color:#f9f2f4;/g, "");
 
     var ctx = { worksheet: name || 'Worksheet', table: export_excel }
-    //window.location.href = uri + base64(format(template, ctx))
-    var link = document.createElement('a');
-    link.download = "담당자별 공정내역";
-    link.href = uri + base64(format(template, ctx));
-    link.click();
+
+    if (window.navigator.msSaveBlob) { // IE
+      var blob = new Blob([(format(template, ctx))], {type:  "data:application/vnd.ms-excel;base64;"});
+      window.navigator.msSaveOrOpenBlob(blob, "담당자별 공정내역.xls")
+    } else {
+      var link = document.createElement('a');
+      link.download = "담당자별 공정내역";
+      link.href = uri + base64(format(template, ctx));
+      link.click();
+    }
   }
 
 

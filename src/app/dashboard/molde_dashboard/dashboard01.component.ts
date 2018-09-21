@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ModalDirective } from "ngx-bootstrap";
 import { PmsApiService } from "../../core/api/pms-api.service";
+import { UserService } from "../../shared/user/user.service";
 
 declare var $: JQueryStatic;
 import 'jqueryui';
@@ -15,12 +16,16 @@ declare function escape(s: string): string;
   //styleUrls: ['./productplan.component.css'],
 })
 export class Dashboard01Component implements OnInit {
+  user: any;
+
   order_id;
   order_rt = 80;
   order_rt_math = 0;
   constructor(
-    private pmsApiService: PmsApiService
+    private pmsApiService: PmsApiService,
+    private userService: UserService
   ) {
+    this.user = userService.getLoginInfo();
   }
 
   ngOnInit() {}
@@ -115,12 +120,20 @@ export class Dashboard01Component implements OnInit {
 
     //수주가
     info_price = 0;
+    excel_reg_dt = "";
+    excel_title = "";
+    excel_delivery_dt = "";
+    excel_reg_name = "";
     excel_html() {
       this.order_rt_math = (this.order_rt /100);
 
       let param = [{order_id: this.order_id}];
       this.pmsApiService.fetch('mdlde_dashboard/dashboard01_excel', param).subscribe(result => {
         this.info_price = Number(result.data_info[0].price);
+        this.excel_reg_dt = result.data_info[0].excel_reg_dt;
+        this.excel_delivery_dt = result.data_info[0].excel_delivery_dt;
+        this.excel_title = result.data_info[0].excel_title;
+        this.excel_reg_name = this.user.empNm;
         //상단 탑 테이블
         this.html_top(result);
         //본문
@@ -687,7 +700,7 @@ export class Dashboard01Component implements OnInit {
               this.comma(Number((this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P) / (this.info_price * this.order_rt_math)  * 100).toFixed(1))
             +`</td>
             <th style="text-align:center;">손익금액</th>
-            <td style="text-align:right;">`+this.comma(((this.info_price * this.order_rt_math) - (this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P))) +`</td>
+            <td style="text-align:right;color:`+this.font_color(((this.info_price * this.order_rt_math) - (this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P)))+`">`+this.comma(((this.info_price * this.order_rt_math) - (this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P))) +`</td>
           </tr>
           <tr>
             <th style="text-align:center;">수주가</th>
@@ -697,7 +710,9 @@ export class Dashboard01Component implements OnInit {
               this.comma(Number((this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P) / (this.info_price) * 100).toFixed(1))
             +`</td>
             <th style="text-align:center;">손익금액</th>
-            <td style="text-align:right;">`+this.comma(((this.info_price) - (this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P))) +`</td>
+            <td style="text-align:right;color:`+this.font_color(((this.info_price) - (this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P)))+`;">`+
+            this.comma(((this.info_price) - (this.Num_06_ST_P + this.Num_07_ST_P + this.Num_04_ST_P + this.Num_05_ST_P + this.Num_03_ST_P + this.Num_02_ST_P + this.Num_01_ST_P + this.Num_08_ST_P))) +
+            `</td>
           </tr>
 
           <tr>
@@ -723,7 +738,7 @@ export class Dashboard01Component implements OnInit {
               this.comma(Number((this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P) / (this.info_price * this.order_rt_math) * 100).toFixed(1))
             +`</td>
             <th style="text-align:center;">손익금액</th>
-            <td style="text-align:right;">`+this.comma(((this.info_price * this.order_rt_math) - (this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P))) +`</td>
+            <td style="text-align:right;color:`+this.font_color(((this.info_price * this.order_rt_math) - (this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P)))+`">`+this.comma(((this.info_price * this.order_rt_math) - (this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P))) +`</td>
           </tr>
           <tr>
             <th style="text-align:center;">수주가</th>
@@ -733,7 +748,7 @@ export class Dashboard01Component implements OnInit {
               this.comma(Number((this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P) / (this.info_price) * 100).toFixed(1))
             +`</td>
             <th style="text-align:center;">손익금액</th>
-            <td style="text-align:right;">`+this.comma(((this.info_price) - (this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P))) +`</td>
+            <td style="text-align:right;color:`+this.font_color(((this.info_price) - (this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P)))+`">`+this.comma(((this.info_price) - (this.Num_06_WT_P + this.Num_07_WT_P + this.Num_04_WT_P + this.Num_05_WT_P + this.Num_03_WT_P + this.Num_02_WT_P + this.Num_01_WT_P + this.Num_08_WT_P))) +`</td>
           </tr>
 
 
@@ -755,6 +770,17 @@ export class Dashboard01Component implements OnInit {
         $("#html_foot2").html(html);
     }
 
+    font_color(val) {
+      let ret = "";
+
+      if (val > 0) {
+          ret = "blue";
+      } else {
+        ret = "red";
+      }
+      return ret;
+    }
+
     tableToExcel(table) {
       let uri = 'data:application/vnd.ms-excel;base64,'
         , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body>{table}</html>'
@@ -763,11 +789,16 @@ export class Dashboard01Component implements OnInit {
         , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
       if (!table.nodeType) table = document.getElementById(table)
       var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-      //window.location.href = uri + base64(format(template, ctx))
-      var link = document.createElement('a');
-      link.download = "원가내역서";
-      link.href = uri + base64(format(template, ctx));
-      link.click();
+
+      if (window.navigator.msSaveBlob) { // IE
+        var blob = new Blob([(format(template, ctx))], {type:  "data:application/vnd.ms-excel;base64;"});
+        window.navigator.msSaveOrOpenBlob(blob, "원가내역서.xls")
+      } else {
+        var link = document.createElement('a');
+        link.download = "원가내역서";
+        link.href = uri + base64(format(template, ctx));
+        link.click();
+      }
     }
 
 

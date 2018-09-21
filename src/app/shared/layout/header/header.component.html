@@ -4,7 +4,8 @@
     <!-- PLACE YOUR LOGO HERE -->
     <!-- <span id="logo"> <img src="assets/img/logo.gif" alt="PMSLite"> </span> -->
     <span id="logo" style="cursor:pointer;text-align:center;margin-top:5px;margin-left:0px;">
-      <a href="/"><img src="assets/img/logo.gif" alt="PMSLite"></a>
+      <!-- <a href="/"><img src="assets/img/logo.gif" alt="PMSLite"></a> -->
+      <a href="/#/home"><img src="assets/img/logo.gif" alt="PMSLite"></a>
     </span>
 
 
@@ -23,10 +24,6 @@
 
   <!-- pulled right: nav area -->
   <div class="pull-right">
-
-    <!--메뉴 숨기기 버튼 주석-->
-    <!-- <sa-collapse-menu></sa-collapse-menu> -->
-
     <!-- #MOBILE -->
     <!-- Top menu profile link : this shows only when top menu is active -->
     <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
@@ -67,9 +64,9 @@
 
     <!-- search mobile button (this is hidden till mobile view port) -->
 
-    <div id="search-mobile" class="btn-header transparent pull-right">
+    <!-- <div id="search-mobile" class="btn-header transparent pull-right">
       <span> <a (click)="toggleSearchMobile()" title="Search"><i class="fa fa-search"></i></a> </span>
-    </div>
+    </div> -->
     <!-- end search mobile button -->
 
     <!-- input: search field -->
@@ -97,11 +94,15 @@
     <!-- end multiple lang -->
 
     <!--로그아웃 버튼 추가-->
-    <div class="btn-header transparent pull-right">
-      <span> <a href="/#/auth/login" (click)="LogOut()" title="LogOut"><i
-              class="fa fa-sign-out"></i></a>
-      </span>
+    <div class="btn-header pull-right">
+      <span><a href="/#/auth/login" (click)="LogOut()" title="LogOut"><i class="fa fa-sign-out"></i></a></span>
     </div>
+
+    <!--모바일일때만 노출-->
+    <div id="search-mobile" class="btn-header pull-right">
+      <sa-collapse-menu></sa-collapse-menu>
+    </div>
+
 
   </div>
   <!-- end pulled right: nav area -->
