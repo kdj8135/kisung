@@ -1,50 +1,80 @@
-<div class="demo" [class.activate]="isActivated"><span id="demo-setting" (click)="onToggle()"><i
-  class="fa fa-cog txt-color-blueDark"></i></span>
+<div class="demo" [class.activate]="isActivated">
+  <span id="demo-setting" (click)="onToggle()"><i class="fa fa-paint-brush"></i></span>
 
-  <form>
-    <legend class="no-padding margin-bottom-10">Layout Options</legend>
-    <section>
-      <label><input type="checkbox" (click)="onFixedHeader()" [(ngModel)]="store.fixedHeader" name="fixedHeader"
-                    class="checkbox style-0"><span>Fixed Header</span></label>
-      <label><input type="checkbox"
-                    (click)="onFixedNavigation()" [(ngModel)]="store.fixedNavigation" name="fixedNavigation"
-                    class="checkbox style-0"><span>Fixed Navigation</span></label>
-      <label><input type="checkbox"
-                    (click)="onFixedRibbon()" [(ngModel)]="store.fixedRibbon" name="fixedRibbon"
-                    class="checkbox style-0"><span>Fixed Ribbon</span></label>
-    <!--Fixed Footer,For Colorblind 주석 : 김동진   -->
-      <!-- <label><input type="checkbox"
-                    (click)="onFixedPageFooter()" [(ngModel)]="store.fixedPageFooter" name="fixedPageFooter"
-                    class="checkbox style-0"><span>Fixed Footer</span></label> -->
-      <label><input type="checkbox"
-                    (click)="onInsideContainer()" [(ngModel)]="store.insideContainer" name="insideContainer"
-                    class="checkbox style-0"><span>Inside <b>.container</b></span></label>
-      <label><input type="checkbox"
-                    (click)="onRtl()" [(ngModel)]="store.rtl" name="rtl"
-                    class="checkbox style-0"><span>RTL</span></label>
-      <label><input type="checkbox"
-                    (click)="onMenuOnTop()" [(ngModel)]="store.menuOnTop" name="menuOnTop"
-                    class="checkbox style-0"><span>Menu on <b>top</b></span></label>
-      <!-- <label><input type="checkbox"
-                    (click)="onColorblindFriendly()" [(ngModel)]="store.colorblindFriendly" name="colorblindFriendly"
-                    class="checkbox style-0"><span>For Colorblind <div
-        class="font-xs text-right">(experimental)
-            </div></span>
-      </label><span id="smart-bgimages"></span> -->
-    </section>
-    <section><h6 class="margin-top-10 semi-bold margin-bottom-5">Clear Localstorage</h6><a
-      (click)="factoryReset()" class="btn btn-xs btn-block btn-primary" id="reset-smart-widget"><i
-      class="fa fa-refresh"></i> Factory Reset</a></section>
+  <div class="collabra-box">
+    <div class="collabra-box-centered">
+      <div class="collabra-title">
+        <div class="left">
+          <i class="fa fa-newspaper-o"></i> 테마설정
+        </div>
+        <div class="right">
+          <a id="close-setting" (click)="onToggle()" class="c-close"></a>
+        </div>
+      </div>
+      <form>
+        <div class="collabra-sub-title">레이아웃 옵션</div>
 
-    <h6 class="margin-top-10 semi-bold margin-bottom-5">SmartAdmin Skins</h6>
+        <button class="btn btn-default">기본버튼</button>
+        <a class="btn btn-toolbar">툴바버튼</a>
+        <a class="btn btn-primary">프라이머리</a>
+        <a class="btn btn-secondary">세컨더리?</a>
+        <a class="btn btn-success">성공버튼</a>
+        <a class="btn btn-warning">경고버튼</a>
+        <a class="btn btn-danger">위험버튼</a>
+        <a class="btn btn-debug">디버그버튼</a>
+        <hr />
+        <a class="btn btn-xl">XL기본버튼</a>
+        <a class="btn btn-xs">XS버튼</a>
+        <a class="btn btn-sm">SM버튼</a>
 
 
-    <section id="smart-styles">
-          <a *ngFor="let skin of store.skins"
-             (click)="onSmartSkin(skin)"
-             [class]="skin.skinBtnClass"
-             [ngStyle]="skin.style">
-             <i *ngIf="skin.name == store.smartSkin" class="fa fa-check fa-fw"></i> {{skin.label}} <sup *ngIf="skin.beta">beta</sup></a>
+        <section id="layout-options">
+          <label><input type="checkbox" (click)="onFixedHeader()" [(ngModel)]="store.fixedHeader" name="fixedHeader"
+                        class="checkbox style-0"><span>헤더 고정</span></label>
+          <label><input type="checkbox"
+                        (click)="onFixedNavigation()" [(ngModel)]="store.fixedNavigation" name="fixedNavigation"
+                        class="checkbox style-0"><span>메뉴바 고정</span></label>
+          <label><input type="checkbox"
+                        (click)="onFixedRibbon()" [(ngModel)]="store.fixedRibbon" name="fixedRibbon"
+                        class="checkbox style-0"><span>내 위치 리본 고정</span></label>
+        <!--Fixed Footer,For Colorblind 주석 : 김동진   -->
+          <!-- <label><input type="checkbox"
+                        (click)="onFixedPageFooter()" [(ngModel)]="store.fixedPageFooter" name="fixedPageFooter"
+                        class="checkbox style-0"><span>Fixed Footer</span></label> -->
+          <!-- <label><input type="checkbox"
+                        (click)="onInsideContainer()" [(ngModel)]="store.insideContainer" name="insideContainer"
+                        class="checkbox style-0"><span>Inside <b>.container</b></span></label> -->
+          <label><input type="checkbox"
+                        (click)="onRtl()" [(ngModel)]="store.rtl" name="rtl"
+                        class="checkbox style-0"><span>우측 메뉴 형태로 설정</span></label>
+          <label><input type="checkbox"
+                        (click)="onMenuOnTop()" [(ngModel)]="store.menuOnTop" name="menuOnTop"
+                        class="checkbox style-0"><span>상단 메뉴바 형태로 설정</span></label>
+          <!-- <label><input type="checkbox"
+                        (click)="onColorblindFriendly()" [(ngModel)]="store.colorblindFriendly" name="colorblindFriendly"
+                        class="checkbox style-0"><span>For Colorblind <div
+            class="font-xs text-right">(experimental)
+                </div></span>
+          </label><span id="smart-bgimages"></span> -->
         </section>
-  </form>
+        <section>
+          <div class="collabra-sub-title">로컬 저장소 초기화</div>
+          <div class="collabra-sub-box">
+            <a (click)="factoryReset()" class="btn btn-xs btn-block btn-primary" id="reset-smart-widget"><i
+            class="fa fa-refresh"></i> 팩토리 초기화</a>
+          </div>
+        </section>
+        <section id="smart-styles">
+              <div class="collabra-sub-title">테마 색상</div>
+              <div class="collabra-sub-box">
+                <a *ngFor="let skin of store.skins"
+                   (click)="onSmartSkin(skin)"
+                    [class]="skin.skinBtnClass"
+                    [ngStyle]="skin.style">
+                  <i *ngIf="skin.name == store.smartSkin" class="fa fa-check fa-fw"></i> {{skin.label}} <sup *ngIf="skin.beta">beta</sup></a>
+              </div>
+            </section>
+      </form>
+    </div>
+  </div>
 </div>

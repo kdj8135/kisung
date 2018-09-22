@@ -3,9 +3,9 @@
 
     <!-- PLACE YOUR LOGO HERE -->
     <!-- <span id="logo"> <img src="assets/img/logo.gif" alt="PMSLite"> </span> -->
-    <span id="logo" style="cursor:pointer;text-align:center;margin-top:5px;margin-left:0px;">
+    <span id="logo">
       <!-- <a href="/"><img src="assets/img/logo.gif" alt="PMSLite"></a> -->
-      <a href="/#/home"><img src="assets/img/logo.gif" alt="PMSLite"></a>
+      <a href="/#/home"><img src="/assets/img/ksh-logo-login@2x.png" style="widht:200px; height:60px;" /></a>
     </span>
 
 
@@ -14,7 +14,6 @@
 
     <!-- Note: The activity badge color changes when clicked and resets the number to 0
     Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-    <sa-activities></sa-activities>
   </div>
 
 
@@ -93,14 +92,23 @@
     <!-- <sa-language-selector></sa-language-selector> -->
     <!-- end multiple lang -->
 
-    <!--로그아웃 버튼 추가-->
-    <div class="btn-header pull-right">
-      <span><a href="/#/auth/login" (click)="LogOut()" title="LogOut"><i class="fa fa-sign-out"></i></a></span>
-    </div>
+
+
 
     <!--모바일일때만 노출-->
-    <div id="search-mobile" class="btn-header pull-right">
-      <sa-collapse-menu></sa-collapse-menu>
+    <!--div class="btn-header pull-right"--> <!--id="search-mobile" -->
+    <sa-collapse-menu></sa-collapse-menu>
+    <!--/div-->
+
+    <!--로그아웃 버튼 추가-->
+    <div class="btn-header pull-right">
+      <span><a href="/#/auth/login" (click)="LogOut()" title="LogOut" class="btn-header-login"><i class="fa fa-sign-out"></i></a></span>
+    </div>
+
+
+    <!-- 알림. 액티비티 -->
+    <div class="btn-header pull-right">
+      <sa-activities></sa-activities>
     </div>
 
 

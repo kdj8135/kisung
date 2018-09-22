@@ -54,7 +54,7 @@ export class SmartMenuDirective implements OnInit, AfterViewInit {
     this.$menu.find('li:has(> ul)').each((i, li) => {
       let $menuItem = $(li);
       let $a = $menuItem.find('>a');
-      let sign = $('<b class="collapse-sign"><em class="fa fa-plus-square-o"/></b>');
+      let sign = $('<b class="collapse-sign"><em class="fa fa-plus-circle"/></b>');
 
       $a.on('click', (e) => {
         this.toggle($menuItem);
@@ -102,8 +102,8 @@ export class SmartMenuDirective implements OnInit, AfterViewInit {
     }
 
     $el.find('>a>.collapse-sign>em')
-      .toggleClass('fa-plus-square-o', !condition)
-      .toggleClass('fa-minus-square-o', condition);
+      .toggleClass('fa-plus-circle', !condition)
+      .toggleClass('fa-minus-circle', condition);
 
     $el.data('open', condition);
 

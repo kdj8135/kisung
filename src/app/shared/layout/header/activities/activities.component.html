@@ -1,5 +1,4 @@
 <span id="activity" class="activity-dropdown" (click)="onToggle()">
-  <!-- <i class="fa fa-user"></i> -->
   <i class="fa fa-bell-o"></i>
   <b class="badge bg-color-red">{{count}}</b>
 </span>
@@ -39,7 +38,7 @@
   <!-- footer: refresh area -->
     <span> Last updated on: {{lastUpdate | moment:"h:mm:ss a"}}
       <button type="button" (click)="update()"
-              class="btn btn-xs btn-default pull-right">
+              class="btn btn-xs btn-default">
           <i class="fa fa-refresh" *ngIf="!loading"></i>
           <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
           <span *ngIf="loading">loading...</span>

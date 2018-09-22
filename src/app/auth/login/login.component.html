@@ -1,18 +1,14 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/assets/js/good-word.js"></script>
-
-
 <div id="main" role="main" class="vertical-center">
   <sa-layout-switcher></sa-layout-switcher>
 
 
-
+        <!--sa-layout-switcher></sa-layout-switcher-->
 
         <div class="login-form-container">
 
             <div class="login-form">
                 <div class="login-form-title">
-                    <img src="/assets/img/ksh-logo-login@2x.png" style="widht:300px; height:60px;" />
+                    <img src="/assets/img/ksh-logo-login@2x.png" style="widht:200px; height:60px;" />
                 </div>
                 <form class="smart-form client-form">
                     <fieldset>
@@ -41,17 +37,8 @@
                         <section>
                             <button (click)="login($event)" class="btn btn-primary login-btn">로그인</button>
                         </section>
-                        <hr />
-                        <section>
-                            <sa-language-selector (loginLanguage)="setLanguage($event)"></sa-language-selector>
-                        </section>
                     </fieldset>
                 </form>
-            </div>
-            <div class="login-good-word" id="good_words">
-                <!-- 명언 출력 -->
-                <p class="en">Gain at the expense of reputation should be called loss.</p><br />
-                <p class="ko">"명예의 대가로 얻은 이득은 손해라고 불러야 한다."</p>
             </div>
         </div>
 

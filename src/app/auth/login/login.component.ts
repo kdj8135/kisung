@@ -6,6 +6,9 @@ import {AuthService} from "../auth.service";
 import { NotificationService } from "../../shared/utils/notification.service";
 import { pmsConfig } from '../../shared/pms.config';
 
+
+declare var goodWords:any;
+
 declare var $: JQueryStatic;
 import 'jqueryui';
 
