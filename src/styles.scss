@@ -477,10 +477,8 @@ BODY.smart-style-0 {
           margin:0;
         }
       }
-    }
-    #left-panel{
       nav{
-        ul.ng-star-inserted{
+        ul.ng-star-inserted{ // 1. 미니 아이콘
 
           li.ng-star-inserted{
             border:none;
@@ -491,34 +489,124 @@ BODY.smart-style-0 {
                 background:$skin-color-b;
                 color:lighten($skin-color-b, 56%) !important;
                 border:1px solid lighten($skin-color-b, 26%);
-                height:32px;
-                line-height:32px;
                 width:200px;
-                top:0;
+                height:32px;
+                line-height: 32px;
+                top:5px;
               }
               .collapse-sign{
-                color:#f00;
               }
             }
             ul.ng-star-inserted{
+              background:#0f0;
               width:200px;
               box-sizing:border-box;
               border:1px solid lighten($skin-color-b, 26%);
-              margin-top:-4px;
-              //background:$skin-color-b;
+              margin-top:0px;
+              background:$skin-color-b;
               min-height:30px;
               li.ng-star-inserted{
-                //border-top:1px solid lighten($skin-color-b, 26%); //line
+                background:rgba(0,0,0, .3);
+                border-top:1px solid lighten($skin-color-b, 16%); //line
                 a{
+                  padding-top:0;
+                  padding-bottom:0;
+                  height:30px;
+                  line-height: 30px;
                   span.menu-item-parent {
                     background:none;
                     border:none;
-
+                  }
+                  .collapse-sign{
+                    float: initial;
+                    position: absolute;
+                    right:10px;
+                    top:0px;
+                  }
+                }
+                &.active{
+                  a{
+                    color:lighten($skin-color-a,10%) !important;
+                    &:before{ //서브뎁스 선택 표시
+                      color:$skin-color-a;
+                      top:5px;
+                    }
                   }
                 }
                 ul.ng-star-inserted{
+                  width:100%;
                   border:none;
+                  background:rgba(0,0,0, .3);
                   li.ng-star-inserted{
+                    a{
+                      height:28px;
+                      line-height: 28px;
+                      span.menu-item-parent {
+                      }
+                      .collapse-sign{
+                        top:0px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.menu-on-top{
+    #left-panel {
+      .minified-box {
+        display: none;
+      }
+      nav {
+        ul.ng-star-inserted {
+          li.ng-star-inserted {
+            border-left: none !important;
+            border-bottom: none !important;
+            border-right: 1px solid lighten($skin-color-b, 10%) !important;
+            &:hover{
+              background:darken($skin-color-b, 10%) !important; //Mouse up 했을시엔 li의 배경색을 가진다.
+              a{
+                color:$skin-color-a;
+              }
+            }
+            a {
+              //background:transparent; 배경은 패널배경색을 따름
+              height: 36px !important;
+              line-height: 36px;
+              padding:0 10px !important;
+              border-right:none !important;
+              border-left:none !important;
+              i {
+                width: auto !important;
+                display: inline !important;
+                vertical-align: middle;
+                font-size: 16px !important;
+              }
+              span.menu-item-parent {
+                vertical-align: middle;
+              }
+              .collapse-sign {
+
+              }
+              &:after{ //주메뉴에 하위메뉴 있음을 알리는 지시자
+                font-size:12px;
+                top:60% !important;
+                color:lighten($skin-color-b, 10%) !important;
+              }
+            }
+            ul.ng-star-inserted {
+              background:$skin-color-b !important;
+              border:1px solid lighten($skin-color-b, 26%);
+              &:before{
+                background:#f00;
+              }
+              li.ng-star-inserted {
+                a {
+                  span.menu-item-parent {
 
                   }
                 }
@@ -527,6 +615,9 @@ BODY.smart-style-0 {
           }
         }
       }
+    }
+    #main{
+      margin-top:36px;
     }
   }
 }
@@ -885,11 +976,17 @@ input[type="checkbox"] {
 // ##### UI CEHCKBOX ############################ END //
 
 
-// ##### BUTTON SET ############################ START //
+// ##### GLOBAL UI SET ############################ START //
+
+//-- Button Set ---------------------//
 
 
+//-- Input Set ---------------------//
+input.form-control{
+  border-radius: 4px !important;
+}
 
-// ##### BUTTON SET ############################ END //
+// ##### GLOBAL SET ############################ END //
 
 
 // ##### MIXIN ############################ START //
