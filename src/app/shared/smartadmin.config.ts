@@ -13,20 +13,16 @@ export const config: any = {
     {
       name: "smart-style-0",
       logo: "assets/img/ksh-logo-login@2x.png",
-      skinBtnClass: "btn btn-block btn-xs txt-color-white margin-right-5",
-      style: {
-        backgroundColor: '#4E463F'
-      },
+      skinBtnClass: "btn btn-theme-blue btn-block margin-right-5",
+      style: {},
       label: "기성하이스트 블루 테마 (기본)"
     },
 
     {
       name: "smart-style-1",
       logo: "assets/img/ksh-logo-login@2x.png",
-      skinBtnClass: "btn btn-block btn-xs txt-color-white",
-      style: {
-        background: '#3A4558'
-      },
+      skinBtnClass: "btn btn-theme-white btn-block",
+      style: {},
       label: "기성하이스트 화이트 테마"
     }
   ],

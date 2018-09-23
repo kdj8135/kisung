@@ -7,9 +7,6 @@
       <!-- <a href="/"><img src="assets/img/logo.gif" alt="PMSLite"></a> -->
       <a href="/#/home"><img src="/assets/img/ksh-logo-login@2x.png" style="widht:200px; height:60px;" /></a>
     </span>
-
-
-
     <!-- END LOGO PLACEHOLDER -->
 
     <!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -19,47 +16,6 @@
 
   <!-- 위치가 탑에서 메뉴쪽으로 내려옴, 그래서 주석 : 김동진 -->
   <!-- <sa-recent-projects></sa-recent-projects> -->
-
-
-  <!-- pulled right: nav area -->
-  <div class="pull-right">
-    <!-- #MOBILE -->
-    <!-- Top menu profile link : this shows only when top menu is active -->
-    <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
-      <li class="">
-        <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
-          <img src="assets/img/avatars/sunny.png" alt="John Doe" class="online"/>
-        </a>
-        <ul class="dropdown-menu pull-right">
-          <li>
-            <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"><i
-              class="fa fa-cog"></i> Setting</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a routerLink="/app-views/profile" class="padding-10 padding-top-0 padding-bottom-0"> <i
-              class="fa fa-user"></i>
-              <u>P</u>rofile</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"
-               data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"
-               data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a routerLink="/auth/login" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i
-              class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-
 
     <!-- search mobile button (this is hidden till mobile view port) -->
 
@@ -94,25 +50,51 @@
 
 
 
-
-    <!--모바일일때만 노출-->
-    <!--div class="btn-header pull-right"--> <!--id="search-mobile" -->
     <sa-collapse-menu></sa-collapse-menu>
-    <!--/div-->
 
-    <!--로그아웃 버튼 추가-->
+
     <div class="btn-header pull-right">
-      <span><a href="/#/auth/login" (click)="LogOut()" title="LogOut" class="btn-header-login"><i class="fa fa-sign-out"></i></a></span>
+      <div id="logout-box">
+        <a href="/#/auth/login" (click)="LogOut()" title="LogOut"><i class="fa fa-sign-out"></i> <span class="tt">로그아웃</span></a>
+      </div>
     </div>
 
 
-    <!-- 알림. 액티비티 -->
     <div class="btn-header pull-right">
-      <sa-activities></sa-activities>
+      <div id="activities-box" class="hidden-xs">
+        <sa-activities></sa-activities>
+      </div>
     </div>
 
 
-  </div>
-  <!-- end pulled right: nav area -->
+    <div class="btn-header pull-right">
+      <div id="profile-box">
+      <ul class="header-dropdown-list hidden-xs">
+        <li class="">
+          <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
+            <span class="pimg"><!--img src="assets/img/kdj.png" alt="김동진" class="online" /--></span>
+            <span class="pname"><strong>김동진</strong> 과장</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a (click)="(null)"><i class="fa fa-cog"></i> 설정</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a routerLink="/app-views/profile"> <i class="fa fa-user"></i> 프로필</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a (click)="(null)" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> 전체화면</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a routerLink="/auth/login" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> 로그아웃</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      </div>
+    </div>
 
 </header>

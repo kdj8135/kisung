@@ -1,5 +1,5 @@
 <div class="demo" [class.activate]="isActivated">
-  <span id="demo-setting" (click)="onToggle()"><i class="fa fa-paint-brush"></i></span>
+  <span id="demo-setting" (click)="onToggle()"><i class="fa fa-cog"></i></span>
 
   <div class="collabra-box">
     <div class="collabra-box-centered">
@@ -13,20 +13,6 @@
       </div>
       <form>
         <div class="collabra-sub-title">레이아웃 옵션</div>
-
-        <button class="btn btn-default">기본버튼</button>
-        <a class="btn btn-toolbar">툴바버튼</a>
-        <a class="btn btn-primary">프라이머리</a>
-        <a class="btn btn-secondary">세컨더리?</a>
-        <a class="btn btn-success">성공버튼</a>
-        <a class="btn btn-warning">경고버튼</a>
-        <a class="btn btn-danger">위험버튼</a>
-        <a class="btn btn-debug">디버그버튼</a>
-        <hr />
-        <a class="btn btn-xl">XL기본버튼</a>
-        <a class="btn btn-xs">XS버튼</a>
-        <a class="btn btn-sm">SM버튼</a>
-
 
         <section id="layout-options">
           <label><input type="checkbox" (click)="onFixedHeader()" [(ngModel)]="store.fixedHeader" name="fixedHeader"
@@ -60,7 +46,7 @@
         <section>
           <div class="collabra-sub-title">로컬 저장소 초기화</div>
           <div class="collabra-sub-box">
-            <a (click)="factoryReset()" class="btn btn-xs btn-block btn-primary" id="reset-smart-widget"><i
+            <a (click)="factoryReset()" class="btn btn-block btn-warning btn-theme-reset" id="reset-smart-widget"><i
             class="fa fa-refresh"></i> 팩토리 초기화</a>
           </div>
         </section>
