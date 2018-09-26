@@ -178,25 +178,32 @@
     <kendo-grid-excel fileName="Product_Work_List.xlsx" [fetchData]="allData"></kendo-grid-excel>
   </kendo-grid>
 
+    <!-- s.row -->
+    <div class="h20"></div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="optbar">
+
+            <div class="form-group">
+                <table border="0">
+                    <tr>
+                        <td>
+                            <span class="opt"><span><label style='color:#FFFF99;'>■ </label>&nbsp;시작필요</span></span>
+                            <span class="opt"><span><label style='color:#00CC00;'>■ </label>&nbsp;진행중</span></span>
+                            <span class="opt"><span><label style='color:#FF6666;'>■ </label>&nbsp;지연.입고필요</span></span>
+                            <span class="opt"><span><label style='color:#66CCFF;'>■ </label>&nbsp;완료</span></span>
+                            <span class="opt"><span><label style='color:#CCCCCC;'>■ </label>&nbsp;지연완료</span></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- e.row -->
 </div>
 
-<div class="navbar-form navbar-left">
-
-  <div class="form-group">
-    <table border="0">
-      <tr>
-        <td>
-          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#FFFF99;'>■ </label>&nbsp;시작필요</span></span>
-          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#00CC00;'>■ </label>&nbsp;진행중</span></span>
-          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#FF6666;'>■ </label>&nbsp;지연.입고필요</span></span>
-          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#66CCFF;'>■ </label>&nbsp;완료</span></span>
-          <span style="padding-top:5px;padding-left:10px; color:; vertical-align:bottom;"><span><label style='color:#CCCCCC;'>■ </label>&nbsp;지연완료</span></span>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-</div>
 <!-- end content -->
 
 <div bsModal #lgModal_pop_product_work_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
