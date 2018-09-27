@@ -199,6 +199,10 @@ export class LayoutService {
 
   processBody(state) {
     let $body = $('body');
+    let $html = $('html');
+
+    $html.removeClass(state.skins.map((it)=>(it.name)).join(' '));
+    $html.addClass(state.skin.name);
     $body.removeClass(state.skins.map((it)=>(it.name)).join(' '));
     $body.addClass(state.skin.name);
     $("#logo img").attr('src', state.skin.logo);

@@ -1,3 +1,7 @@
+HTML.smart-style-0{
+  background:#1F72A6;
+}
+
 BODY.smart-style-0 {
 
   $skin-base-a: white;
@@ -16,7 +20,7 @@ BODY.smart-style-0 {
   height:100%; margin:0; padding:0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  //font-smoothing: antialiased;
   background:$skin-color-a;
 
   //Button Default(White) ...
@@ -34,6 +38,7 @@ BODY.smart-style-0 {
   //Button Danger(Red) ...
   $ui-g-a: #bf544e; //base
   $ui-g-b: #9e5149; //outline
+
 
   //-- LOGIN --------------------------------------//
   #extr-page{
@@ -248,7 +253,15 @@ BODY.smart-style-0 {
           opacity: .9;
         }
       }
-      .modal-body{}
+      .modal-body{
+        input[type=text],input[type=number]{
+          border:1px solid darken($skin-base-a, 15%);
+          &:disabled{
+            background:darken($skin-base-a, 10%);
+            color:darken($skin-base-a, 40%);
+          }
+        }
+      }
       .modal-footer{}
     }
   }
@@ -1156,6 +1169,9 @@ BODY.smart-style-0 {
     cursor: pointer;
     position: relative;
     font-size:13px;
+    &[hidden]{
+      display:none !important;
+    }
     .ui-checkbox {
       box-sizing: border-box;
       display: inline-block;

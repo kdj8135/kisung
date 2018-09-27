@@ -1,3 +1,7 @@
+HTML.smart-style-1{
+  background:#F7F7F7;
+}
+
 BODY.smart-style-1 {
 
   $skin-base-a: white;
@@ -17,7 +21,7 @@ BODY.smart-style-1 {
   height:100%; margin:0; padding:0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  //font-smoothing: antialiased;
   background:$skin-color-a;
 
   //Button Default(White) ...
@@ -246,14 +250,22 @@ BODY.smart-style-1 {
   .modal-dialog{
     .modal-content{
       .modal-header{
-        color:$skin-color-a;
-        background:lighten($skin-color-a, 48%);
+        color:darken($skin-color-b, 40%);
+        background:darken($skin-color-a, 6%);
         .close{
-          color:$skin-color-a !important;
+          color:darken($skin-color-b, 30%) !important;
           opacity: .9;
         }
       }
-      .modal-body{}
+      .modal-body{
+        input[type=text],input[type=number]{
+          border:1px solid darken($skin-base-a, 15%);
+          &:disabled{
+            background:darken($skin-base-a, 10%);
+            color:darken($skin-base-a, 40%);
+          }
+        }
+      }
       .modal-footer{}
     }
   }
@@ -605,7 +617,7 @@ BODY.smart-style-1 {
         padding: 7px 0 7px 0!important;
         color:darken($skin-color-b, 30%) !important;
         li:last-child{
-          color:darken($skin-color-b, 20%) !important;
+          color:$skin-color-c !important;
         }
       }
     }
@@ -1190,6 +1202,9 @@ BODY.smart-style-1 {
     cursor: pointer;
     position: relative;
     font-size:13px;
+    &[hidden]{
+      display:none !important;
+    }
     .ui-checkbox {
       box-sizing: border-box;
       display: inline-block;
