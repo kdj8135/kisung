@@ -153,10 +153,10 @@ export class LayoutService {
 
     this.trigger();
   }
-  
+
 
   onMinifyMenu(){
-    this.store.menuMinified = !this.store.menuMinified;    
+    this.store.menuMinified = !this.store.menuMinified;
     this.trigger();
   }
 
@@ -185,8 +185,8 @@ export class LayoutService {
 
   factoryReset() {
     this.notificationService.smartMessageBox({
-      title: "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
-      content: "Would you like to RESET all your saved widgets and clear LocalStorage?",
+      title: "<i class='fa fa-refresh' style='color:green'></i> 웹페이지 초기화",
+      content: "웹페이지를 초기화 하시겠습니까?",
       buttons: '[No][Yes]'
     }, (ButtonPressed) => {
       if (ButtonPressed == "Yes" && localStorage) {

@@ -21,7 +21,8 @@ import {UserModule} from "../../user/user.module";
 import {VoiceControlModule} from "../../voice-control/voice-control.module";
 import {BsDropdownModule} from "ngx-bootstrap";
 
-
+import { ModalModule } from "ngx-bootstrap";
+import { SelectdeptModule } from 'app/common/popup/selectdept/selectdept.module'; //팝업 dept
 @NgModule({
   imports: [
     CommonModule,
@@ -33,6 +34,7 @@ import {BsDropdownModule} from "ngx-bootstrap";
     BsDropdownModule,
 
     UtilsModule, I18nModule, UserModule, PopoverModule,
+    ModalModule,SelectdeptModule
   ],
   declarations: [
     ActivitiesMessageComponent,

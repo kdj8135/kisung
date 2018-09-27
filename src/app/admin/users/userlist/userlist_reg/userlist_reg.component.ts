@@ -208,10 +208,8 @@ export class Userlist_regComponent implements OnInit {
 
     let param = [{ lang_lcid: "1042", company_cd: "COLLABRA", type_gubun: gubun}];
     this.pmsApiService.fetch('userlist/user_bind', param).subscribe(result => {
-
         this[gubun + "_select_bind_dt"] = result.data;
         this.Job_box_bind(gubun);
-
     })
   }
   //2. 셀렉트 박스에 ID, VALUE 삽입하기
@@ -249,7 +247,7 @@ export class Userlist_regComponent implements OnInit {
     if (this.save_Check("PHONE", this.mlangService.getTranslation('휴대폰번호', 'LABEL', 'L000019', '34')) == false) return;
     if (this.save_Check("Dept_CD", this.mlangService.getTranslation('부서', 'LABEL', 'L000001', '34')) == false) return;
     if (this.save_Check("JOB_CD_T", this.mlangService.getTranslation('직책', 'LABEL', 'L000011', '34')) == false) return;
-    if (this.save_Check("JOB_CD_R", this.mlangService.getTranslation('직급', 'LABEL', 'L000012', '34')) == false) return;
+    //if (this.save_Check("JOB_CD_R", this.mlangService.getTranslation('직급', 'LABEL', 'L000012', '34')) == false) return;
 
     //최초 등록일 경우만 비밀번호가 공백인지 체크
     if(this.idx == "" )
@@ -266,7 +264,7 @@ export class Userlist_regComponent implements OnInit {
       if(this.EMP_PWD != this.EMP_PWD_CF){
         this.notificationService.smallBox({
           title: "비밀번호를 확인하세요.",
-          content: this.mlangService.getTranslation('비빌번호는 같아야 합니다.', 'MSG', 'M000002', '34'),
+          content: this.mlangService.getTranslation('비밀번호는 같아야 합니다.', 'MSG', 'M000002', '34'),
           color: "#C46A69",
           iconSmall: "fa fa-check fa-2x fadeInRight animated",
           timeout: 2000

@@ -15,7 +15,7 @@ export const config: any = {
       logo: "assets/img/ksh-logo-login@2x.png",
       skinBtnClass: "btn btn-theme-blue btn-block margin-right-5",
       style: {},
-      label: "기성하이스트 블루 테마 (기본)"
+      label: "블루 테마"
     },
 
     {
@@ -23,7 +23,7 @@ export const config: any = {
       logo: "assets/img/ksh-logo-login@2x.png",
       skinBtnClass: "btn btn-theme-white btn-block",
       style: {},
-      label: "기성하이스트 화이트 테마"
+      label: "화이트 테마"
     }
   ],
 

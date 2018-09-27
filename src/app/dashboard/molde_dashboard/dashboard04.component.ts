@@ -262,10 +262,10 @@ export class Dashboard04Component implements OnInit {
     var ctx = { worksheet: name || 'Worksheet', table: export_excel }
     if (window.navigator.msSaveBlob) { // IE
       var blob = new Blob([(format(template, ctx))], {type:  "data:application/vnd.ms-excel;base64;"});
-      window.navigator.msSaveOrOpenBlob(blob, "공정별 공정내역.xls")
+      window.navigator.msSaveOrOpenBlob(blob, "공정별 담당자조회.xls")
     } else {
       var link = document.createElement('a');
-      link.download = "공정별 공정내역";
+      link.download = "공정별 담당자조회";
       link.href = uri + base64(format(template, ctx));
       link.click();
     }

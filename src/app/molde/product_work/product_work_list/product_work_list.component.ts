@@ -173,6 +173,7 @@ export class product_work_listComponent implements OnInit {
     {
       let paramP = [{
         select_gubun: this[sc_name + "_outsourcing_cd"]
+        ,select_progress: val
       }];
       this.pmsApiService.fetch('WPCommon/WPCommon_Worker', paramP).subscribe(result => {
         //console.log(result.data)
