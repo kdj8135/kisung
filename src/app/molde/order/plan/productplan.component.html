@@ -11,7 +11,7 @@
           <button class="btn btn-primary" (click)="open_lgModal_out_amt()">외주비용</button>
           <button class="btn btn-primary" (click)="open_lgModal_im()">별도임률 설정</button>
           <button class="btn btn-primary" (click)="Show_Pop_order_Modal()">수주상세정보</button>
-          <button class="btn btn-primary" (click)="save_st()">ST 및 제.가 저장</button>
+          <button class="btn btn-primary" (click)="save_st('Y')">ST 및 제.가 저장</button>
           <button class="btn btn-primary" (click)="excel_templete_download2()" title="작성시간이 어느정도 있으므로, 잠시 기다려 주세요">소재 원가 계산</button>
           <button class="btn btn-default" (click)="closePop()">취소</button>
         </div>
@@ -204,10 +204,10 @@
                     <h5 class="modal-title">{{list.SUB_NM}}</h5>
                   </div>
                   <div style="margin-bottom:3px;">
-                    표준 <input style="width:79px;display:inline;" type="number" name="add_def_rt" id="add_def_rt_{{list.SUB_CD}}" value="{{list.DEF_RT}}" [disabled]="def_rt_disabled" />
+                    표준 <input style="width:79px;display:inline;text-align:right;" type="number" name="add_def_rt" id="add_def_rt_{{list.SUB_CD}}" value="{{list.DEF_RT}}" [disabled]="def_rt_disabled" />
                   </div>
                   <div>
-                    별도 <input style="width:79px;display:inline;" type="number" name="add_order_rt" id="add_order_rt_{{list.SUB_CD}}" value="{{list.ORDER_RT}}" />
+                    별도 <input style="width:79px;display:inline;text-align:right;" type="number" name="add_order_rt" id="add_order_rt_{{list.SUB_CD}}" value="{{list.ORDER_RT}}" />
                   </div>
                 </section>
               </div>

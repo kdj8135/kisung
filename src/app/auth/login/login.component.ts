@@ -40,6 +40,13 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let id = localStorage.getItem('idSave');
+    if (id != "" && id != null) {
+      let idSave = <HTMLInputElement>document.getElementById("idSave");
+      idSave.checked = true;
+      this.userid = id;
+    }
+
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentProject');
 
@@ -70,6 +77,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(event){
+    let idSave = <HTMLInputElement>document.getElementById("idSave");
+    if (idSave.checked == true) {
+      localStorage.setItem('idSave', this.userid);
+    } else {
+      localStorage.setItem('idSave', "");
+    }
+
     if (this.auto_login != "Y") event.preventDefault();
     this.authService.login(this.companycd, this.userid, this.password, this.currentLanguageLcid, this.auto_login).subscribe(
       data => {

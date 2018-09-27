@@ -18,7 +18,9 @@ export class HeaderComponent implements OnInit {
     this.user = userService.getLoginInfo();
   }
 
+  userInfo;
   ngOnInit() {
+    this.userInfo = this.user.deptNm +"/"+this.user.empNm;
   }
 
   user: any;

@@ -121,6 +121,22 @@
               </select>
             </div>
 
+            <!-- MJ테크 전용 -->
+            &nbsp;&nbsp;
+            <div class="form-group" style="display:none;">
+              <label>기간</label>
+              <div class="input-group">
+                <input #st_dt_fr type="text" class="form-control datepicker" id="st_dt_fr" [saUiDatepicker]="{dateFormat: 'yy-mm-dd'}" style="width:95px;" autocomplete="off" />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+              <label>~</label>
+              <div class="input-group">
+                <input #st_dt_to type="text" class="form-control datepicker" name="st_dt_to" [saUiDatepicker]="{dateFormat: 'yy-mm-dd'}" style="width:95px;" autocomplete="off" />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+            </div>
+
+
             &nbsp;&nbsp;
 
             <label [style.display]="'btn_change' | display:PRODUCT_WORK_MENU_ID">

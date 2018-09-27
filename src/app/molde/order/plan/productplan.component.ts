@@ -276,7 +276,7 @@ export class ProductplanComponent implements OnInit {
     return Number(str.replace(/\,/gi, ""));
   }
 
-  save_st() {
+  save_st(tp) {
     //ST, 제조가격 저장
     let input_sts = document.getElementsByName("text_st");
     for (let i = 0; i < input_sts.length; i++) {
@@ -290,16 +290,17 @@ export class ProductplanComponent implements OnInit {
       }];
       this.pmsApiService.fetch('productwork/work_plan_st', param, "put").subscribe(result => {
         if (result.code == "00") {
-          if ((i+1) == input_sts.length) {
-            this.notificationService.smallBox({
-              title: "저장되었습니다.",
-              content: "ST 및 제조원가",
-              color: "#C46A69",
-              iconSmall: "fa fa-check fa-2x fadeInRight animated",
-              timeout: 2000
-            });
+          if (tp == "Y") {
+            if ((i + 1) == input_sts.length) {
+              this.notificationService.smallBox({
+                title: "저장되었습니다.",
+                content: "ST 및 제조원가",
+                color: "#C46A69",
+                iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                timeout: 2000
+              });
+            }
           }
-
         } else {
           alert("오류 등록");
         }
@@ -476,7 +477,7 @@ export class ProductplanComponent implements OnInit {
                     this.searchData();
                     this.lgModal_add.hide();
                     //lock 여부 체크하여 락 풀어주기(락은 작업관리에서 이루어 지고 여기서 풀어줌)
-                    this.pmsApiService.fetch('productwork/lock_update', param, "put").subscribe(result => {})
+                    this.pmsApiService.fetch('productwork/lock_update', param, "put").subscribe(result => { })
                   }, 200);
                 }
               } else {
@@ -525,7 +526,7 @@ export class ProductplanComponent implements OnInit {
   //별도임률------------------start-----------------------------
   @ViewChild('lgModal_im') public lgModal_im: ModalDirective;
   open_lgModal_im() {
-    this.save_st();
+    this.save_st("N");
 
     let param = [{
       order_id: this.order_id

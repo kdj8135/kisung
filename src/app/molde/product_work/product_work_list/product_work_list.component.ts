@@ -19,6 +19,8 @@ import { RowClassArgs,SelectAllCheckboxState } from '@progress/kendo-angular-gri
 })
 export class product_work_listComponent implements OnInit {
   user: any;
+  @ViewChild('st_dt_fr') st_dt_fr: ElementRef;
+  @ViewChild('st_dt_to') st_dt_to: ElementRef;
 
   //그리드
   private mySelection: any[] = [];
@@ -234,6 +236,9 @@ export class product_work_listComponent implements OnInit {
       , add_worker_id : this.add_worker_id
       , add_status_color_cd : this.add_status_color_cd
       , work_list_gubun : "ALL"
+      // MJ테크 전용
+      , dt_fr: this.st_dt_fr.nativeElement.value
+      , dt_to: this.st_dt_to.nativeElement.value
     }];
 
     this.pmsApiService.fetch('productwork/select_product_work_list', param).subscribe(result => {

@@ -206,7 +206,7 @@ export class OrderlistComponent implements OnInit {
       this.readonly_color = "#fff";
       this.mySelection = [];
       this.btn_view_hidden = true;
-      this.btn_reg_hidden = false;
+      //this.btn_reg_hidden = false;
 
       this.input_disabled = false;
       this.file_view_yn = "N";
@@ -217,7 +217,7 @@ export class OrderlistComponent implements OnInit {
       //뷰모드
       this.readonly_color = "#eee";
       this.btn_view_hidden = false;
-      this.btn_reg_hidden = true;
+      //this.btn_reg_hidden = true;
 
       this.input_disabled = true;
       this.file_view_yn = "Y";
@@ -339,7 +339,7 @@ export class OrderlistComponent implements OnInit {
   savedata_edit() {
     this.readonly_color = "#fff";
     this.btn_view_hidden = true;
-    this.btn_reg_hidden = false;
+    //this.btn_reg_hidden = false;
 
     this.input_disabled = false;
     this.file_view_yn = "N";
