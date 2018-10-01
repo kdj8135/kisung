@@ -13,21 +13,19 @@
           <div>
             <form class="form-horizontal">
               <label style="font-weight:bold;">구분</label>
-              <label class="select">
-                <select [(ngModel)]="sel_order_tp" name="sel_order_tp" (change)="searchChart()">
-                  <option value="all">전체</option>
-                  <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
-                </select><i></i>
-              </label> &nbsp;&nbsp;
+              <select class="input-sm" [(ngModel)]="sel_order_tp" name="sel_order_tp" (change)="searchChart()">
+                <option value="all">전체</option>
+                <option value="{{order.SUB_CD}}" *ngFor="let order of order_tps" >{{order.SUB_NM}}</option>
+              </select>
+              &nbsp;&nbsp;
 
               <label style="font-weight:bold;">상태</label>
-              <label class="select">
-                <select [(ngModel)]="sel_status" name="sel_status" (change)="searchChart()">
-                  <option value="all">전체</option>
-                  <option value="N" selected="selected">진행중</option>
-                  <option value="Y">완료</option>
-                </select>
-              </label> &nbsp;&nbsp;
+              <select class="input-sm" [(ngModel)]="sel_status" name="sel_status" (change)="searchChart()">
+                <option value="all">전체</option>
+                <option value="N" selected="selected">진행중</option>
+                <option value="Y">완료</option>
+              </select>
+              &nbsp;&nbsp;
 
               <label style="font-weight:bold;">범례&nbsp;</label>
               <label style="border:1px solid #ddd;background-color:lightblue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;ST&nbsp;

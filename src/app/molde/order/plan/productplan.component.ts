@@ -158,6 +158,8 @@ export class ProductplanComponent implements OnInit {
             this.topInfo[key] = obj[key];
           }
         }
+
+
       } else {
         alert("오류 등록");
       }
@@ -204,10 +206,13 @@ export class ProductplanComponent implements OnInit {
       }
     }
 
-    let tot_sum = [];
+    let tot_sum_price = [];
+    let tot_sum_st = [];
+
     let tot_sum_class = [];
     for (let i = 0; i < this.productList.length; i++) {
-      let sub_sum = 0;
+      let sub_sum_price = 0;
+      let sub_sum_st = 0;
       for (let j = 0; j < this.productList[i]["works"].length; j++) {
         let st_fr = this.productList[i]["works"][j]["std_st"].split("-")[0];
         let st_to = this.productList[i]["works"][j]["std_st"].split("-")[1];
@@ -230,11 +235,20 @@ export class ProductplanComponent implements OnInit {
           this.productList[i]["works"][j]["back_color"] = "#00CC00";
         }
 
-        //외주일때는 점선
-
-        if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {
-          this.productList[i]["works"][j]["dashed"] = "2px dashed";
+        //뷰노출이 y가 아닐때 보더 빨강
+        //외주일때 점선
+        if (this.productList[i]["works"][j]["view_yn"] != "Y") {
+          if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {
+            this.productList[i]["works"][j]["dashed"] = "2px dashed red";
+          } else {
+            this.productList[i]["works"][j]["dashed"] = "2px solid red";
+          }
+        } else {
+          if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {
+            this.productList[i]["works"][j]["dashed"] = "2px dashed";
+          }
         }
+
 
         //불량일때는 붉은색
         if (this.productList[i]["works"][j]["error_yn"] == "Y") {
@@ -246,22 +260,27 @@ export class ProductplanComponent implements OnInit {
         this.productList[i]["works"][j]["plan_price"] = this.comma(this.productList[i]["works"][j]["std_num"] * this.productList[i]["works"][j]["plan_st"]);
         //console.log(this.comma(this.productList[i]["works"][j]["std_num"] * this.productList[i]["works"][j]["plan_st"]));
         let plan_price = this.uncomma(this.productList[i]["works"][j]["plan_price"]);
-        sub_sum += plan_price;
+        sub_sum_price += plan_price;
+        sub_sum_st += Number(plan_st);
 
         //상단 총 합계를 구해주기 위함
         let work_nm = this.productList[i]["works"][j]["work_nm"];
-        tot_sum[work_nm] = (tot_sum[work_nm] || 0) + plan_price;
+        tot_sum_price[work_nm] = (tot_sum_price[work_nm] || 0) + plan_price;
+        tot_sum_st[work_nm] = (tot_sum_st[work_nm] || 0) + Number(plan_st);
         tot_sum_class[work_nm] = this.productList[i]["works"][j]["class"];
       }
-      this.productList[i]["sub_sum"] = this.comma(sub_sum);
+      this.productList[i]["sub_sum_price"] = this.comma(sub_sum_price);
+      this.productList[i]["sub_sum_st"] = this.comma(sub_sum_st.toFixed(1));
     }
 
     this.sumList = [];
     this.info_sum = 0;
-    for (let id in tot_sum) {
-      this.sumList.push({ id: id, value: this.comma(tot_sum[id]), class: tot_sum_class[id] })
-      this.info_sum += tot_sum[id];
+    for (let id in tot_sum_price) {
+      this.sumList.push({ id: id, value_price: this.comma(tot_sum_price[id]), value_st: this.comma(tot_sum_st[id].toFixed(1)), class: tot_sum_class[id] })
+      this.info_sum += tot_sum_price[id];
     }
+    this.sumList.sort((a, b) => a["id"] > b["id"] ? 1 : a["id"] === b["id"] ? 0 : -1);
+
     this.info_sum = this.comma(this.info_sum);
     //정렬
     this.productList.sort((a, b) => a["sort_num"] > b["sort_num"] ? 1 : a["sort_num"] === b["sort_num"] ? 0 : -1);
@@ -357,6 +376,36 @@ export class ProductplanComponent implements OnInit {
   }
   private getBaseUrl() {
     return pmsConfig.Protocol + '://' + pmsConfig.Hostname + (pmsConfig.Port ? ':' + pmsConfig.Port : '') + '/'
+  }
+
+  save_confirm(val) {
+    let title = "";
+    let content = "";
+    title = "확정하시겠습니까?";
+    content = "확정하시면, 작성한 공정이 조회됩니다.";
+
+    this.notificationService.smartMessageBox({
+      title: title,
+      content: content,
+      buttons: '[취소][예]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === "예") {
+        let param = [{
+          order_id: this.order_id,
+          view_yn: val
+        }];
+
+        this.pmsApiService.fetch('productwork/view_yn', param, "put").subscribe(result => {
+          if (result.code == "00") {
+            this.searchData();
+          }
+        })
+      }
+      if (ButtonPressed === "취소") {
+
+      }
+
+    });
   }
 
   //공정계획수립------------------end-----------------------------

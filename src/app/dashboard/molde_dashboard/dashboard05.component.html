@@ -18,11 +18,11 @@
             &nbsp;&nbsp;
             <div class="form-group">
               <div class="input-group">
-                <label>범례&nbsp;</label>
-                <label style="background-color:#00CC00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;진행중&nbsp;
-                <label style="background-color:orangered;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;불량&nbsp;
-                <label style="border:1.5px dashed;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;외주&nbsp;
-
+                <label>범례&nbsp;&nbsp;</label>
+                <label style="background-color:#00CC00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>진행중&nbsp;
+                <label style="background-color:orangered;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>불량&nbsp;
+                <label style="border:1.5px dashed;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>외주&nbsp;
+                <label style="border:1.5px solid red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>미확정&nbsp;
               </div>
             </div>
           </form>
@@ -49,9 +49,10 @@
                   <tr>
                     <td style="width:138px;min-width:138px;max-width:138px;padding:5px;vertical-align:middle;">
                       <u style="cursor:pointer;" (click)="filedown_map(product)">{{product.map_no}}</u><br />
-                      품번&nbsp;: {{product.product_no}}
+                      품번&nbsp;: {{product.product_no}}<br />
+                      ST&nbsp;&nbsp;&nbsp;&nbsp;: {{product.sub_sum_st}}
                     </td>
-                    <td style="width:140px;min-width:140px;max-width:140px;font-size:12px;padding:5px;vertical-align:middle;">
+                    <td style="width:200px;min-width:200px;max-width:200px;font-size:12px;padding:5px;vertical-align:middle;">
                       품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.product_nm}}<br />
                       수량&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{product.volume}} <br />
                       사이즈&nbsp;: {{product.size}}

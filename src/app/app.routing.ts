@@ -49,7 +49,7 @@ export const routes: Routes = [
             {
                 path: 'pmo',
                 loadChildren: 'app/pmo/pmo.module#PmoModule',
-                data: {pageTitle: 'Pmo'}
+                data: {pageTitle: ''}
             },
             {
                 path: 'molde',
