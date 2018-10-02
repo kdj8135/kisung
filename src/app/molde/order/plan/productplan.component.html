@@ -7,7 +7,7 @@
             <label style="background-color:#00CC00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>진행중&nbsp;
             <label style="background-color:orangered;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>불량&nbsp;
             <label style="border:1.5px dashed;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>외주&nbsp;
-            <label style="border:1.5px solid red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>미확정&nbsp;
+            <label style="border:1.5px solid blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>미확정&nbsp;
           </label>
           <button class="btn btn-primary" (click)="open_lgModal_out_amt()">외주비용</button>
           <button class="btn btn-primary" (click)="open_lgModal_im()">별도임률 설정</button>
@@ -249,6 +249,7 @@
   <div bsModal #lgModal_pop_product_work_view="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <app-product-work-view
     [P_WORK_ID]="PRODUCT_WORK_ID"
+    [P_WORK_TYPE]="PRODUCT_WORK_TYPE"
     (product_work_view_close)="this.lgModal_pop_product_work_view.hide()"
     (product_work_view_refresh)="this.close_lgModal_work_view()"
     >

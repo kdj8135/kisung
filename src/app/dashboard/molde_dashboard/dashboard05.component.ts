@@ -135,9 +135,9 @@ export class Dashboard05Component implements OnInit {
         //외주일때 점선
         if (this.productList[i]["works"][j]["view_yn"] != "Y") {
           if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {
-            this.productList[i]["works"][j]["dashed"] = "2px dashed red";
+            this.productList[i]["works"][j]["dashed"] = "2px dashed blue";
           } else {
-            this.productList[i]["works"][j]["dashed"] = "2px solid red";
+            this.productList[i]["works"][j]["dashed"] = "2px solid blue";
           }
         } else {
           if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {

@@ -85,6 +85,7 @@ export class OrderlistComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.user = userService.getLoginInfo();
+    console.log(this.user);
   }
 
 

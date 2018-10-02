@@ -27,7 +27,7 @@ export class CommoncodelistMainRegComponent implements OnInit {
   public main_code: string;
   public main_code_nm: string;
   public reg_info: string;
-  public main_order: string;
+  public main_order: string = "1";
 
   public main_select_bind_dt : any[]; //그룹 바인드할 DB를 담음
   public main_selectbox_list = [];    //그룹배열을 담아놓음
@@ -54,7 +54,7 @@ export class CommoncodelistMainRegComponent implements OnInit {
             this.main_code = "";
             this.main_code_nm = "";
             this.reg_info = "";
-            this.main_order = "";
+            this.main_order = "1";
 
         }
         else{
@@ -125,7 +125,7 @@ export class CommoncodelistMainRegComponent implements OnInit {
   private Reg_Main_Save():void {
 
     if (this.save_Check("main_code_nm", this.mlangService.getTranslation('메인코드명', 'LABEL', 'L000099', '38')) == false) return;
-    if (this.save_Check("main_order", this.mlangService.getTranslation('순서', 'LABEL', 'L000102', '38')) == false) return;
+    //if (this.save_Check("main_order", this.mlangService.getTranslation('순서', 'LABEL', 'L000102', '38')) == false) return;
 
     //신규 추가
     if(this.idx == ""){

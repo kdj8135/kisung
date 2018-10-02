@@ -51,7 +51,7 @@ export class Userlist_viewComponent implements OnInit {
   private PMS_USE_YN_NM : string;
 
   private PROGRESS_CD : any;
-
+  JOB_NM_EMP;
   T : boolean = false; //직책
   R : boolean = false; //직급
   P : boolean = false; //직위
@@ -87,6 +87,7 @@ export class Userlist_viewComponent implements OnInit {
     this.EMP_STTS_NM = "";
     this.DeptName = "";
     this.JOB_NM_T = "";
+    this.JOB_NM_EMP = "";
     this.JOB_NM_R = "";
     this.JOB_NM_P = "";
     this.JOB_NM_D = "";

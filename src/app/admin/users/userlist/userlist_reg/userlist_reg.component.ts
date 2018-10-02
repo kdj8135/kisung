@@ -77,6 +77,8 @@ export class Userlist_regComponent implements OnInit {
   private O_selectbox_list = [];    //그룹배열을 담아놓음
 
   private progress_cd_list: Array<any>; //공정
+  private job_cd_list: Array<any>; //직책(공통코드)
+  JOB_CD_T_NEW;
   private PROGRESS_CD : any;
 
   //SUB_Job_Reg
@@ -200,6 +202,16 @@ export class Userlist_regComponent implements OnInit {
     this.pmsApiService.fetch('WPCommon/commoncode_2lvl', param).subscribe(result => {
       this.progress_cd_list = result.data;
     });
+
+    //직책
+    param = [{
+      main_cd: "BS00008"
+    }];
+    this.pmsApiService.fetch('WPCommon/commoncode_2lvl', param).subscribe(result => {
+      this.job_cd_list = result.data;
+      this.JOB_CD_T_NEW = result.data[0].SUB_CD;
+    });
+
   }
 
   //셀렉트 박스 그룹 시작
@@ -300,6 +312,7 @@ export class Userlist_regComponent implements OnInit {
         , emp_profile_img: ""
         , reg_emp_no : this.user.empNo
         , progress_cd : this.PROGRESS_CD
+        , job_cd : this.JOB_CD_T_NEW
       }];
       this.pmsApiService.fetch('userlist/user', param, "put").subscribe(result => {
         if (result.code == "00") {
@@ -336,6 +349,7 @@ export class Userlist_regComponent implements OnInit {
         , reg_emp_no : this.user.empNo
         , dept_cd_before : this.Dept_CD_Before
         , progress_cd : this.PROGRESS_CD
+        , job_cd : this.JOB_CD_T_NEW
       }];
       this.pmsApiService.fetch('userlist/user', param, "patch").subscribe(result => {
         if (result.code == "00") {

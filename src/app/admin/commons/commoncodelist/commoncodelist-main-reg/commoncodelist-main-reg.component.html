@@ -8,15 +8,11 @@
 
     <div class="modal-body">
 
-      <div id="content">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-12">
-            <div class="well no-padding">
 
               <form class="smart-form client-form" id="smart-form-register" name="smartformregister" novalidate="novalidate">
                 <fieldset>
                   <div class="row">
-                    <section class="col col-3">
+                    <section class="col col-4">
                       <label class="label">{{'그룹' | mlang: 'LABEL' : 'L000092' : '38'}}</label>
                       <label class="input">
                         <select [(ngModel)]="reg_sc_group" name="reg_sc_group" [disabled]="isDisabled()" class="form-control input-sm">
@@ -30,22 +26,22 @@
                         </select>
                       </label>
                     </section>
-                    <section class="col col-3">
+                    <section class="col col-4">
                       <label class="label">{{'메인코드' | mlang: 'LABEL' : 'L000093' : '38'}}</label>
                       <label class="input">
                         <input type="text" style="background-color:#eee;" name="main_code" readonly="readonly" disabled="true" [(ngModel)]="main_code" />
                       </label>
                     </section>
-                    <section class="col col-3">
+                    <section class="col col-4">
                       <label class="label">{{'메인코드명' | mlang: 'LABEL' : 'L000099' : '38'}}<i class="fa fa-check"></i></label>
                       <label class="input">
                         <input type="text" name="main_code_nm" [(ngModel)]="main_code_nm" />
                       </label>
                     </section>
-                    <section class="col col-3">
+                    <section class="col col-4" style="display:none;">
                       <label class="label">{{'순서' | mlang: 'LABEL' : 'L000102' : '38'}}<i class="fa fa-check"></i></label>
                       <label class="input">
-                        <input type="number" name="main_order" [(ngModel)]="main_order" />
+                        <input type="number" name="main_order" [(ngModel)]="main_order" value="1" />
                       </label>
                     </section>
                   </div>
@@ -61,12 +57,7 @@
                 </fieldset>
 
               </form>
-            </div>
 
-          </div>
-        </div>
-
-      </div>
 
     </div>
 

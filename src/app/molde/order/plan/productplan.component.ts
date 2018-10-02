@@ -239,9 +239,9 @@ export class ProductplanComponent implements OnInit {
         //외주일때 점선
         if (this.productList[i]["works"][j]["view_yn"] != "Y") {
           if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {
-            this.productList[i]["works"][j]["dashed"] = "2px dashed red";
+            this.productList[i]["works"][j]["dashed"] = "2px dashed blue";
           } else {
-            this.productList[i]["works"][j]["dashed"] = "2px solid red";
+            this.productList[i]["works"][j]["dashed"] = "2px solid blue";
           }
         } else {
           if (this.productList[i]["works"][j]["outsourcing_yn"] == "Y") {
@@ -551,9 +551,15 @@ export class ProductplanComponent implements OnInit {
 
   //작업관리팝업 상세정보 ------------------start-----------------------------
   @Input() PRODUCT_WORK_ID: string;
+  @Input() PRODUCT_WORK_TYPE: string;
+  //@Input() PRODUCT_WORK_MENU_ID: string;
   @ViewChild('lgModal_pop_product_work_view') public lgModal_pop_product_work_view: ModalDirective;
   work_reg(product_work) {
+    //console.log(product_work.outsourcing_yn)
+    let PTYPE : string = "";
+    if(product_work.outsourcing_yn == "Y") PTYPE = "OUT"
     this.PRODUCT_WORK_ID = product_work.product_work_id;
+    this.PRODUCT_WORK_TYPE = PTYPE;
     this.lgModal_pop_product_work_view.show();
   }
   close_lgModal_work_view() {

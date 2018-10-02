@@ -354,15 +354,15 @@ export class Product_Work_View_Component implements OnInit {
     this.input_disabled = true;           //기본Road된 화면 disabled
     this.confirm_disabled = false;        //확정버튼클릭시 disabled 여부
     this.confirm_button_disabled = false; //확정여부를 알기위하여 확정시 disabled
-    this.modal_title;                      //팝업타이틀 이름정의
-    this.readonly_color = "#eee";          //리드온리인것들 색상 정의
-    this.amt_readonly = false;                     //외주여부에 따라서 외주금액 readonly;
-    this.amt_readonly_color = "";                  //외주여부에 따라서 외주금액 색상변
+    this.modal_title;                     //팝업타이틀 이름정의
+    this.readonly_color = "#eee";         //리드온리인것들 색상 정의
+    this.amt_readonly = false;            //외주여부에 따라서 외주금액 readonly;
+    this.amt_readonly_color = "";         //외주여부에 따라서 외주금액 색상변
 
     this.chk_ok_error_disabled = false;    //자주검사,불량확정 여부 활성화
     this.chk_ok_error_color = "#eee";
-    this.none_start = true;                       //선행공정이 끝나지 않으면 시작일자 종료일자 디저블
-    this.none_start_color = "#eee";               //선행공정이 끝나지 않으면 시작일자 종료일자 색상변경
+    this.none_start = true;                //선행공정이 끝나지 않으면 시작일자 종료일자 디저블
+    this.none_start_color = "#eee";        //선행공정이 끝나지 않으면 시작일자 종료일자 색상변경
 
     if (this.P_WORK_ID == undefined) return;
 
@@ -412,6 +412,18 @@ export class Product_Work_View_Component implements OnInit {
           this.chk_ok_error_color = "";
         }
       }
+      else if (this.P_WORK_TYPE == "OUT")
+      {
+        if (this.CONFIRM_YN == "Y") {
+          this.confirm_button_disabled = true; //확정시에만 무조건 disable(락 및 기타 로직 안태움)
+          this.chk_ok_error_disabled = true;
+          this.chk_ok_error_color = "#eee";
+        }
+        else{
+          this.none_start = false;
+          this.none_start_color = "";
+        }
+      }
       else { //작업공정 외주공정
         if (this.CONFIRM_YN == "Y") {
           this.confirm_button_disabled = true; //확정시에만 무조건 disable(락 및 기타 로직 안태움)
@@ -424,39 +436,46 @@ export class Product_Work_View_Component implements OnInit {
         }
       }
 
-      //선행공정이 끝나지 않으면 시작일자 종료일자를 readonly disable 시작
-      let param = [{
-        product_id: this.PRODUCT_ID
-      }];
-      this.pmsApiService.fetch('productwork/work_start_check', param).subscribe(result => {
-        if (result.code == "00") {
-          if (result.data.length > 0) {
-            if (result.data[0].IS_LOCK == "Y") {
-              //불량 처리가 있다면 다음공정 시작을 못함
-              this.none_start = true;
-              this.none_start_color = "#eee";
-            }
-            else {
-              //락이 없다면 현재 진행해야할 공정번호가 같은지 확인 다르면 시작못함.
-              if (result.data[0].PRODUCT_WORK_ID != this.PRODUCT_WORK_ID) {
+
+      //2018-10-02 IF문 추가 else 로 감싸였음
+      //외주일경우에 무조건 활성화를 시켜야하기 때문에
+      if (this.P_WORK_TYPE != "OUT") //외주공정)
+      {
+        //선행공정이 끝나지 않으면 시작일자 종료일자를 readonly disable 시작
+        let param = [{
+          product_id: this.PRODUCT_ID
+        }];
+        this.pmsApiService.fetch('productwork/work_start_check', param).subscribe(result => {
+          if (result.code == "00") {
+            if (result.data.length > 0) {
+              if (result.data[0].IS_LOCK == "Y") {
+                //불량 처리가 있다면 다음공정 시작을 못함
                 this.none_start = true;
                 this.none_start_color = "#eee";
               }
               else {
-                this.none_start = false;
-                this.none_start_color = "";
+                //락이 없다면 현재 진행해야할 공정번호가 같은지 확인 다르면 시작못함.
+                if (result.data[0].PRODUCT_WORK_ID != this.PRODUCT_WORK_ID) {
+                  this.none_start = true;
+                  this.none_start_color = "#eee";
+                }
+                else {
+                  this.none_start = false;
+                  this.none_start_color = "";
+                }
               }
             }
+            else {
+              this.none_start = true;
+              this.none_start_color = "#eee";
+            }
+          } else {
+            alert("오류 등록");
           }
-          else {
-            this.none_start = true;
-            this.none_start_color = "#eee";
-          }
-        } else {
-          alert("오류 등록");
-        }
-      });
-      //선행공정이 끝나지 않으면 시작일자 종료일자를 readonly disable 끝
+        });
+        //선행공정이 끝나지 않으면 시작일자 종료일자를 readonly disable 끝
+      }
+
     })
   }
 

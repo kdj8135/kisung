@@ -66,7 +66,7 @@
 
   <kendo-grid
     [data]="gridView"
-    [height]="410"
+    [height]="630"
 
     [pageSize]="pageSize"
     [skip]="skip"
@@ -95,7 +95,8 @@
         [footerStyle]="{'background-color': 'red','color': 'red'}"
       ></kendo-grid-column> -->
       <kendo-grid-column field="UserName" title="{{'이름' | mlang: 'LABEL' : 'L000006' : '34'}}" width="80"></kendo-grid-column>
-      <kendo-grid-column field="JOB_NM_T" [hidden]="T" title="{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}" width="50"></kendo-grid-column>
+      <!-- <kendo-grid-column field="JOB_NM_T" [hidden]="T" title="{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}" width="50"></kendo-grid-column> -->
+      <kendo-grid-column field="JOB_NM_EMP" [hidden]="T" title="{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}" width="50"></kendo-grid-column>
       <kendo-grid-column field="JOB_NM_R" [hidden]="R" title="{{'직급' | mlang: 'LABEL' : 'L000012' : '34'}}" width="50"></kendo-grid-column>
       <kendo-grid-column field="JOB_NM_P" [hidden]="P" title="{{'직위' | mlang: 'LABEL' : 'L000016' : '34'}}" width="50" ></kendo-grid-column>
       <kendo-grid-column field="JOB_NM_D" [hidden]="D" title="{{'직무' | mlang: 'LABEL' : 'L000017' : '34'}}" width="50" ></kendo-grid-column>

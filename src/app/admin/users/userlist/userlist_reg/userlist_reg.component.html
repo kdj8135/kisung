@@ -72,14 +72,24 @@
                   </section>
 
 
-
-                  <section class="col col-3" [hidden]="T">
+                  <!-- 사용안함(공통코드로 사용) -->
+                  <section class="col col-3" [hidden]="true">
                     <label class="label">{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}</label>
                     <label class="select">
                       <select name="JOB_CD_T" [(ngModel)]="JOB_CD_T" >
                         <option *ngFor="let T_JOBList of T_selectbox_list" value= {{T_JOBList.id}}>{{T_JOBList.nm}}</option>
                       </select> <i></i> </label>
                   </section>
+                  <!-- 이사님 긴급요청으로 TN_EMP에 넣었음 -->
+                  <section class="col col-3" [hidden]="T">
+                    <label class="label">{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}</label>
+                    <label class="select">
+                      <select name="JOB_CD_T_NEW" [(ngModel)]="JOB_CD_T_NEW">
+                        <option value="{{list.SUB_CD}}" *ngFor="let list of job_cd_list" >{{list.SUB_NM}}</option>
+                      </select><i></i>
+                    </label>
+                  </section>
+
                   <section class="col col-3" [hidden]="R">
                     <label class="label">{{'직급' | mlang: 'LABEL' : 'L000012' : '34'}}</label>
                     <label class="select">
@@ -109,19 +119,11 @@
                         <option *ngFor="let O_JOBList of O_selectbox_list" value= {{O_JOBList.id}}>{{O_JOBList.nm}}</option>
                       </select> <i></i> </label>
                   </section>
+
                   <section class="col col-3">
                     <label class="label">{{'내선번호' | mlang: 'LABEL' : 'L000021' : '34'}}</label>
                     <label class="input">
                       <input type="text" name="COMPANY_PHONE" [(ngModel)]="COMPANY_PHONE" />
-                    </label>
-                  </section>
-
-                  <section class="col col-3">
-                    <label class="label">담당공정</label>
-                    <label class="select">
-                      <select multiple name="PROGRESS_CD" [(ngModel)]="PROGRESS_CD"  style="height:175px;">
-                        <option value="{{progress.SUB_CD}}" *ngFor="let progress of progress_cd_list" >{{progress.SUB_NM}}</option>
-                      </select>
                     </label>
                   </section>
 
@@ -133,6 +135,17 @@
                         <option value="N">미사용</option>
                       </select> <i></i> </label>
                   </section>
+
+                  <section class="col col-3">
+                    <label class="label">담당공정</label>
+                    <label class="select">
+                      <select multiple name="PROGRESS_CD" [(ngModel)]="PROGRESS_CD"  style="height:175px;">
+                        <option value="{{progress.SUB_CD}}" *ngFor="let progress of progress_cd_list" >{{progress.SUB_NM}}</option>
+                      </select>
+                    </label>
+                  </section>
+
+
 
                   <!-- <section class="col col-3">
                     <label class="label">{{'페이지카운트' | mlang: 'LABEL' : 'L000022' : '34'}}</label>

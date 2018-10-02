@@ -16,7 +16,7 @@
           <div>
             <div class="widget-body no-padding">
               <form class="smart-form">
-                <header>
+                <header style="background-color:transparent;">
                   <!-- <label id="11"><button class="btn btn-default btn-sm" (click)="click_edit($event)">수정</button></label>
                   <label id="12"><button class="btn btn-default btn-sm" (click)="click_delete()">삭제</button></label> -->
                   <label [style.display]="'btn_edit' | display:'41'">
@@ -148,7 +148,7 @@
             </div>
           </div>
 
-          <div  class="row">
+          <div class="row" style="display:none;">
             <div class="col-md-12">
               <app-fileattach [view_yn]="'N'" [name]="'DEPT'" [paper_id]="tree_id" [sub_id]="" [rev]="" (uploadFilesNm)="uploadFilesNm($event)"></app-fileattach>
             </div>

@@ -55,12 +55,20 @@
                       <input type="text" name="EMP_STTS_NM" disabled=disabled value={{EMP_STTS_NM}} [style.background-color]="inputcolor" />
                     </label>
                   </section>
-                  <section class="col col-3" [hidden]="T">
+                  <!-- 사용안함(공통코드로 사용) -->
+                  <section class="col col-3" [hidden]="true">
                     <label class="label">{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}</label>
                     <label class="input">
                       <input type="text" name="JOB_NM_T" disabled=disabled value={{JOB_NM_T}} [style.background-color]="inputcolor" />
                     </label>
                   </section>
+                  <section class="col col-3" [hidden]="T">
+                    <label class="label">{{'직책' | mlang: 'LABEL' : 'L000011' : '34'}}</label>
+                    <label class="input">
+                      <input type="text" name="JOB_NM_EMP" disabled=disabled value={{JOB_NM_EMP}} [style.background-color]="inputcolor" />
+                    </label>
+                  </section>
+
                   <section class="col col-3" [hidden]="R">
                     <label class="label">{{'직급' | mlang: 'LABEL' : 'L000012' : '34'}}</label>
                     <label class="input">
@@ -141,7 +149,7 @@
                 </fieldset>
 
               </form>
-      
+
     </div>
 
     <div class="modal-footer">

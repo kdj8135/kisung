@@ -7,8 +7,8 @@ export const pmsConfig: any = {
   //Hostname: "localhost",
   Hostname: "www.collabra.co.kr",
 
-  //운영
-  // Hostname: "192.168.1.77",
+  //기성운영
+  //Hostname: "192.168.1.77",
 
   Port: "8088",
   //DB 정보-----end
