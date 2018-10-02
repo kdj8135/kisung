@@ -4,9 +4,11 @@
 
 
 // ##### SPOQA SANS WEB FONTS ############################ START //
-@import url(//cdn.jsdelivr.net/korean-webfonts/1/corps/google/NotoSansKR/NotoSansKR.css);
+//@import url(//cdn.jsdelivr.net/korean-webfonts/1/corps/google/NotoSansKR/NotoSansKR.css);
 
-h1, h2, h3, h4, body { font-family: 'NotoSansKR', 'Sans-serif'}
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+h1, h2, h3, h4, body{font-family: 'Nanum Gothic','맑은 고딕', 'Malgun Gothic', Dotum;}
 
 // ##### SPOQA SANS WEB FONTS ############################ END //
 
